@@ -1,0 +1,38 @@
+[
+  {
+    "id": "CasterAtkRatio",
+    "type": 1,
+    "param_a": "Atk",
+    "param_b": "value"
+  },
+  {
+    "id": "CasterHpRatio",
+    "type": 1,
+    "param_a": "Hp",
+    "param_b": "value"
+  },
+  {
+    "id": "TargetMaxHpRatio",
+    "type": 2,
+    "param_a": "Hp",
+    "param_b": "value"
+  },
+  {
+    "id": "Const",
+    "type": 0,
+    "param_a": "value",
+    "param_b": ""
+  },
+  {
+    "id": "StackValue",
+    "type": 3,
+    "param_a": "value",
+    "param_b": "stack"
+  },
+  {
+    "id": "DamageValue",
+    "type": 4,
+    "param_a": "value",
+    "param_b": ""
+  }
+]

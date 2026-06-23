@@ -1,0 +1,30 @@
+mongo:
+  dsn: "mongodb://127.0.0.1:27017"
+  dbName: "game"
+
+
+redisDsn:
+  "redis://127.0.0.1:6379"
+etcdDsn:
+  "etcd://127.0.0.1:1003"
+gameDataPath:
+  "../docconf"
+  # "./docconf"
+gateExtAddr:
+  ip: "127.0.0.1"
+
+
+gameArea: "dev"
+enableLockCheck: false
+gatePublicHost: "127.0.0.1:10301"
+
+isdebug: true
+
+log:
+  level: "info"
+  fileName: "log"
+  rotation: "daily"
+  maxFileSizeMB: 100
+  retentionDays: 14
+  fileOut: true
+  stdOut: true

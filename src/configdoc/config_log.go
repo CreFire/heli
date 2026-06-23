@@ -9,7 +9,7 @@ import (
 const (
 	defaultLogLevel         = "debug"
 	defaultLogPath          = "./logs"
-	defaultLogFileName      = "leog"
+	defaultLogFileName      = "log"
 	defaultLogRotation      = "daily"
 	defaultLogRetentionDays = 14
 	defaultLogFileSizeMB    = 10

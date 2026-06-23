@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "item_name": "huoba_lv1",
+    "gold": 50
+  },
+  {
+    "id": 2,
+    "item_name": "huoba_lv2",
+    "gold": 200
+  },
+  {
+    "id": 3,
+    "item_name": "huoba_lv3",
+    "gold": 500
+  },
+  {
+    "id": 4,
+    "item_name": "zhaomuling",
+    "gold": 300
+  },
+  {
+    "id": 5,
+    "item_name": "jinjieshi",
+    "gold": 2
+  },
+  {
+    "id": 6,
+    "item_name": "jingtie",
+    "gold": 1
+  },
+  {
+    "id": 7,
+    "item_name": "xiaoyugan",
+    "gold": 20
+  },
+  {
+    "id": 8,
+    "item_name": "yugan_lv1",
+    "gold": 200
+  },
+  {
+    "id": 9,
+    "item_name": "yugan_lv2",
+    "gold": 600
+  }
+]

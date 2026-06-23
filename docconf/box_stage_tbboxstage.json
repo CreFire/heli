@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "path_liang": "gui/box_page/texture/box2-Clickable",
+    "path_an": "gui/box_page/texture/box2-default",
+    "limit": 10,
+    "des": "青铜宝箱",
+    "key_id": 1
+  },
+  {
+    "id": 2,
+    "path_liang": "gui/box_page/texture/box2-Clickable",
+    "path_an": "gui/box_page/texture/box2-default",
+    "limit": 20,
+    "des": "青铜宝箱",
+    "key_id": 2
+  },
+  {
+    "id": 3,
+    "path_liang": "gui/box_page/texture/box3-Clickable",
+    "path_an": "gui/box_page/texture/box3-default",
+    "limit": 30,
+    "des": "黄金宝箱",
+    "key_id": 3
+  },
+  {
+    "id": 4,
+    "path_liang": "gui/box_page/texture/box4-Clickable",
+    "path_an": "gui/box_page/texture/box4-default",
+    "limit": 40,
+    "des": "铂金宝箱",
+    "key_id": 4
+  },
+  {
+    "id": 5,
+    "path_liang": "gui/box_page/texture/box4-Clickable",
+    "path_an": "gui/box_page/texture/box4-default",
+    "limit": 80,
+    "des": "铂金宝箱",
+    "key_id": 5
+  },
+  {
+    "id": 6,
+    "path_liang": "gui/box_page/texture/box4-Clickable",
+    "path_an": "gui/box_page/texture/box4-default",
+    "limit": 100,
+    "des": "铂金宝箱",
+    "key_id": 6
+  },
+  {
+    "id": 7,
+    "path_liang": "gui/box_page/texture/box3-Clickable",
+    "path_an": "gui/box_page/texture/box3-default",
+    "limit": 70,
+    "des": "黄金宝箱",
+    "key_id": 7
+  },
+  {
+    "id": 8,
+    "path_liang": "gui/box_page/texture/box4-Clickable",
+    "path_an": "gui/box_page/texture/box4-default",
+    "limit": 50,
+    "des": "铂金宝箱",
+    "key_id": 8
+  },
+  {
+    "id": 9,
+    "path_liang": "gui/box_page/texture/box5-Clickable",
+    "path_an": "gui/box_page/texture/box5-default",
+    "limit": 100,
+    "des": "钻石宝箱",
+    "key_id": 9
+  }
+]

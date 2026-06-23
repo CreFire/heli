@@ -1,0 +1,32 @@
+[
+  {
+    "id": "coin",
+    "name": "铜钱",
+    "des": "三国世界通用基础货币",
+    "source": "[{\"sourceID\":5001,\"isOpen\":1},{\"sourceID\":1,\"isOpen\":1},{\"sourceID\":1014,\"isOpen\":1},{\"sourceID\":10007,\"isOpen\":0},{\"sourceID\":10003,\"isOpen\":0}]"
+  },
+  {
+    "id": "zhaomuling",
+    "name": "招募令",
+    "des": "抽卡材料",
+    "source": "[{\"sourceID\":10003,\"isOpen\":0},{\"sourceID\":1012,\"isOpen\":1},{\"sourceID\":8001,\"isOpen\":1},{\"sourceID\":10043,\"isOpen\":1}]"
+  },
+  {
+    "id": "jinjieshi",
+    "name": "进阶石",
+    "des": "主公和武将的进阶材料",
+    "source": "[{\"sourceID\":10003,\"isOpen\":0},{\"sourceID\":1012,\"isOpen\":1},{\"sourceID\":1,\"isOpen\":1},{\"sourceID\":10007,\"isOpen\":0},{\"sourceID\":10043,\"isOpen\":1}]"
+  },
+  {
+    "id": "jingtie",
+    "name": "紫石",
+    "des": "用于升级装备和进阶装备",
+    "source": "[{\"sourceID\":8001,\"isOpen\":1},{\"sourceID\":1012,\"isOpen\":1},{\"sourceID\":10007,\"isOpen\":0},{\"sourceID\":1,\"isOpen\":1},{\"sourceID\":10043,\"isOpen\":1}]"
+  },
+  {
+    "id": "pifubi",
+    "name": "皮肤币",
+    "des": "用于在皮肤商城中兑换皮肤",
+    "source": "[{\"sourceID\":10047,\"isOpen\":0}]"
+  }
+]

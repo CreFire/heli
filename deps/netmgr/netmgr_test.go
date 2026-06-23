@@ -357,7 +357,9 @@ func (c *blockingReadConn) SetWriteDeadline(t time.Time) error { return nil }
 
 func buildMsg(msgID pb.MSG_ID, data []byte, flags int32) *msg.Message {
 	m := msg.NewMsg(msgID, data)
-	m.FlagBits = flags
+	if m.Head != nil {
+		m.Head.Flags = flags
+	}
 	return m
 }
 
@@ -482,6 +484,8 @@ func listenAddrForTest(t *testing.T, mq IMsgQue) string {
 		return v.listener.Addr().String()
 	case *wsMsgQue:
 		return v.listener.Addr().String()
+	case *kcpMsgQue:
+		return v.listener.Addr().String()
 	default:
 		t.Fatalf("msgque has no test listener address: %T", mq)
 		return ""
@@ -495,23 +499,9 @@ func writeWSFrameBytes(t *testing.T, conn *websocket.Conn, data []byte) {
 	}
 }
 
-func wsMsgFrameBytes(t *testing.T, msgs ...*msg.Message) []byte {
-	t.Helper()
-	parser := msg.NewWsParser()
-	buf := &bytes.Buffer{}
-	for _, mx := range msgs {
-		frame := parser.PackMsg(mx)
-		if len(frame) == 0 {
-			t.Fatalf("build websocket frame failed: msgId=%d", mx.MsgId())
-		}
-		buf.Write(frame)
-	}
-	return buf.Bytes()
-}
-
 func writeWSFrames(t *testing.T, conn *websocket.Conn, msgs ...*msg.Message) {
 	t.Helper()
-	writeWSFrameBytes(t, conn, wsMsgFrameBytes(t, msgs...))
+	writeWSFrameBytes(t, conn, msgFrameBytes(t, msgs...))
 }
 
 type stubMsgQue struct {
@@ -1010,7 +1000,7 @@ func TestMsgQueCompressOrEncryptCompresses(t *testing.T) {
 	if out == m {
 		t.Fatalf("expected new message when compression is effective")
 	}
-	if out.FlagBits&msg.FlagCompress == 0 {
+	if out.Head.Flags&msg.FlagCompress == 0 {
 		t.Fatalf("compress flag not set")
 	}
 	if len(out.Data) >= len(originalData) {
@@ -1049,7 +1039,7 @@ func TestMsgQueCompressOrEncryptSkipAlreadyCompressed(t *testing.T) {
 	originalData := bytes.Repeat([]byte("a"), 1024)
 	compressedData := basal.GZipCompress(originalData)
 	m := msg.NewMsg(pb.MSG_ID(1), compressedData)
-	m.FlagBits |= msg.FlagCompress
+	m.Head.Flags |= msg.FlagCompress
 
 	out := mq.CompressOrEncrypt(m)
 	if out != m {
@@ -1080,11 +1070,11 @@ func TestMsgQueProcessMsgDecompress(t *testing.T) {
 
 	m := &msg.Message{
 		Head: &msgbase.MsgHead{
-			Cmd:     uint32(pb.MSG_ID(1)),
+			MsgId:   pb.MSG_ID(1),
 			BodyLen: int32(len(compressed)),
+			Flags:   msg.FlagCompress,
 		},
-		FlagBits: msg.FlagCompress,
-		Data:     compressed,
+		Data: compressed,
 	}
 
 	if !mq.processMsg(mq, m) {
@@ -1122,11 +1112,11 @@ func TestMsgQueProcessMsgDecrypt(t *testing.T) {
 
 	m := &msg.Message{
 		Head: &msgbase.MsgHead{
-			Cmd:     uint32(pb.MSG_ID(1)),
+			MsgId:   pb.MSG_ID(1),
 			BodyLen: int32(len(encrypted)),
+			Flags:   msg.FlagEncrypt,
 		},
-		FlagBits: msg.FlagEncrypt,
-		Data:     encrypted,
+		Data: encrypted,
 	}
 
 	if !mq.processMsg(mq, m) {
@@ -1136,7 +1126,7 @@ func TestMsgQueProcessMsgDecrypt(t *testing.T) {
 	if !bytes.Equal(got.Data, plain) {
 		t.Fatalf("decrypted data mismatch")
 	}
-	if got.FlagBits&msg.FlagEncrypt != 0 {
+	if got.Head.Flags&msg.FlagEncrypt != 0 {
 		t.Fatalf("encrypt flag not cleared")
 	}
 }
@@ -2082,7 +2072,7 @@ func TestNetMgrWebSocketRoundTrip(t *testing.T) {
 	serverHandler := newRecordHandler()
 	listenOpt := options.NewMsgQueOptions()
 	listenOpt.Transport = options.TransportWebSocket
-	listenOpt.WSPath = options.DefaultWSPath
+	listenOpt.WSPath = "/ws"
 	listenOpt.SetListenParams(options.NewListenParams("127.0.0.1:0"))
 	if err := mgr.StartListen(listenOpt, serverHandler); err != nil {
 		t.Fatalf("start websocket listen failed: %v", err)
@@ -2094,7 +2084,7 @@ func TestNetMgrWebSocketRoundTrip(t *testing.T) {
 	clientHandler := newRecordHandler()
 	connectOpt := options.NewMsgQueOptions()
 	connectOpt.Transport = options.TransportWebSocket
-	connectOpt.WSPath = options.DefaultWSPath
+	connectOpt.WSPath = "/ws"
 	connectOpt.SetConnectParams(options.NewConnectParams("ws://"+addr+"/ws", "gate", 1))
 	if err := mgr.StartConnect(connectOpt, clientHandler); err != nil {
 		t.Fatalf("start websocket connect failed: %v", err)
@@ -2231,38 +2221,6 @@ func TestWSMsgQueReadMultipleMessagesInOneFrame(t *testing.T) {
 	}
 }
 
-func TestWSMsgQueConnParsesNewHeaderAndBody(t *testing.T) {
-	opt := options.NewMsgQueOptions()
-	opt.ReadSize = 256
-	opt.WriteChanSize = 8
-	handler := newRecordHandler()
-	_, conn := setupWSMsgQue(t, ConnTypeAccept, opt, handler)
-
-	body := []byte("new-ws-body")
-	want := buildMsg(pb.MSG_ID(14), body, 0)
-	want.SetMsgType(msgbase.MsgType(msg.WSMsgTypeRPC))
-	want.SetTraceId(12345)
-	writeWSFrames(t, conn, want)
-
-	got := waitForMessage(t, handler.msgCh, "websocket conn parse new header")
-	mainCmdID, subCmdID := msg.GetCmd(uint32(want.MsgId()))
-	if got.Head == nil {
-		t.Fatalf("websocket message head is nil")
-	}
-	if got.MsgId() != int32(want.MsgId()) {
-		t.Fatalf("websocket msgId mismatch: got %d want %d", got.MsgId(), want.MsgId())
-	}
-	if got.Head.Cmd != uint32(want.MsgId()) || got.Head.MainCmdId != uint32(mainCmdID) || got.Head.SubCmdId != uint32(subCmdID) {
-		t.Fatalf("websocket cmd mismatch: head=%+v", got.Head)
-	}
-	if got.Head.BodyLen != int32(len(body)) || !bytes.Equal(got.Data, body) {
-		t.Fatalf("websocket body mismatch: len=%d data=%q", got.Head.BodyLen, string(got.Data))
-	}
-	if got.Head.MsgType != uint32(msg.WSMsgTypeRPC) || got.Head.RpcCallId != 12345 {
-		t.Fatalf("websocket rpc header mismatch: type=%d trace=%d", got.Head.MsgType, got.Head.RpcCallId)
-	}
-}
-
 func TestWSMsgQueReadMessageSplitAcrossFrames(t *testing.T) {
 	opt := options.NewMsgQueOptions()
 	opt.ReadSize = 256
@@ -2270,7 +2228,7 @@ func TestWSMsgQueReadMessageSplitAcrossFrames(t *testing.T) {
 	handler := newRecordHandler()
 	_, conn := setupWSMsgQue(t, ConnTypeAccept, opt, handler)
 
-	frame := wsMsgFrameBytes(t, buildMsg(pb.MSG_ID(1), []byte("split-message"), 0))
+	frame := msgFrameBytes(t, buildMsg(pb.MSG_ID(1), []byte("split-message"), 0))
 	writeWSFrameBytes(t, conn, frame[:len(frame)/2])
 	select {
 	case <-handler.msgCh:
@@ -2363,7 +2321,7 @@ func TestWSMsgQueConsumeReadBufferPartial(t *testing.T) {
 	handler := newRecordHandler()
 	mq := &wsMsgQue{msgQue: msgQue{opt: opt, handler: handler, connTyp: ConnTypeAccept, agt: newConnAgt()}, quit: make(chan struct{})}
 
-	frame := wsMsgFrameBytes(t, buildMsg(pb.MSG_ID(1), []byte("hello"), 0))
+	frame := msgFrameBytes(t, buildMsg(pb.MSG_ID(1), []byte("hello"), 0))
 	state := newReadState(opt.ReadSize)
 	copy(state.buf, frame[:len(frame)/2])
 	state.offset = len(frame) / 2
@@ -2552,10 +2510,10 @@ func TestWSMsgQueCompressOrEncryptMatchesTCPExternalGate(t *testing.T) {
 
 	tcpMsg := tcpMq.CompressOrEncrypt(buildMsg(pb.MSG_ID(1), payload, 0))
 	wsMsg := wsMq.CompressOrEncrypt(buildMsg(pb.MSG_ID(1), payload, 0))
-	if tcpMsg.FlagBits&msg.FlagCompress == 0 || wsMsg.FlagBits&msg.FlagCompress == 0 {
+	if tcpMsg.Head.Flags&msg.FlagCompress == 0 || wsMsg.Head.Flags&msg.FlagCompress == 0 {
 		t.Fatalf("expected tcp and websocket messages to be compressed")
 	}
-	if tcpMsg.FlagBits != wsMsg.FlagBits || !bytes.Equal(tcpMsg.Data, wsMsg.Data) {
+	if tcpMsg.Head.Flags != wsMsg.Head.Flags || !bytes.Equal(tcpMsg.Data, wsMsg.Data) {
 		t.Fatalf("websocket compression does not match tcp behavior")
 	}
 }
@@ -2746,7 +2704,6 @@ func TestNetMgrReconnectWithNewMqUsesTransportType(t *testing.T) {
 }
 
 func TestNetMgrKCPRoundTrip(t *testing.T) {
-	t.Skip("kcp transport is declared but not implemented in netmgr")
 	mgr := NewNetMgr()
 	mgr.Start()
 	defer mgr.Stop()
@@ -2789,7 +2746,6 @@ func TestNetMgrKCPRoundTrip(t *testing.T) {
 }
 
 func TestNetMgrKCPReconnectAfterDisconnect(t *testing.T) {
-	t.Skip("kcp transport is declared but not implemented in netmgr")
 	serverMgr := NewNetMgr()
 	serverMgr.Start()
 	defer serverMgr.Stop()

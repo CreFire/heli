@@ -408,11 +408,11 @@ var msgQueFactories = map[options.Transport]msgQueFactory{
 			return newWSListen(listener, opt, handler)
 		},
 	},
-	// options.TransportKCP: {
-	// 	listen:     listenKCP,
-	// 	newConnect: newKCPConnect,
-	// 	newListen:  newKCPListen,
-	// },
+	options.TransportKCP: {
+		listen:     listenKCP,
+		newConnect: newKCPConnect,
+		newListen:  newKCPListen,
+	},
 }
 
 func normalizeTransport(transport options.Transport) options.Transport {

@@ -1,0 +1,18 @@
+id: 1
+type: "auth"
+cluster: "dev01"
+
+log:
+  level: "info"
+  path: "./logs"
+  fileName: "auth"
+auth:
+  rate_per_ip: 1000        # 每个ip最大允许登录速度
+  rate_per_gate: 200       # 每个gate最大允许登录速度
+  rate_max: 1000           # 集群最大允许登录速度
+  gate_queue_size: 10000    # 开始排队阀值，与gate naxConn一致
+  appid: ""                # 微信小程序 appid
+  sc: ""                   # 微信小程序 secret
+
+ip: "127.0.0.1"
+port: 5000

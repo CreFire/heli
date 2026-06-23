@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "card_day": -1,
+    "benefit": "[]",
+    "name": "CardConf_name_1",
+    "daily_reward": "[{\"key\":\"gold\",\"value\":10}]",
+    "rank": 4,
+    "buy_reward": "[]",
+    "activity_iD": 11,
+    "price": 0,
+    "path": "items/baoxiang_huangjin",
+    "tips": "CardConf_tips_1",
+    "card_description": ""
+  },
+  {
+    "id": 4001,
+    "card_day": 7,
+    "benefit": "[{\"key\":\"guaji_coin\",\"value\":0.1}]",
+    "name": "CardConf_name_2",
+    "daily_reward": "[{\"key\":\"gold\",\"value\":100}]",
+    "rank": 3,
+    "buy_reward": "[{\"key\":\"gold\",\"value\":80}]",
+    "activity_iD": 11,
+    "price": 8,
+    "path": "items/baoxiang_huangjin",
+    "tips": "CardConf_tips_2",
+    "card_description": "CardConf_cardDescription_1"
+  },
+  {
+    "id": 4002,
+    "card_day": 30,
+    "benefit": "[{\"key\":\"guaji_time\",\"value\":2}]",
+    "name": "CardConf_name_3",
+    "daily_reward": "[{\"key\":\"gold\",\"value\":100},{\"key\":\"jinjieshi\",\"value\":100},{\"key\":\"huoba_lv3\",\"value\":1}]",
+    "rank": 2,
+    "buy_reward": "[{\"key\":\"gold\",\"value\":300}]",
+    "activity_iD": 11,
+    "price": 30,
+    "path": "items/baoxiang_huangjin",
+    "tips": "CardConf_tips_3",
+    "card_description": "CardConf_cardDescription_2"
+  },
+  {
+    "id": 4003,
+    "card_day": -1,
+    "benefit": "[{\"key\":\"guaji_time\",\"value\":2},{\"key\":\"guaji_coin\",\"value\":0.1}]",
+    "name": "CardConf_name_4",
+    "daily_reward": "[{\"key\":\"gold\",\"value\":100},{\"key\":\"jinjieshi\",\"value\":200}]",
+    "rank": 1,
+    "buy_reward": "[{\"key\":\"gold\",\"value\":1280}]",
+    "activity_iD": 11,
+    "price": 128,
+    "path": "items/baoxiang_huangjin",
+    "tips": "CardConf_tips_4",
+    "card_description": "CardConf_cardDescription_3"
+  }
+]

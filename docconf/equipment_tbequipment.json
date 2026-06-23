@@ -1,0 +1,114 @@
+[
+  {
+    "id": 5005,
+    "name": "木质刀",
+    "color": 2,
+    "type": 1,
+    "type_e": "weapon"
+  },
+  {
+    "id": 5006,
+    "name": "木质甲",
+    "color": 2,
+    "type": 2,
+    "type_e": "cloth"
+  },
+  {
+    "id": 5007,
+    "name": "木质盔",
+    "color": 2,
+    "type": 3,
+    "type_e": "head"
+  },
+  {
+    "id": 5008,
+    "name": "木质靴",
+    "color": 2,
+    "type": 4,
+    "type_e": "horse"
+  },
+  {
+    "id": 5009,
+    "name": "青铜刀",
+    "color": 3,
+    "type": 1,
+    "type_e": "weapon"
+  },
+  {
+    "id": 5010,
+    "name": "青铜甲",
+    "color": 3,
+    "type": 2,
+    "type_e": "cloth"
+  },
+  {
+    "id": 5011,
+    "name": "青铜盔",
+    "color": 3,
+    "type": 3,
+    "type_e": "head"
+  },
+  {
+    "id": 5012,
+    "name": "青铜靴",
+    "color": 3,
+    "type": 4,
+    "type_e": "horse"
+  },
+  {
+    "id": 5013,
+    "name": "精锻战刀",
+    "color": 4,
+    "type": 1,
+    "type_e": "weapon"
+  },
+  {
+    "id": 5014,
+    "name": "精锻战甲",
+    "color": 4,
+    "type": 2,
+    "type_e": "cloth"
+  },
+  {
+    "id": 5015,
+    "name": "精锻战盔",
+    "color": 4,
+    "type": 3,
+    "type_e": "head"
+  },
+  {
+    "id": 5016,
+    "name": "精锻战靴",
+    "color": 4,
+    "type": 4,
+    "type_e": "horse"
+  },
+  {
+    "id": 5017,
+    "name": "不败名刀",
+    "color": 5,
+    "type": 1,
+    "type_e": "weapon"
+  },
+  {
+    "id": 5018,
+    "name": "不败名甲",
+    "color": 5,
+    "type": 2,
+    "type_e": "cloth"
+  },
+  {
+    "id": 5019,
+    "name": "不败名盔",
+    "color": 5,
+    "type": 3,
+    "type_e": "head"
+  },
+  {
+    "id": 5020,
+    "name": "不败名靴",
+    "color": 5,
+    "type": 4,
+    "type_e": "horse"
+  }
+]

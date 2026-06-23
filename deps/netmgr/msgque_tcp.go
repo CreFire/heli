@@ -774,10 +774,10 @@ func (r *tcpMsgQue) write() {
 func (r *tcpMsgQue) CompressOrEncrypt(m *msg.Message) *msg.Message {
 
 	// Broadcast messages might be reused across sessions; keep them immutable here.
-	if m.FlagBits&msg.FlagBroad > 0 {
+	if m.Head.Flags&msg.FlagBroad > 0 {
 		return m
 	}
-	if m.FlagBits&msg.FlagCompress > 0 {
+	if m.Head.Flags&msg.FlagCompress > 0 {
 		return m
 	}
 	if r.opt == nil || r.isInternalConn() || !r.opt.Compress || m.Data == nil {
@@ -802,7 +802,7 @@ func (r *tcpMsgQue) CompressOrEncrypt(m *msg.Message) *msg.Message {
 
 	// Keep the original opt as immutable: do not write back defaults.
 	newMsg := m.Copy()
-	newMsg.FlagBits |= msg.FlagCompress
+	newMsg.Head.Flags |= msg.FlagCompress
 	newMsg.Data = data
 	newMsg.Head.BodyLen = int32(len(data))
 	return newMsg

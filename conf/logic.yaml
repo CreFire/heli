@@ -1,0 +1,17 @@
+id: 1
+type: "logic"
+cluster: "dev01"
+
+log:
+  level: "info"
+  path: ""
+  fileName: "logic"
+  rotation: "daily"
+  maxFileSizeMB: 100
+  retentionDays: 14
+
+ip: "127.0.0.1"
+port: 5003
+
+asyncPoolSize: 512
+aSyncQueueSize: 8192

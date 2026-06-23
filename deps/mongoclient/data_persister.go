@@ -17,6 +17,24 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
+/*
+mongo 落地辅助类。外部包装结构如下，
+
+	type ColData struct{
+		ID int64 `bson:"_id"`
+		data1 DataPersister[*pb.xxxdata1] `bson:"data1"`
+		data2 DataPersister[*pb.xxxdata2] `bson:"data2"`
+	}
+*/
+
+type MongoPersister interface {
+	Load() (err error)
+	Save() error
+	SetLoaded()
+	SaveDocs() bson.M
+	RawData() proto.Message
+}
+
 type DataPersister[T proto.Message] struct {
 	data    T                  `bson:",inline"`
 	record  *SingleDocRecorder `bson:"-"`
@@ -27,91 +45,23 @@ type DataPersister[T proto.Message] struct {
 	mode    PersisterMode      `bson:"-"`
 }
 
-func (p *DataPersister[T]) validateUpdatePath(keyPath string) error {
-	if deadlock.Opts.Disable {
-		return nil
-	}
-	if strings.Count(keyPath, ".") == 1 {
-		return p.validateNestedMapPath(keyPath)
-	}
-	return nil
+func (p *DataPersister[T]) UnmarshalBSON(data []byte) error {
+	// The data here is the content of the "currency_data" field.
+	// We need to unmarshal it into p.data.
+	// p.data is of type T, which is *pb.GamerCurrencyData.
+	// p.data is already initialized in NewDataPersister.
+	return bson.Unmarshal(data, p.data)
 }
 
-func (p *DataPersister[T]) validateNestedMapPath(keyPath string) error {
-	if deadlock.Opts.Disable {
-		return nil
-	}
-	parentField := strings.SplitN(keyPath, ".", 2)[0]
-	if p.isMapField(parentField) {
-		return nil
-	}
-	return fmt.Errorf("fieldPath parent must be map field: %s", keyPath)
-}
+func NewDataPersister[T proto.Message](data T, tag string, col *mongo.Collection, id int64) *DataPersister[T] {
 
-func (p *DataPersister[T]) isMapField(fieldPath string) bool {
-	typ := reflect.TypeOf(p.data)
-	if typ == nil {
-		return false
-	}
-	for typ.Kind() == reflect.Pointer {
-		typ = typ.Elem()
-	}
-	if typ.Kind() != reflect.Struct {
-		return false
-	}
-
-	for i := 0; i < typ.NumField(); i++ {
-		field := typ.Field(i)
-		if field.Type.Kind() != reflect.Map {
-			continue
-		}
-		if field.Name == fieldPath {
-			return true
-		}
-		bsonTag := field.Tag.Get("bson")
-		if bsonTag == "" {
-			continue
-		}
-		tagName := strings.Split(bsonTag, ",")[0]
-		if tagName == fieldPath {
-			return true
-		}
-	}
-
-	return false
-}
-
-// AddUpdateOp keyPath 不包含“.” 只能是data的一级成员，并且不能是map，keyPath包含 ".",只能是map 中的key ，且keyPath 为“map.key”
-func (p *DataPersister[T]) AddUpdateOp(keyPath string, doc any) {
-	if p.mode.readOnly() {
-		xlog.Warnf("data is readonly,tag: %s gid: %d ", p.dataTag, p.id)
-		return
-	}
-	if err := p.validateUpdatePath(keyPath); err != nil {
-		xlog.Errorf("add update op failed, tag %s, gid %d error: %v", p.dataTag, p.id, err)
-		return
-	}
-	err := p.record.SetField(keyPath, doc)
-	if err != nil {
-		xlog.Errorf("add update op failed, tag %s, gid %d error: %v", p.dataTag, p.id, err)
-		return
-	}
-}
-
-// AddUnsetOp keyPath 必须包含 "."， 只能是map 中的key ，且keyPath 为“map.key”
-func (p *DataPersister[T]) AddUnsetOp(keyPath string) {
-	if p.mode.readOnly() {
-		xlog.Warnf("data is readonly,tag: %s gid: %d ", p.dataTag, p.id)
-		return
-	}
-	if err := p.validateNestedMapPath(keyPath); err != nil {
-		xlog.Errorf("add unset op failed, tag %s, gid %d error: %v", p.dataTag, p.id, err)
-		return
-	}
-	err := p.record.UnsetField(keyPath)
-	if err != nil {
-		xlog.Errorf("add unset op failed, tag %s, gid %d error: %v", p.dataTag, p.id, err)
-		return
+	return &DataPersister[T]{
+		data:    data,
+		record:  NewSingleDocRecorder(tag),
+		loaded:  false,
+		dataTag: tag,
+		col:     col,
+		id:      id,
 	}
 }
 
@@ -174,6 +124,68 @@ func (p *DataPersister[T]) Save() error {
 	return nil
 }
 
+func (p *DataPersister[T]) SetLoaded() {
+	if p.mode.readOnly() {
+		xlog.Warnf("data is readonly,tag: %s gid: %d ", p.dataTag, p.id)
+		return
+	}
+	p.loaded = true
+}
+
+func (p *DataPersister[T]) IsLoaded() bool {
+	return p.loaded
+}
+
+func (p *DataPersister[T]) SaveDocs() bson.M {
+	if !p.loaded || p.mode.readOnly() {
+		return nil
+	}
+	return p.record.GenUpdateDoc()
+}
+
+func (p *DataPersister[T]) SaveAllDoc() {
+	if p.mode.readOnly() {
+		xlog.Warnf("data is readonly,tag: %s gid: %d ", p.dataTag, p.id)
+		return
+	}
+	p.loaded = true
+	p.record.SaveAll(p.data)
+}
+
+// AddUpdateOp keyPath 不包含“.” 只能是data的一级成员，并且不能是map，keyPath包含 ".",只能是map 中的key ，且keyPath 为“map.key”
+func (p *DataPersister[T]) AddUpdateOp(keyPath string, doc any) {
+	if p.mode.readOnly() {
+		xlog.Warnf("data is readonly,tag: %s gid: %d ", p.dataTag, p.id)
+		return
+	}
+	if err := p.validateUpdatePath(keyPath); err != nil {
+		xlog.Errorf("add update op failed, tag %s, gid %d error: %v", p.dataTag, p.id, err)
+		return
+	}
+	err := p.record.SetField(keyPath, doc)
+	if err != nil {
+		xlog.Errorf("add update op failed, tag %s, gid %d error: %v", p.dataTag, p.id, err)
+		return
+	}
+}
+
+// AddUnsetOp keyPath 必须包含 "."， 只能是map 中的key ，且keyPath 为“map.key”
+func (p *DataPersister[T]) AddUnsetOp(keyPath string) {
+	if p.mode.readOnly() {
+		xlog.Warnf("data is readonly,tag: %s gid: %d ", p.dataTag, p.id)
+		return
+	}
+	if err := p.validateNestedMapPath(keyPath); err != nil {
+		xlog.Errorf("add unset op failed, tag %s, gid %d error: %v", p.dataTag, p.id, err)
+		return
+	}
+	err := p.record.UnsetField(keyPath)
+	if err != nil {
+		xlog.Errorf("add unset op failed, tag %s, gid %d error: %v", p.dataTag, p.id, err)
+		return
+	}
+}
+
 func (p *DataPersister[T]) Data() T {
 	if !p.loaded {
 		start := time.Now()
@@ -202,11 +214,74 @@ func (p *DataPersister[T]) SetData(data T) {
 	p.SaveAllDoc()
 }
 
-func (p *DataPersister[T]) SaveAllDoc() {
+func (p *DataPersister[T]) SetMode(mode PersisterMode) {
+	p.mode = mode
+}
+
+func (p *DataPersister[T]) SetReadOnly() {
+	p.SetMode(PersisterModeReadOnly)
+}
+
+func (p *DataPersister[T]) Clear() {
 	if p.mode.readOnly() {
 		xlog.Warnf("data is readonly,tag: %s gid: %d ", p.dataTag, p.id)
 		return
 	}
-	p.loaded = true
-	p.record.SaveAll(p.data)
+	var zero T
+	p.data = zero
+	p.loaded = false
+}
+
+func (p *DataPersister[T]) validateUpdatePath(keyPath string) error {
+	if deadlock.Opts.Disable {
+		return nil
+	}
+	if strings.Count(keyPath, ".") == 1 {
+		return p.validateNestedMapPath(keyPath)
+	}
+	return nil
+}
+
+func (p *DataPersister[T]) validateNestedMapPath(keyPath string) error {
+	if deadlock.Opts.Disable {
+		return nil
+	}
+	parentField := strings.SplitN(keyPath, ".", 2)[0]
+	if p.isMapField(parentField) {
+		return nil
+	}
+	return fmt.Errorf("fieldPath parent must be map field: %s", keyPath)
+}
+
+func (p *DataPersister[T]) isMapField(fieldPath string) bool {
+	typ := reflect.TypeOf(p.data)
+	if typ == nil {
+		return false
+	}
+	for typ.Kind() == reflect.Pointer {
+		typ = typ.Elem()
+	}
+	if typ.Kind() != reflect.Struct {
+		return false
+	}
+
+	for i := 0; i < typ.NumField(); i++ {
+		field := typ.Field(i)
+		if field.Type.Kind() != reflect.Map {
+			continue
+		}
+		if field.Name == fieldPath {
+			return true
+		}
+		bsonTag := field.Tag.Get("bson")
+		if bsonTag == "" {
+			continue
+		}
+		tagName := strings.Split(bsonTag, ",")[0]
+		if tagName == fieldPath {
+			return true
+		}
+	}
+
+	return false
 }

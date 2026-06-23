@@ -47,7 +47,6 @@ type ParserType int
 
 const (
 	ParserTypePB ParserType = iota //protobuf类型，用于和客户端交互
-	ParserTypeWS                   //WebSocket二进制协议
 )
 
 type ParseFunc func() any

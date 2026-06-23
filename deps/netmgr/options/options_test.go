@@ -14,7 +14,7 @@ func TestSetNetCfgSetsTimeout(t *testing.T) {
 		CltReadBufferSize:  4096,
 		CltWriteBufferSize: 8192,
 		CltWriteChanSize:   128,
-		CltEnableDH:        false,
+		CltEnableDH:        true,
 		Compress:           true,
 		CompressMode:       1,
 		CompressLimit:      1024,

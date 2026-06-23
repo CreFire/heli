@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "des": "登录{0}次游戏",
+    "reward_points": 5,
+    "complete_condition": 1,
+    "complete_value": 1,
+    "goto_id": 0,
+    "key_id": 1,
+    "is_open": 1
+  },
+  {
+    "id": 2,
+    "des": "分享{0}次游戏",
+    "reward_points": 5,
+    "complete_condition": 2,
+    "complete_value": 1,
+    "goto_id": 6001,
+    "key_id": 2,
+    "is_open": 1
+  },
+  {
+    "id": 3,
+    "des": "赠送好友{0}次金币",
+    "reward_points": 15,
+    "complete_condition": 3,
+    "complete_value": 3,
+    "goto_id": 1014,
+    "key_id": 3,
+    "is_open": 1
+  },
+  {
+    "id": 4,
+    "des": "进行{0}次招募",
+    "reward_points": 15,
+    "complete_condition": 4,
+    "complete_value": 2,
+    "goto_id": 1008,
+    "key_id": 4,
+    "is_open": 1
+  },
+  {
+    "id": 5,
+    "des": "领取{0}次挂机收益",
+    "reward_points": 5,
+    "complete_condition": 5,
+    "complete_value": 5,
+    "goto_id": 1,
+    "key_id": 5,
+    "is_open": 1
+  },
+  {
+    "id": 6,
+    "des": "进行{0}次摇钱",
+    "reward_points": 15,
+    "complete_condition": 6,
+    "complete_value": 3,
+    "goto_id": 5001,
+    "key_id": 6,
+    "is_open": 1
+  },
+  {
+    "id": 7,
+    "des": "开启{0}次宝箱",
+    "reward_points": 15,
+    "complete_condition": 7,
+    "complete_value": 3,
+    "goto_id": 1015,
+    "key_id": 7,
+    "is_open": 1
+  },
+  {
+    "id": 8,
+    "des": "进行{0}场竞技场战斗",
+    "reward_points": 5,
+    "complete_condition": 13,
+    "complete_value": 1,
+    "goto_id": 10001,
+    "key_id": 8,
+    "is_open": 0
+  },
+  {
+    "id": 9,
+    "des": "金市购买{0}次物品",
+    "reward_points": 15,
+    "complete_condition": 12,
+    "complete_value": 1,
+    "goto_id": 1012,
+    "key_id": 9,
+    "is_open": 1
+  },
+  {
+    "id": 10,
+    "des": "收获{0}个任意盐罐",
+    "reward_points": 15,
+    "complete_condition": 14,
+    "complete_value": 1,
+    "goto_id": 10005,
+    "key_id": 10,
+    "is_open": 0
+  }
+]

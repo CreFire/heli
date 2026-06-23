@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "card_day": -1,
+    "card_reward_daily": "[]",
+    "price": 0,
+    "title_des": "免费礼包",
+    "relation": "[-1]",
+    "limit": 1,
+    "rewards": "[{\"key\":\"gold\",\"value\":66},{\"key\":\"huoba_lv1\",\"value\":5},{\"key\":\"jinjieshi\",\"value\":50}]"
+  },
+  {
+    "id": 2,
+    "card_day": 7,
+    "card_reward_daily": "[3, 4, 5]",
+    "price": 60,
+    "title_des": "60元连买7日",
+    "relation": "[3, 4, 5]",
+    "limit": 1,
+    "rewards": "[{\"key\":\"zhenzhu\",\"value\":7}]"
+  },
+  {
+    "id": 3,
+    "card_day": -1,
+    "card_reward_daily": "[]",
+    "price": 1,
+    "title_des": "1元礼包",
+    "relation": "[2]",
+    "limit": 1,
+    "rewards": "[{\"key\":\"gold\",\"value\":10},{\"key\":\"libao_coin\",\"value\":1},{\"key\":\"libao_gold\",\"value\":1}]"
+  },
+  {
+    "id": 4,
+    "card_day": -1,
+    "card_reward_daily": "[]",
+    "price": 3,
+    "title_des": "3元礼包",
+    "relation": "[2]",
+    "limit": 1,
+    "rewards": "[{\"key\":\"gold\",\"value\":30},{\"key\":\"libao_coin\",\"value\":1},{\"key\":\"yugan_lv1\",\"value\":3}]"
+  },
+  {
+    "id": 5,
+    "card_day": -1,
+    "card_reward_daily": "[]",
+    "price": 6,
+    "title_des": "6元礼包",
+    "relation": "[2]",
+    "limit": 1,
+    "rewards": "[{\"key\":\"gold\",\"value\":60},{\"key\":\"libao_coin\",\"value\":3},{\"key\":\"libao_wujiang_hong1\",\"value\":10}]"
+  }
+]

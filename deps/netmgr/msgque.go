@@ -112,22 +112,22 @@ func (r *msgQue) processMsg(msgque IMsgQue, data *msg.Message) bool {
 	}
 
 	//作为客户端时--robot
-	if r.connTyp == ConnTypeConn && data.MsgId() == 0 {
+	if r.connTyp == ConnTypeConn && data.Head.MsgId == 0 {
 		return true
 	}
 
-	if data.FlagBits&msg.FlagEncrypt > 0 && data.Data != nil {
+	if data.Head.Flags&msg.FlagEncrypt > 0 && data.Data != nil {
 		newData, err := encrypt.AesDecodeData(data.Data, r.getDhKey())
 		if err != nil {
 			xlog.Warnf("AesDecodeData failed sessId: %v msgId: %v err: %v", r.sessId, data.MsgId(), err)
 			return false
 		}
-		data.FlagBits &^= msg.FlagEncrypt
+		data.Head.Flags &^= msg.FlagEncrypt
 		data.Data = newData
 		data.Head.BodyLen = int32(len(data.Data))
 	}
 
-	if data.FlagBits&msg.FlagCompress > 0 && data.Data != nil {
+	if data.Head.Flags&msg.FlagCompress > 0 && data.Data != nil {
 		var newBuffer []byte
 		var err error
 		mode := NET_COMPRESS_MODE_GZIP
@@ -147,7 +147,7 @@ func (r *msgQue) processMsg(msgque IMsgQue, data *msg.Message) bool {
 		}
 		data.Data = newBuffer
 		data.Head.BodyLen = int32(len(data.Data))
-		data.FlagBits &^= msg.FlagCompress
+		data.Head.Flags &^= msg.FlagCompress
 	}
 
 	if xlog.GetLogLevel() == xlog.LOG_LEVEL_DEBUG {

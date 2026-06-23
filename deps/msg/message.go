@@ -17,8 +17,6 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-var HEAD_SIZE = 2
-
 const (
 	FlagEncrypt  = 1 << 0 //数据是经过加密的
 	FlagCompress = 1 << 1 //数据是经过压缩的
@@ -32,30 +30,23 @@ const (
 )
 
 type Message struct {
-	Head       *msgbase.MsgHead // WebSocket 消息头，可能为nil
-	Data       []byte           // protobuf 消息体二进制
-	Body       proto.Message    // protobuf 消息体
-	Code       errorpb.ERROR    // 内部错误码，不进入 WebSocket 头
-	UserID     int64            // 内部玩家ID，不进入 WebSocket 头
-	UserSessID int64            // 内部玩家会话ID，不进入 WebSocket 头
-	SeqID      int32            // 内部序号，不进入 WebSocket 头
-	AckID      int32            // 内部确认号，不进入 WebSocket 头
-	FlagBits   int32            // 内部标记，不进入 WebSocket 头
-	HashValue  int64            // 内部 RPC hash key，不进入 WebSocket 头
+	Head *msgbase.MsgHead //消息头，可能为nil
+	Data []byte           //消息数据
+	Body proto.Message    // 消息体
 }
 
 func (r *Message) PlayerSessId() int64 {
-	if r == nil {
+	if r.Head == nil {
 		return 0
 	}
-	return r.UserSessID
+	return r.Head.GSessId
 }
 
 func (r *Message) GId() int64 {
-	if r == nil {
+	if r.Head == nil {
 		return 0
 	}
-	return r.UserID
+	return r.Head.Gid
 }
 
 func (r *Message) NewMessageHead(headLen int, buffer []byte) (*msgbase.MsgHead, error) {
@@ -72,35 +63,25 @@ func (r *Message) NewMessageHead(headLen int, buffer []byte) (*msgbase.MsgHead, 
 }
 
 func (r *Message) GetUserInfo() (int64, int64) {
-	if r == nil {
+	if r.Head == nil {
 		return 0, 0
 	}
-	return r.UserSessID, r.UserID
+	return r.Head.GSessId, r.Head.Gid
 }
 
 func (r *Message) SetUserInfo(sessId int64, gid int64) *Message {
-	if r == nil {
-		return r
+	if r.Head == nil {
+		r.Head = &msgbase.MsgHead{}
 	}
-	r.UserSessID = sessId
-	r.UserID = gid
+	r.Head.GSessId = sessId
+	r.Head.Gid = gid
 	return r
 }
 
 func (r *Message) Copy() *Message {
-	var newHead *msgbase.MsgHead
-	if r.Head != nil {
-		newHead = proto.Clone(r.Head).(*msgbase.MsgHead)
-	}
+	newHead := proto.Clone(r.Head).(*msgbase.MsgHead)
 	msg := &Message{
-		Head:       newHead,
-		Code:       r.Code,
-		UserID:     r.UserID,
-		UserSessID: r.UserSessID,
-		SeqID:      r.SeqID,
-		AckID:      r.AckID,
-		FlagBits:   r.FlagBits,
-		HashValue:  r.HashValue,
+		Head: newHead,
 		//IMsgParser: r.IMsgParser,
 	}
 	ld := len(r.Data)
@@ -120,11 +101,11 @@ func (r *Message) Bytes(buffer *bytes.Buffer) (int, error) {
 	r.Head.BodyLen = int32(bodyLen)
 	headBytes, err := proto.Marshal(r.Head)
 	if err != nil {
-		return 0, fmt.Errorf("msgId:%v marshal head err: %v", r.MsgId(), err)
+		return 0, fmt.Errorf("msgId:%v marshal head err: %v", r.Head.MsgId, err)
 	}
 	headLen := len(headBytes)
 	if headLen > math.MaxUint16 {
-		return 0, fmt.Errorf("msgId:%v marshal head len err: %v", r.MsgId(), headLen)
+		return 0, fmt.Errorf("msgId:%v marshal head len err: %v", r.Head.MsgId, headLen)
 	}
 
 	if headLen+bodyLen+HEAD_SIZE > buffer.Available() {
@@ -154,80 +135,84 @@ func (r *Message) Len() int32 {
 
 func (r *Message) MsgId() int32 {
 	if r.Head != nil {
-		return int32(r.Head.Cmd)
+		return int32(r.Head.MsgId)
 	}
 	return 0
 }
 
 func (r *Message) Flags() int32 {
-	return r.FlagBits
+	if r.Head != nil {
+		return r.Head.Flags
+	}
+	return 0
 }
 
 func (r *Message) ErrorCode() errorpb.ERROR {
-	if r.Code != 0 {
-		return r.Code
+	if r.Head != nil {
+		return r.Head.ErrCode
 	}
 	return errorpb.ERROR_SUCCESS
 }
 
 func (r *Message) SetSeq(seq int32) *Message {
-	r.FlagBits |= FlagNeedAck
-	r.SeqID = seq
+	if r.Head != nil {
+		r.Head.Flags |= FlagNeedAck
+		r.Head.Seq = seq
+	}
 	return r
 }
 func (r *Message) Seq() int32 {
-	return r.SeqID
+	return r.Head.Seq
 }
 
 func (r *Message) SetAck(ack int32) *Message {
-	r.FlagBits |= FlagAck
-	r.AckID = ack
+	if r.Head != nil {
+		r.Head.Flags |= FlagAck
+		r.Head.Ack = ack
+	}
 	return r
 }
 
 func (r *Message) Ack() int32 {
-	return r.AckID
+	return r.Head.Ack
 }
 
 func (r *Message) SetTraceId(id int64) *Message {
 	if r.Head != nil {
-		r.Head.RpcCallId = uint32(id)
+		r.Head.TraceId = id
 	}
 	return r
 }
 func (r *Message) TraceId() int64 {
-	if r.Head == nil {
-		return 0
-	}
-	return int64(r.Head.RpcCallId)
+	return r.Head.TraceId
 }
 func (r *Message) SetMsgType(mtype msgbase.MsgType) *Message {
 	if r.Head != nil {
-		r.Head.MsgType = uint32(mtype)
+		r.Head.MsgType = int32(mtype)
 	}
 	return r
 }
 
 func (r *Message) MsgType() msgbase.MsgType {
-	if r.Head == nil {
-		return msgbase.MsgType_MSG_TYPE_UNKNOWN
-	}
 	return msgbase.MsgType(r.Head.MsgType)
 }
 
 func (r *Message) SetHashKey(key int64) *Message {
-	r.HashValue = key
+	if r.Head != nil {
+		r.Head.RpcHashKey = key
+	}
 	return r
 }
 func (r *Message) HashKey() int64 {
-	return r.HashValue
+	if r.Head == nil {
+		return 0
+	}
+	return r.Head.RpcHashKey
 }
 
 func (r *Message) CopyTag(old *Message) *Message {
 	if r.Head != nil && old.Head != nil {
-		r.Head.Cmd = old.Head.Cmd
-		r.Head.MainCmdId = old.Head.MainCmdId
-		r.Head.SubCmdId = old.Head.SubCmdId
+		r.Head.MsgId = old.Head.MsgId
 	}
 	return r
 }
@@ -307,14 +292,10 @@ func (r *Message) MessageString() string {
 }
 
 func NewMsg(msgId pb.MSG_ID, data []byte) *Message {
-	cmd := uint32(msgId)
-	mainCmdID, subCmdID := GetCmd(cmd)
 	message := &Message{
 		Head: &msgbase.MsgHead{
-			BodyLen:   int32(len(data)),
-			Cmd:       cmd,
-			MainCmdId: uint32(mainCmdID),
-			SubCmdId:  uint32(subCmdID),
+			BodyLen: int32(len(data)),
+			MsgId:   msgId,
 		},
 		Data: data,
 	}
@@ -322,16 +303,12 @@ func NewMsg(msgId pb.MSG_ID, data []byte) *Message {
 }
 
 func NewMsgWithCode(msgId pb.MSG_ID, code errorpb.ERROR, data []byte) *Message {
-	cmd := uint32(msgId)
-	mainCmdID, subCmdID := GetCmd(cmd)
 	return &Message{
 		Head: &msgbase.MsgHead{
-			Cmd:       cmd,
-			MainCmdId: uint32(mainCmdID),
-			SubCmdId:  uint32(subCmdID),
-			BodyLen:   int32(len(data)),
+			MsgId:   msgId,
+			ErrCode: code,
+			BodyLen: int32(len(data)),
 		},
-		Code: code,
 		Data: data,
 	}
 }

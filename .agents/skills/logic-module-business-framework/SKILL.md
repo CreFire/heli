@@ -57,7 +57,7 @@ description: "Use when: 在 goxianyu 中新增或重构 src/service/logic/module
 
 5. Handler 注册
    - `handler.go` 注册 `pb.MSG_ID_..._REQ`：
-     - `r.CSRegister(pb.MSG_ID_XXX_REQ, ctxresolver.WrapC2S(m.reqXxx))`
+     - `r.CSRegister(pb.MSG_ID_XXX_REQ, actor.WrapC2S(m.reqXxx))`
    - 请求中从玩家上下文取模块：
      - `module := ctx.<Name>()`
      - `module == nil` 返回 `errorpb.ERROR_FAILED`
@@ -80,7 +80,7 @@ type Handler struct{}
 func NewHandler() *Handler { return &Handler{} }
 
 func (m *Handler) RegisterHandler(rpc *rpcmgr.RpcMgr, r *router.Router) error {
-    r.CSRegister(pb.MSG_ID_XXX_REQ, ctxresolver.WrapC2S(m.reqXxx))
+    r.CSRegister(pb.MSG_ID_XXX_REQ, actor.WrapC2S(m.reqXxx))
     return nil
 }
 

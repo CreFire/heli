@@ -23,12 +23,6 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-const (
-	wsProtoLenSize   = 2
-	wsProtocolMinLen = 1 + 1 + 4 // checkCode + msgType + cmd
-	wsProtocolMaxLen = 4096
-)
-
 type wsMsgQue struct {
 	msgQue
 	conn           *websocket.Conn
@@ -408,26 +402,6 @@ func (r *wsMsgQue) ensureFrameCapacity(state *readState) bool {
 	return true
 }
 
-func (r *wsMsgQue) ensureWSPacketCapacity(packetLen int) bool {
-	total := wsProtoLenSize + packetLen
-	max := int(r.opt.ReadSize)
-	if max <= 0 {
-		max = options.DEFAULT_BUFF_SIZE
-	}
-	if max >= total {
-		return true
-	}
-	if r.isInternalConn() {
-		if total > max*4 {
-			xlog.Warnf("[%d] internal websocket packet too large len:%d max:%d", r.sessId, total, max*4)
-			return false
-		}
-		return true
-	}
-	xlog.Warnf("[%d] websocket packet too large len:%d max:%d", r.sessId, total, max)
-	return false
-}
-
 func (r *wsMsgQue) handleReadMessage(state *readState, ptr int) bool {
 	if state.msg == nil {
 		return false
@@ -443,45 +417,52 @@ func (r *wsMsgQue) handleReadMessage(state *readState, ptr int) bool {
 
 func (r *wsMsgQue) consumeReadBuffer(state *readState) bool {
 	ptr := 0
-	parser := msg.NewWsParser()
 	for {
-		if state.offset-ptr < wsProtoLenSize {
-			break
+		if state.headLen == 0 {
+			if state.offset-ptr < HEAD_SIZE {
+				break
+			}
+			state.headLen = int(binary.BigEndian.Uint16(state.buf[ptr : ptr+HEAD_SIZE]))
+			if state.headLen > MAX_HEAD_LEN {
+				xlog.Warnf("[%d] websocket packet head len invalid: %d, stop msgque.", r.sessId, state.headLen)
+				return false
+			}
+
+			ptr += HEAD_SIZE
 		}
-		if state.offset-ptr == wsProtoLenSize {
-			bigEndianLen := int(binary.BigEndian.Uint16(state.buf[ptr : ptr+wsProtoLenSize]))
-			if bigEndianLen > MAX_HEAD_LEN {
-				xlog.Warnf("[%d] websocket packet len invalid: %d, stop msgque.", r.sessId, bigEndianLen)
+
+		if state.bodyLen == 0 {
+			if state.offset-ptr < state.headLen {
+				break
+			}
+			message := &msg.Message{}
+			head, err := message.NewMessageHead(state.headLen, state.buf[ptr:])
+			if head == nil || err != nil {
+				xlog.Warnf("[%d] websocket packet head err. stop msgque.", r.sessId)
+				return false
+			}
+			if head.BodyLen < 0 {
+				xlog.Warnf("[%d] websocket packet body len invalid: %d, stop msgque.", r.sessId, head.BodyLen)
+				return false
+			}
+			state.msg = message
+			ptr += state.headLen
+			state.bodyLen = int(head.BodyLen)
+			if !r.ensureFrameCapacity(state) {
 				return false
 			}
 		}
 
-		packetLen := int(binary.LittleEndian.Uint16(state.buf[ptr : ptr+wsProtoLenSize]))
-		if packetLen < wsProtocolMinLen || packetLen > wsProtocolMaxLen {
-			xlog.Warnf("[%d] websocket packet len invalid: %d, stop msgque.", r.sessId, packetLen)
-			return false
-		}
-		if !r.ensureWSPacketCapacity(packetLen) {
-			return false
-		}
-
-		totalLen := wsProtoLenSize + packetLen
-		if state.offset-ptr < totalLen {
+		if state.offset-ptr < state.bodyLen {
 			break
 		}
 
-		frame := make([]byte, totalLen)
-		copy(frame, state.buf[ptr:ptr+totalLen])
-		message := &msg.Message{Data: frame}
-		if err := parser.ParseC2S(message); err != nil {
-			xlog.Warnf("[%d] websocket packet parse err: %v, stop msgque.", r.sessId, err)
+		if !r.handleReadMessage(state, ptr) {
+			xlog.Warnf("websocket msgque:%v process msg failed, stop msgque. msgId:%v", r.sessId, state.msg.MsgId())
 			return false
 		}
-		if !r.processMsg(r, message) {
-			xlog.Warnf("websocket msgque:%v process msg failed, stop msgque. msgId:%v", r.sessId, message.MsgId())
-			return false
-		}
-		ptr += totalLen
+		ptr += state.bodyLen
+		state.resetFrame()
 	}
 
 	if ptr > state.offset {
@@ -542,7 +523,6 @@ func (r *wsMsgQue) read() {
 		if n <= 0 {
 			continue
 		}
-		// 解析消息
 		if !r.consumeReadBuffer(state) {
 			return
 		}
@@ -554,11 +534,7 @@ func (r *wsMsgQue) appendWriteBuffer(buffer *bytes.Buffer, m *msg.Message) error
 		return nil
 	}
 	mx := r.CompressOrEncrypt(m)
-	data := msg.NewWsParser().PackMsg(mx)
-	if len(data) == 0 {
-		return fmt.Errorf("websocket pack msg failed, msgId:%v", mx.MsgId())
-	}
-	_, err := buffer.Write(data)
+	_, err := mx.Bytes(buffer)
 	return err
 }
 
@@ -720,10 +696,10 @@ func (r *wsMsgQue) write() {
 }
 
 func (r *wsMsgQue) CompressOrEncrypt(m *msg.Message) *msg.Message {
-	if m.FlagBits&msg.FlagBroad > 0 {
+	if m.Head.Flags&msg.FlagBroad > 0 {
 		return m
 	}
-	if m.FlagBits&msg.FlagCompress > 0 {
+	if m.Head.Flags&msg.FlagCompress > 0 {
 		return m
 	}
 	if r.opt == nil || r.isInternalConn() || !r.opt.Compress || m.Data == nil {
@@ -747,7 +723,7 @@ func (r *wsMsgQue) CompressOrEncrypt(m *msg.Message) *msg.Message {
 	}
 
 	newMsg := m.Copy()
-	newMsg.FlagBits |= msg.FlagCompress
+	newMsg.Head.Flags |= msg.FlagCompress
 	newMsg.Data = data
 	newMsg.Head.BodyLen = int32(len(data))
 	return newMsg

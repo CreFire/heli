@@ -58,18 +58,6 @@ func SafeRun(f func()) (retErr error) {
 	return nil
 }
 
-func SafeGo(f func()) {
-	go func() {
-		defer func() {
-			if err := recover(); err != nil {
-				xlog.Errorf("safe run error %v, stack info: %v", err, string(debug.Stack()))
-			}
-		}()
-
-		f()
-	}()
-}
-
 func SimpleHash(x uint64) uint64 {
 	x += 0x9e3779b97f4a7c15
 	x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9
@@ -178,6 +166,18 @@ func WriteMemProfile() {
 const (
 	SleepDuration = 20 * time.Second
 )
+
+func SafeGo(f func()) {
+	go func() {
+		defer func() {
+			if err := recover(); err != nil {
+				xlog.Errorf("safe run error %v, stack info: %v", err, string(debug.Stack()))
+			}
+		}()
+
+		f()
+	}()
+}
 
 func WriteCPUProfile() {
 	xlog.Infof("SignalCpuProfile Signal")
