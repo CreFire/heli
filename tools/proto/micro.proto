@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "game/src/proto/pb";
+enum CMD{
+  NONE   = 0;
+  MAIN   = 1;
+  LOGIN  = 2;
+  PLAYER = 3;
+  PACK   = 4;
+  TASK   = 5;
+  HERO   = 6;
+  EQUIP  = 7;
+}
+
+enum ACT {
+  option allow_alias = true;
+  ACT_NONE            = 0;
+  LOGIN_BY_SESSION    = 1;
+  LOGIN_OUT           = 2;
+  LOGIN_RECONNECT     = 3;
+  LOGIN_SWITCH_SERVER = 4;
+
+  MAIN_GM = 1;
+
+  PACK_SUB = 1;
+}
+
+// enum MSG_ID {
+//   NONE                          = 0;
+//   LOGIN_BY_SESSION_REQ          = 3;
+//   LOGIN_BY_SESSION_RSP          = 4;
+//   LOGIN_OUT_REQ                 = 5;
+//   LOGIN_OUT_RSP                 = 6;
+//   LOGIN_RECONNECT_REQ           = 7;
+//   LOGIN_RECONNECT_RSP           = 8;
+//   SWITCH_SERVER_REQ             = 9;
+//   SWITCH_SERVER_RSP             = 10;
+//   GATE_2_LOGIC_KICK_SESSION_REQ = 11;
+//   GATE_2_LOGIC_KICK_SESSION_RSP = 12;
+//   NOTIFY_KICK_NTF               = 13;
+//   SAY_HELLO_REQ                 = 14;
+//   SAY_HELLO_RSP                 = 15;
+//   SERVER_CLOSE_NTF              = 16;
+//   HEART_REQ                     = 17;
+//   HEART_RSP                     = 18;
+//   LOGIC_START                   = 100;
+
+//   MAIN_GM_REQ = 101;
+//   MAIN_GM_RSP = 102;
+
+//   LOGIC_END = 999;
+
+// }

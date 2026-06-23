@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "game/src/proto/pb";
+
+message LoginReq { 
+    string gid = 1; 
+    string nickname = 2;
+ }
+
+message LoginResp { int32 code = 1; string message = 2; string player_id = 3; }
+
+message MatchReq { string mode = 1; }
+
+message MatchResp { int32 code = 1; string message = 2; string room_id = 3; repeated string player_ids = 4; }
+
+message PlayerOp { string room_id = 1; int64 client_frame = 2; int32 op = 3; int32 x = 4; int32 y = 5; int32 unit_id = 6; }
+
+message GameSnapshot { string room_id = 1; int64 frame = 2; repeated PlayerOp ops = 3; }
+
+message Heartbeat { int64 unix_ms = 1; }

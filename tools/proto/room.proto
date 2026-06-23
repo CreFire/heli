@@ -1,0 +1,111 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "game/src/proto/pb";
+
+// RoomStatus 房间状态。
+enum RoomStatus {
+  ROOM_STATUS_NONE = 0;
+  ROOM_STATUS_WAITING = 1; // 等待玩家进入
+  ROOM_STATUS_FIGHTING = 2; // 战斗同步中
+  ROOM_STATUS_FINISHED = 3; // 战斗结束
+  ROOM_STATUS_CLOSED = 4; // 房间关闭
+}
+
+// RoomPlayerStatus 房间内玩家状态。
+enum RoomPlayerStatus {
+  ROOM_PLAYER_STATUS_NONE = 0;
+  ROOM_PLAYER_STATUS_ENTERED = 1; // 已进入房间
+  ROOM_PLAYER_STATUS_READY = 2; // 已准备
+  ROOM_PLAYER_STATUS_FIGHTING = 3; // 战斗中
+  ROOM_PLAYER_STATUS_OFFLINE = 4; // 掉线
+  ROOM_PLAYER_STATUS_EXITED = 5; // 已退出
+}
+
+// RoomPlayer 房间内玩家信息。
+message RoomPlayer {
+  int64 player_id = 1;
+  string nickname = 2;
+  RoomPlayerStatus status = 3;
+}
+
+// RoomInfo 房间基础信息。
+message RoomInfo {
+  string room_id = 1;
+  RoomStatus status = 2;
+  repeated RoomPlayer players = 3;
+  int64 frame = 4;
+  int64 create_unix_ms = 5;
+}
+
+// EnterRoomReq 进入房间请求。
+message EnterRoomReq {
+  string room_id = 1;
+}
+
+// EnterRoomResp 进入房间响应。
+message EnterRoomResp {
+  int32 code = 1;
+  string message = 2;
+  RoomInfo room = 3;
+}
+
+// LeaveRoomReq 离开房间请求。
+message LeaveRoomReq {
+  string room_id = 1;
+}
+
+// LeaveRoomResp 离开房间响应。
+message LeaveRoomResp {
+  int32 code = 1;
+  string message = 2;
+}
+
+// RoomReadyReq 房间准备请求。
+message RoomReadyReq {
+  string room_id = 1;
+}
+
+// RoomReadyResp 房间准备响应。
+message RoomReadyResp {
+  int32 code = 1;
+  string message = 2;
+  RoomInfo room = 3;
+}
+
+// BattleInput 玩家战斗同步输入。
+message BattleInput {
+  string room_id = 1;
+  int64 client_frame = 2;
+  int64 server_frame = 3;
+  int32 op = 4;
+  int32 x = 5;
+  int32 y = 6;
+  int32 unit_id = 7;
+  bytes payload = 8;
+}
+
+// BattleInputReq 上报玩家战斗输入。
+message BattleInputReq {
+  BattleInput input = 1;
+}
+
+// BattleInputResp 上报玩家战斗输入响应。
+message BattleInputResp {
+  int32 code = 1;
+  string message = 2;
+  int64 server_frame = 3;
+}
+
+// BattleFrameNtf 房间战斗帧同步通知。
+message BattleFrameNtf {
+  string room_id = 1;
+  int64 frame = 2;
+  repeated BattleInput inputs = 3;
+}
+
+// RoomStateNtf 房间状态变更通知。
+message RoomStateNtf {
+  RoomInfo room = 1;
+}

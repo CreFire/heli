@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package errorpb;
+
+option go_package = "game/src/proto/errorpb";
+enum ERROR {
+  SUCCESS    = 0;
+  FAILED     = 1;
+  UNEXPECTED = 2;
+  PB_PACK    = 3;
+  PB_UNPACK  = 4;
+}

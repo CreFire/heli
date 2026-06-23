@@ -1,0 +1,8 @@
+tcp_addr: ":7001"
+mongo_uri: "mongodb://127.0.0.1:27017"
+mongo_db: "heli"
+redis_addr: "127.0.0.1:6379"
+redis_password: ""
+redis_db: 0
+room_size: 2
+tick_interval: "200ms"

@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "game/src/proto/pb";
+enum GAMER_STATUS {
+  OFFLINE  = 0;
+  ONLINE   = 1;
+  MATCH    = 2;
+  INCOMING = 3;
+  FIGHTING = 4;
+  EXITING  = 5;
+  INTERACT = 6;
+}
+
+message Gamer {
+  int64        id      = 1;
+  string       account = 2;
+  GAMER_STATUS status  = 3;
+  string       session = 4;
+  int32        pSId    = 5;
+}
+
+message PlayerBase {
+  int64  id       = 1;// @gotags: bson:"gid";
+  string nickname = 2;// @gotags: bson:"nickname";
+  int32  serverId = 3;// @gotags: bson:"server_id";
+}
