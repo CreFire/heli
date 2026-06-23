@@ -1,0 +1,69 @@
+run:
+  timeout: 5m
+  tests: true
+  skip-dirs:
+    - src/proto
+    - tools
+    - vendor
+
+linters:
+  enable:
+    - govet
+    - staticcheck
+    - ineffassign
+    - typecheck
+    - errcheck
+    - gosimple
+    - unused
+    - gocritic
+
+  disable:
+    - revive
+    - gocyclo
+    - dupl
+    - gofmt
+    - goimports
+    - gocognit
+    - funlen
+    - lll
+    - nakedret
+    - wsl
+    - godox
+    - stylecheck
+
+linters-settings:
+  errcheck:
+    check-type-assertions: true
+    check-blank: true
+
+  gocritic:
+    enabled-tags:
+      - diagnostic
+      - performance
+      - style
+    disabled-checks:
+      - whyNoLint
+      - unnamedResult
+
+  staticcheck:
+    checks:
+      - all
+      - "-ST1000" # package comment（太吵）
+      - "-ST1003" # naming（游戏项目常不想管）
+
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0
+
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - errcheck
+
+    - linters:
+        - staticcheck
+      text: "SA9003" # empty branch（游戏逻辑偶尔合法）
+
+    - linters:
+        - errcheck
+      text: "Close" # defer close 太多噪音

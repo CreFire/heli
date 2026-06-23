@@ -63,10 +63,10 @@ func validItem(it *pb.Item) bool {
 }
 
 func itemStoreKey(itemId string, itemType int32) string {
-	if itemType == int32(pb.ItemType_ITEM_TYPE_CURRENCY) {
-		return fmt.Sprintf("CurrencyMap.%s", itemId)
+	if itemType == int32(pb.ITEM_TYPE_TYPE_CURRENCY) {
+		return currencyMapKey(itemId)
 	}
-	return fmt.Sprintf("ItemMap.%s", itemId)
+	return itemMapKey(itemId)
 }
 
 func cloneItem(it *pb.Item) *pb.Item {
@@ -76,11 +76,11 @@ func cloneItem(it *pb.Item) *pb.Item {
 	return proto.Clone(it).(*pb.Item)
 }
 
-func itemMapKey(confId string) string     { return fmt.Sprintf("ItemMap.%s", confId) }
-func currencyMapKey(confId string) string { return fmt.Sprintf("CurrencyMap.%s", confId) }
+func itemMapKey(confId string) string     { return fmt.Sprintf("it.%s", confId) }
+func currencyMapKey(confId string) string { return fmt.Sprintf("cu.%s", confId) }
 
 func (m *GamerPack) isCurrency(it *pb.Item) bool {
-	return it != nil && it.Type == int32(pb.ItemType_ITEM_TYPE_CURRENCY)
+	return it != nil && it.Type == int32(pb.ITEM_TYPE_TYPE_CURRENCY)
 }
 
 func (m *GamerPack) CheckEnough(items []*pb.Item) errorpb.ERROR {
@@ -148,6 +148,9 @@ func (m *GamerPack) SubItems(items []*pb.Item) ([]*pb.Item, errorpb.ERROR) {
 func (m *GamerPack) SubItem(itemId string, num int64) (*pb.Item, errorpb.ERROR) {
 	if num <= 0 {
 		xlog.Warnf("sub item invalid num. id %d num %v", itemId, num)
+		return nil, errorpb.ERROR_REQUEST_PARAMS
+	}
+	if itemId == "" {
 		return nil, errorpb.ERROR_REQUEST_PARAMS
 	}
 	item := m.Data().ItemMap[itemId]

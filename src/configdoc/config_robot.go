@@ -26,7 +26,6 @@ type Robot struct {
 	StressCooldownMs map[string]int32     `yaml:"stressCooldownMs"` // 压测模式模块冷却；单位毫秒，冷却中不再触发该模块请求。
 	SmokeModules     []string             `yaml:"smokeModules"`     // 冒烟模式下启用的模块列表。
 	BattleSmoke      *RobotBattleSmokeCfg `yaml:"battleSmoke"`      // 战斗冒烟专用配置。
-	SPR              *RobotSPR            `yaml:"spr"`              // SPRAdapter 上报配置。
 	GUI              *bool                `yaml:"gui"`              // 是否启动 robot HTTP 图形面板；不配置默认开启。
 }
 

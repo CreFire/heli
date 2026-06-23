@@ -36,7 +36,7 @@ func NewItemModule(ctx iface.IGamerContext, model *gamedata.GamerModel) *ItemMod
 }
 
 func (s *ItemModule) SendPackInfo() {
-	s2c := &pb.S2CPackInfo{
+	s2c := &pb.PackInfoNTF{
 		All:   true,
 		Items: GetPackModel(s.model).PackMap(),
 	}
@@ -51,17 +51,6 @@ func (s *ItemModule) LegacyLoadBag() map[string]interface{} {
 		}
 	}
 	return map[string]interface{}{"bag": items, "itemMap": items}
-}
-
-func (s *ItemModule) LegacyOpenLibao(item *pb.Item) ([]*pb.Item, errorpb.ERROR) {
-	if item == nil || item.ConfId == "" || item.Num <= 0 {
-		return nil, errorpb.ERROR_REQUEST_PARAMS
-	}
-	rewards := s.UseItem(item)
-	if rewards == nil {
-		return nil, errorpb.ERROR_ITEM_NOT_ENOUGH
-	}
-	return rewards, errorpb.ERROR_SUCCESS
 }
 
 func (s *ItemModule) AddItems(items []*pb.Item, reason *common.Reason) ([]*pb.Item, errorpb.ERROR) {

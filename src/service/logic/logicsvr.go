@@ -190,21 +190,13 @@ func (g *LogicSvr) OnStop() error {
 }
 
 func (g *LogicSvr) OnReload(oldCfg, newCfg *configdoc.ConfigBase) error {
-	// g.gamerMgr.Foreach(
-	// func(_ int64, gamer *actor.Gamer) bool {
-	// gamer.Post(func() {
-	// 	gamer.OnDocReload(newCfg.Doc, newCfg.DocExtend)
-	// 	result, err := versionfix.Run(gamer)
-	// 	if err != nil {
-	// 		xlog.Errorf("reload version fix failed: gid=%d err=%v", gamer.GetGamerId(), err)
-	// 		return
-	// 	}
-	// 	if gamer.IsOnline() {
-	// 		versionfix.SyncChangedModules(gamer, result)
-	// 	}
-	// })
-	// return true
-	// })
+	g.gamerMgr.Foreach(
+		func(_ int64, gamer *actor.Gamer) bool {
+			gamer.Post(func() {
+				gamer.OnDocReload(newCfg.Doc, newCfg.DocExtend)
+			})
+			return true
+		})
 	return nil
 }
 
@@ -218,7 +210,6 @@ func (g *LogicSvr) OnEventHandle(_ *eventpb.Event) {}
 func (g *LogicSvr) ReportServerInfo(name string, now int64, value any) {
 	inst := server.MS.SvrMgr.SelfCopy()
 	onlineCount := g.gamerMgr.GamerOnlineCount()
-	// totalCount := g.gamerMgr.GamerCount()
 	inst.UpdateOnlineCount(int32(onlineCount))
 	if err := cache.UpdateServerInfoWithOnline(inst); err != nil {
 		xlog.Warnf("update logic server info failed: %v", err)

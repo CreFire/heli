@@ -26,13 +26,11 @@ func NewHandler() *Handler {
 }
 
 func (h *Handler) RegisterHandler(rpc *rpcmgr.RpcMgr, r *router.Router) error {
-	// r.CSRegister(pb.MSG_ID_USE_ITEM_REQ, actor.WrapC2S(h.HandleUseItem))
-	// r.CSRegister(pb.MSG_ID_ITEM_LOAD_BAG_REQ, actor.WrapC2S(h.reqItemLoadBag))
-	// r.CSRegister(pb.MSG_ID_ITEM_OPEN_LIBAO_REQ, actor.WrapC2S(h.reqItemOpenLibao))
+	r.CSRegister(pb.MSG_ID_USE_ITEM_REQ, actor.WrapC2S(h.HandleUseItem))
 
-	// rpc.RpcRegister(pb.MSG_ID_S2S_ADD_ITEM_REQ, h.rpcGamerAddItem)
-	// rpc.RpcRegister(pb.MSG_ID_S2S_SUB_ITEM_REQ, h.rpcGamerSubItem)
-	// rpc.RpcRegister(pb.MSG_ID_S2S_CHECK_ITEM_REQ, h.rpcGamerCheckItem)
+	rpc.RpcRegister(pb.MSG_ID_S2S_ADD_ITEM_REQ, h.rpcGamerAddItem)
+	rpc.RpcRegister(pb.MSG_ID_S2S_SUB_ITEM_REQ, h.rpcGamerSubItem)
+	rpc.RpcRegister(pb.MSG_ID_S2S_CHECK_ITEM_REQ, h.rpcGamerCheckItem)
 	return nil
 }
 
@@ -149,7 +147,7 @@ func (h *Handler) rpcGamerCheckItem(_ netmgr.IMsgQue, msg *msg.Message) *pbrpc.S
 }
 
 func (h *Handler) HandleUseItem(ctx iface.IGamerContext, data *msg.Message) (code errorpb.ERROR, m proto.Message) {
-	req := data.Message().(*pb.C2SUseItem)
+	req := data.Message().(*pb.UseItemREQ)
 	if req.Item == nil || req.Item.Num <= 0 {
 		return errorpb.ERROR_REQUEST_PARAMS, nil
 	}
@@ -162,6 +160,6 @@ func (h *Handler) HandleUseItem(ctx iface.IGamerContext, data *msg.Message) (cod
 		return errorpb.ERROR_ITEM_NOT_ENOUGH, nil
 	}
 	ctx.Logger().Debug("use item:%v rewards:%v", req.Item, packInfo)
-	rsp := &pb.S2CUseItem{Item: packInfo}
+	rsp := &pb.UseItemRSP{Items: packInfo}
 	return errorpb.ERROR_SUCCESS, rsp
 }

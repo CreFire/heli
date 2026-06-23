@@ -45,12 +45,12 @@ func (m *GamerPlayerData) UpdatePlayerBase(update func(base *pb.PlayerBase)) {
 	m.markChange("all")
 }
 
-func (m *GamerPlayerData) Send() *pb.S2CPlayerInfo {
+func (m *GamerPlayerData) Send() *pb.PlayerInfoNTF {
 	if len(m.change) == 0 {
 		return nil
 	}
 
-	return &pb.S2CPlayerInfo{Base: m.base.Data()}
+	return &pb.PlayerInfoNTF{Base: m.base.Data()}
 }
 
 func (m *GamerPlayerData) markChange(field string) {

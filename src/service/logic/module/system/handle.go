@@ -29,16 +29,17 @@ func notifySwitchServerNTFIfGray(send func(proto.Message), status servicemgr.Ser
 	if send == nil || status != servicemgr.ServiceStatusGray {
 		return
 	}
-	send(&pb.S2CSwitchServerInfo{})
+	send(&pb.SwitchServerNTF{})
 }
 
 func (m *SystemHandler) RegisterHandler(rpc *rpcmgr.RpcMgr, r *router.Router) error {
-	r.SSRegister(pb.MSG_ID_S2S_LOGIC_KICK_SESSION, m.reqKickSession)
+	r.SSRegister(pb.MSG_ID_GATE_2_LOGIC_KICK_SESSION_REQ, m.reqKickSession)
 
-	r.CSRegister(pb.MSG_ID_C2S_HEART, actor.WrapC2S(m.reqHeart))
-	// r.CSRegister()
-	// rpc.RpcRegister(pb.MSG_ID_C2S_LOGIN_SWITCH_SERVER_REQ, m.rpcSwitchServer)
-	// rpc.RpcRegister(pb.MSG_ID_S2S_USER_LOGIN_REQ, m.rpcGamerLogin)
+	r.CSRegister(pb.MSG_ID_HEART_REQ, actor.WrapC2S(m.reqHeart))
+	r.CSRegister(pb.MSG_ID_STRESS_REQ, actor.WrapC2S(m.reqStress))
+
+	rpc.RpcRegister(pb.MSG_ID_S2S_SWITCH_SERVER_REQ, m.rpcSwitchServer)
+	rpc.RpcRegister(pb.MSG_ID_S2S_USER_LOGIN_REQ, m.rpcGamerLogin)
 	return nil
 }
 func (m *SystemHandler) rpcGamerLogin(msgque netmgr.IMsgQue, req *msg.Message) *pbrpc.S2SRpcRSP {
@@ -85,7 +86,7 @@ func (m *SystemHandler) rpcGamerLogin(msgque netmgr.IMsgQue, req *msg.Message) *
 		return rpcRsp
 	}
 	now := xtime.NowUnix()
-	err := gamer.AddMsgTask(pb.MSG_ID_C2S_LOGIN_BY_SESSION, func() {
+	err := gamer.AddMsgTask(pb.MSG_ID_LOGIN_BY_SESSION_REQ, func() {
 		recordModel := player.GetRecordModel(gamer.Model)
 		if !recordModel.Has(int32(pb.TIME_RECORD_TYPE_LAST_LOGIN)) {
 			gamer.LoginFirst(now)
@@ -123,7 +124,7 @@ func (m *SystemHandler) rpcSwitchServer(msgque netmgr.IMsgQue, msg *msg.Message)
 	if req.IsSwitchOut {
 		g := actor.GamerMgr.GetGamerByGid(req.Gid)
 		if g != nil {
-			if err := g.AddMsgTask(pb.MSG_ID_C2S_LOGIN_SWITCH_SERVER, func() {
+			if err := g.AddMsgTask(pb.MSG_ID_S2S_SWITCH_SERVER_REQ, func() {
 				player.GetMainModel(g.Model).SetConfVersion(g.Doc().ExcelVersion)
 				g.SetOnlineStatus(actor.GamerStatus_Offline)
 			}); err != nil {
@@ -155,9 +156,8 @@ func (m *SystemHandler) reqKickSession(_ netmgr.IMsgQue, msg *msg.Message) {
 }
 
 func (m *SystemHandler) reqHeart(ctx iface.IGamerContext, data *msg.Message) (code errorpb.ERROR, rsp proto.Message) {
-	req := data.Message().(*pb.C2SHeart)
-	rsp = &pb.S2CHeart{CltTs: req.Timestamp, SvrTs: xtime.NowUnixMs()}
-
+	req := data.Message().(*pb.HeartREQ)
+	rsp = &pb.HeartRSP{CltTs: req.CltTs, SvrTs: xtime.NowUnixMs()}
 	gamer, ok := ctx.(*actor.Gamer)
 	if !ok {
 		return errorpb.ERROR_FAILED, rsp

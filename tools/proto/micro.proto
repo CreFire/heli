@@ -136,24 +136,7 @@ enum MSG_ID {
   MAIN_GM_RSP                   = 102;
   LOGIC_2_GATE_KICK_SESSION_REQ = 103;
   LOGIC_2_GATE_KICK_SESSION_RSP = 104;
-  HERO_LOAD_ALL_REQ             = 120;
-  HERO_LOAD_ALL_RSP             = 121;
-  HERO_LV_UP_REQ                = 122;
-  HERO_LV_UP_RSP                = 123;
-  HERO_STAGE_UP_REQ             = 124;
-  HERO_STAGE_UP_RSP             = 125;
-  HERO_STAR_UP_REQ              = 126;
-  HERO_STAR_UP_RSP              = 127;
-  HERO_REBORN_DOWN_REQ          = 128;
-  HERO_REBORN_DOWN_RSP          = 129;
-  HERO_CONFIRM_UP_REQ           = 130;
-  HERO_CONFIRM_UP_RSP           = 131;
-  HERO_CONFIRM_DOWN_REQ         = 132;
-  HERO_CONFIRM_DOWN_RSP         = 133;
-  HERO_CHANGE_REQ               = 134;
-  HERO_CHANGE_RSP               = 135;
-  HERO_CHANGE_POS_REQ           = 136;
-  HERO_CHANGE_POS_RSP           = 137;
+
   USE_ITEM_REQ                  = 138;
   USE_ITEM_RSP                  = 139;
   ARTIFACT_DATA_REQ             = 140;
@@ -162,36 +145,9 @@ enum MSG_ID {
   STRESS_RSP                    = 143;
   PLAYER_LOAD_USER_REQ          = 144;
   PLAYER_LOAD_USER_RSP          = 145;
-  PLAYER_LOAD_UPDATE_NUM_REQ    = 146;
-  PLAYER_LOAD_UPDATE_NUM_RSP    = 147;
-  PLAYER_UPDATE_NICKNAME_REQ    = 148;
-  PLAYER_UPDATE_NICKNAME_RSP    = 149;
   ITEM_LOAD_BAG_REQ             = 150;
   ITEM_LOAD_BAG_RSP             = 151;
-  ITEM_OPEN_LIBAO_REQ           = 152;
-  ITEM_OPEN_LIBAO_RSP           = 153;
-  GUAJI_LOAD_REQ                = 154;
-  GUAJI_LOAD_RSP                = 155;
-  GUAJI_LV_UP_REQ               = 156;
-  GUAJI_LV_UP_RSP               = 157;
-  GUAJI_RECEIVE_REWARD_REQ      = 158;
-  GUAJI_RECEIVE_REWARD_RSP      = 159;
-  GUAJI_RECEIVE_LV_REWARD_REQ   = 160;
-  GUAJI_RECEIVE_LV_REWARD_RSP   = 161;
-  RECRUIT_DRAW_REQ              = 162;
-  RECRUIT_DRAW_RSP              = 163;
-  LEVEL_PASS_REQ                = 164;
-  LEVEL_PASS_RSP                = 165;
-  BOX_OPEN_REQ                  = 166;
-  BOX_OPEN_RSP                  = 167;
-  BOX_RECEIVE_REQ               = 168;
-  BOX_RECEIVE_RSP               = 169;
-  BOX_RECEIVE_ALL_REQ           = 170;
-  BOX_RECEIVE_ALL_RSP           = 171;
-  CODE_USE_REQ                  = 172;
-  CODE_USE_RSP                  = 173;
-  MSG_CENTER_JOIN_REQ           = 174;
-  MSG_CENTER_JOIN_RSP           = 175;
+
   LOGIC_END                     = 199;
 
   S2S_REQ_END                = 3999;
@@ -211,6 +167,8 @@ enum MSG_ID {
   S2S_RPC_SEND_USER_MAIL_RSP = 4114;
   S2S_PING_REQ               = 4115;
   S2S_PING_RSP               = 4116;
+  S2S_BATTLE_CREATE_ROOM_REQ = 4117;
+  S2S_BATTLE_CREATE_ROOM_RSP = 4118;
   S2S_RPC_END                = 4999;
 }
 
@@ -229,4 +187,9 @@ enum SERVER_ID {
   TYPE_LOGIC  = 3;
   TYPE_PUBLIC = 4;
   TYPE_COMBAT = 5;
+}
+
+enum ITEM_TYPE {
+  TYPE_ITEM = 0;
+  TYPE_CURRENCY = 1;
 }

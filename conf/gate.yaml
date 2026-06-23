@@ -1,0 +1,17 @@
+id: 1
+type: "gate"
+cluster: "dev01"
+
+log:
+  level: "info"
+  path: "./logs"
+  fileName: "gate"
+  rotation: "daily"
+  maxFileSizeMB: 100
+  retentionDays: 14
+
+ip: "127.0.0.1"
+port: 10301
+
+asyncPoolSize: 512
+aSyncQueueSize: 8192

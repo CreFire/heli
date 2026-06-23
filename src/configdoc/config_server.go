@@ -105,13 +105,9 @@ func (c *ServerCfg) normalizeRobotConfig() {
 		return
 	}
 	robot := c.Robot
-	if robot.SPR == nil && c.SPR != nil {
-		robot.SPR = c.SPR
-	}
 	if robot.GUI == nil && c.GUI != nil {
 		robot.GUI = c.GUI
 	}
-	robot.normalizeSPRConfig()
 	if robot.EnableSmoke || robot.EnableStress {
 		return
 	}
@@ -135,22 +131,6 @@ func (c *ServerCfg) normalizeRobotConfig() {
 		return
 	}
 	robot.EnableSmoke = true
-}
-
-func (r *Robot) normalizeSPRConfig() {
-	if r == nil {
-		return
-	}
-	if r.SPR == nil {
-		r.SPR = &RobotSPR{}
-	}
-	if strings.TrimSpace(r.SPR.AdapterURL) == "" {
-		r.SPR.AdapterURL = "http://127.0.0.1:8080"
-	}
-	if r.SPR.UploadIntervalMs <= 0 {
-		r.SPR.UploadIntervalMs = 100
-	}
-	r.SPR.AdapterURL = strings.TrimRight(strings.TrimSpace(r.SPR.AdapterURL), "/")
 }
 
 func (c *ServerCfg) RobotGUIEnabled() bool {

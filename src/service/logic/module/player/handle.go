@@ -17,7 +17,7 @@ type Handler struct{}
 func NewHandler() *Handler { return &Handler{} }
 
 func (h *Handler) RegisterHandler(rpc *rpcmgr.RpcMgr, r *router.Router) error {
-	r.CSRegister(pb.MSG_ID_C2S_PLAYER_INFO, actor.WrapC2S(h.reqPlayerLoadUser))
+	r.CSRegister(pb.MSG_ID_PLAYER_LOAD_USER_REQ, actor.WrapC2S(h.reqPlayerLoadUser))
 	return nil
 }
 
@@ -25,5 +25,5 @@ func (h *Handler) reqPlayerLoadUser(ctx iface.IGamerContext, data *msg.Message) 
 	if ctx == nil || ctx.Player() == nil {
 		return errorpb.ERROR_FAILED, nil
 	}
-	return errorpb.ERROR_SUCCESS, &pb.S2CPlayerInfo{Base: ctx.Player().GetPlayerBase()}
+	return errorpb.ERROR_SUCCESS, &pb.PlayerInfoNTF{Base: ctx.Player().GetPlayerBase()}
 }

@@ -21,6 +21,7 @@ message S2SRpcRSP {
     S2SCheckItemRSP check_item_rsp = 14;
     S2SSendUserMailRSP send_user_mail_rsp = 15;
     S2SRpcSendUserMailRSP rpc_send_user_mail_rsp = 16;
+    S2SBattleCreateRoomRSP battle_create_room_rsp = 17;
   }
 }
 
@@ -114,5 +115,19 @@ message S2SPingRSP {
   int64 src_server_id = 1;
   int64 tar_server_id = 2;
   string time_str = 3;
+}
+
+message S2SBattleCreateRoomREQ {
+  string room_id = 1;
+  repeated int64 player_ids = 2;
+  repeated int32 tower_deck = 3;
+  int32 combat_type = 4;
+  int32 level_id = 5;
+}
+
+message S2SBattleCreateRoomRSP {
+  bool ok = 1;
+  string room_id = 2;
+  int64 player_count = 3;
 }
 

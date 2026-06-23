@@ -1,0 +1,44 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Auth",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/src/service/auth",
+            "cwd": "${workspaceFolder}",
+            "args": [
+                "-f",
+                "${workspaceFolder}/conf/auth.yaml"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Launch Gate",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/src/service/gate",
+            "cwd": "${workspaceFolder}",
+            "args": [
+                "-f",
+                "${workspaceFolder}/conf/gate.yaml"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Launch Logic",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/src/service/logic",
+            "cwd": "${workspaceFolder}",
+            "args": [
+                "-f",
+                "${workspaceFolder}/conf/logic.yaml"
+            ],
+            "console": "integratedTerminal"
+        }
+    ]
+}
