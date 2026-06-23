@@ -1,0 +1,234 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "game/src/proto/pb";
+
+import "common.proto";
+
+message ServerNet {
+  string Rpc          = 1;
+  string Cmd          = 2;
+  string Pprof        = 3;
+  string Ext          = 4;
+  string ExtranetAddr = 5;
+  string IntranetAddr = 6;
+  bool   ExtEncrypt   = 7;
+  int32  Timeout      = 8;
+}
+
+message ServerInfo {
+  int32     id          = 1;
+  string    name        = 2;
+  string    type        = 3;
+  ServerNet net         = 4;
+  int32     onlineCount = 5;
+  bool      IsMaster    = 6;
+  int64     MasterIndex = 7;
+  int64     LastTick    = 8;
+  int32     status      = 9;
+}
+
+message ServerConfig {
+  ServerInfo      Server         = 1;
+  string          MongoDsn       = 2;
+  string          EtcdDsn        = 3;
+  string          RedisDsn       = 4;
+  int32           PoolSize       = 5;
+  string          LogLevel       = 6;
+  string          Md5            = 7;
+  bool            IsTest         = 8;
+  RobotAuth       Robot          = 9;
+  repeated string ListenService  = 10;
+  int32           AsyncPoolSize  = 11;
+  int32           AsyncQueueSize = 12;
+  string          Cluster        = 13;
+  string          Ip             = 15;
+  int32           Port           = 16;
+  string          GopsAddr       = 17;
+  string          HttpAddr       = 18;
+}
+
+message RobotAuth {
+  string account  = 1;
+  string auth     = 2;
+  int32  num      = 3;
+  int32  area     = 4;
+  int32  tps      = 5;
+  int32  frameNum = 6;
+  int32  loginInv = 7;
+}
+
+message ServerWarn {
+  repeated int32 badRpc      = 1;
+  int32          lastPanic   = 2;
+  int32          panicCount  = 3;
+  bool           goScale     = 4;
+  int32          goCount     = 5;
+  int32          msgQueCount = 6;
+  int32          rpcCount    = 7;
+  int32          cpuNum      = 8;
+  float          cpuPer      = 9;
+  float          memUsed     = 10;
+  float          memTotal    = 11;
+  float          memPer      = 12;
+  float          diskUsed    = 13;
+  float          diskTotal   = 14;
+  float          diskPer     = 15;
+  uint32         fd          = 16;
+  uint32         fdPeocess   = 17;
+  string         programDir  = 18;
+  int32          pid         = 19;
+  int64          startUnix   = 20;
+  string         goVersion   = 21;
+  string         os          = 22;
+  string         arch        = 23;
+  int64          reloadUnix  = 24;
+}
+
+message InnerNotifyData {
+  string          name = 1;
+  repeated string ips  = 2;
+  string          data = 3;
+  string          dt   = 4;
+}
+
+message InnerPublishInfo {
+  string channel = 1;
+  string data    = 2;
+  bool   pushed  = 3;
+}
+
+message InnerPublishInfoList {
+  repeated InnerPublishInfo infos = 1;
+}
+
+message InnerSubscribeInfo {
+  repeated string channels = 1;
+  int32           psid     = 2;
+}
+
+message ServerMaster {
+  int32  id         = 1;
+  string name       = 2;
+  string serverType = 3;
+  int64  index      = 4;
+}
+
+message InnerLoginOtherDevice {
+  int64 gid  = 1;
+  int64 uuid = 2;
+}
+
+message InnerLoginOtherDeviceCallback {
+  int64 gid  = 1;
+  int64 uuid = 2;
+}
+
+message GamerQueueMsg {
+  int64 gid = 1;
+}
+
+message UserData {
+  int64 gid       = 1;
+  int32 server_id = 2;
+}
+
+message Head {
+  uint32 len   = 1;
+  uint32 code  = 2;
+  uint32 cmd   = 3;
+  uint32 act   = 4;
+  uint32 flags = 5;
+  uint32 seq   = 6;
+}
+
+message StreamMsgC2S {
+  StreamMsg m = 1;
+}
+
+message StreamMsgS2C {
+  StreamMsg m = 1;
+}
+
+message StreamMsg {
+  Head     head = 1;
+  UserData user = 2;
+  bytes    data = 3;
+}
+
+message InnerCombatTest {
+  int64  gid  = 1;
+  string json = 2;
+}
+
+message StressREQ {
+  string Val = 1;
+}
+
+message StressRSP {
+  string Val = 2;
+}
+
+message SayHelloREQ {
+  int32  Id   = 1;
+  string Type = 2;
+}
+
+message SayHelloRSP {
+  int32  Id   = 1;
+  string Type = 2;
+}
+
+message Gate2LogicKickSessionREQ {
+}
+
+message Gate2LogicKickSessionRSP {
+}
+
+message Logic2GateKickSessionREQ {
+}
+
+message Logic2GateKickSessionRSP {
+}
+
+message S2SAddGlobalMailREQ {
+  GlobalMail mail       = 1;
+  int32      reason     = 2;
+  string     reason_str = 3;
+}
+
+message S2SAddGlobalMailRSP {
+}
+
+message S2SSendBatchUserMailREQ {
+  int32                    template_id = 1;
+  int64                    send_time   = 2;
+  string                   title       = 3;
+  string                   content     = 4;
+  // repeated BatchMailTarget targets     = 5;
+  int32                    reason      = 6;
+  string                   reason_str  = 7;
+}
+
+message S2SSendBatchUserMailRSP {
+  repeated int64 gid = 1;
+}
+
+message S2SRemoveGlobalMailREQ {
+  int64 mailId = 1;
+}
+
+message S2SRemoveGlobalMailRSP {
+}
+
+message S2SSyncGmTimeREQ {
+  int64 gmTime = 1;
+}
+
+message S2SSyncGmTimeRSP {
+}
+
+service LogicService {
+  rpc StreamMessage (stream StreamMsgC2S) returns (stream StreamMsgS2C);
+}

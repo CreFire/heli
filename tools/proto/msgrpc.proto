@@ -1,0 +1,118 @@
+syntax = "proto3";
+
+package pbrpc;
+
+option go_package = "game/src/proto/pbrpc";
+
+import "error.proto";
+import "micro.proto";
+import "common.proto";
+
+message S2SRpcRSP {
+  errorpb.RpcError error = 1;
+  pb.MSG_ID msg_id = 2;
+  bytes pay_load = 3;
+  oneof rsp_type {
+    S2SPingRSP ping_rsp = 9;
+    S2SUserLoginRSP user_login_rsp = 10;
+    S2SSwitchServerRSP switch_server_rsp = 11;
+    S2SAddItemRSP add_item_rsp = 12;
+    S2SSubItemRSP sub_item_rsp = 13;
+    S2SCheckItemRSP check_item_rsp = 14;
+    S2SSendUserMailRSP send_user_mail_rsp = 15;
+    S2SRpcSendUserMailRSP rpc_send_user_mail_rsp = 16;
+  }
+}
+
+message S2SSwitchServerREQ {
+  bool is_switch_out = 1;
+  int64 gid = 2;
+  int64 gamer_session = 3;
+}
+
+message S2SSwitchServerRSP {
+  int32 ok = 1;
+}
+
+message S2SAddItemREQ {
+  int64 gid = 1;
+  repeated pb.Item items = 2;
+  int32 reason = 3;
+  string reason_str = 4;
+}
+
+message S2SAddItemRSP {
+  bool ok = 1;
+  repeated pb.Item items = 2;
+}
+
+message S2SSubItemREQ {
+  int64 gid = 1;
+  repeated pb.Item items = 2;
+  int32 reason = 3;
+  string reason_str = 4;
+}
+
+message S2SSubItemRSP {
+  bool ok = 1;
+  repeated pb.Item items = 2;
+}
+
+message S2SCheckItemREQ {
+  int64 gid = 1;
+  repeated pb.Item items = 2;
+}
+
+message S2SCheckItemRSP {
+  bool ok = 1;
+}
+
+message S2SUserLoginREQ {
+  int64 gid = 1;
+  int64 player_session = 2;
+  bool is_reconnect = 3;
+  string device_id = 4;
+}
+
+message S2SUserLoginRSP {
+  int64 gid = 1;
+  bool reconnect_ok = 2;
+  repeated int32 guides = 3;
+}
+
+message S2SSendUserMailREQ {
+  repeated int64 gid = 1;
+  pb.MailNew mail = 2;
+  int32 reason = 3;
+  string reason_str = 4;
+}
+
+message S2SSendUserMailRSP {
+  pb.MailNew mail = 1;
+  repeated int64 gid = 2;
+}
+
+message S2SRpcSendUserMailREQ {
+  repeated int64 gid = 1;
+  pb.MailNew mail = 2;
+  int32 reason = 3;
+  string reason_str = 4;
+}
+
+message S2SRpcSendUserMailRSP {
+  pb.MailNew mail = 1;
+  repeated int64 gid = 2;
+}
+
+message S2SPingREQ {
+  int64 src_server_id = 1;
+  int64 tar_server_id = 2;
+  string time_str = 3;
+}
+
+message S2SPingRSP {
+  int64 src_server_id = 1;
+  int64 tar_server_id = 2;
+  string time_str = 3;
+}
+

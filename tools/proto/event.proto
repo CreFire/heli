@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package eventpb;
+
+option go_package = "game/src/proto/eventpb";
+
+import "common.proto";
+
+enum EVENT_TYPE {
+  UNKNOWN = 0;
+  SERVER_GRAY = 1;
+  ERVER_WHITE_LIST_SWITCH = 2;
+  ON_BATTLE_START = 3;
+  ON_BATTLE_END = 4;
+}
+
+message Event {
+  int64 event_id = 1;
+  EVENT_TYPE type = 2;
+  int64 ts = 3;
+  int64 trace_id = 4;
+  int64 gamer_id = 5;
+  int64 target_id = 6;
+  oneof payload {
+    ServerGrayEvent server_gray = 21;
+    ServerWhiteListSwitchEvent server_white_list_switch = 22;
+  }
+  oneof result {
+    ServerWhiteListSwitchEventResult server_white_list_switch_result = 141;
+    BattleStartEventResult battle_start_result = 142;
+    BattleEndEventResult battle_end_result = 143;
+  }
+}
+
+message ServerGrayEvent {
+  int32 id = 1;
+  string name = 2;
+  string shutdown_time = 3;
+}
+
+message ServerWhiteListSwitchEvent {
+  bool enable = 1;
+}
+
+message ServerWhiteListSwitchEventResult {
+  bool enable = 1;
+}
+
+message BattleStartEvent {
+  int64 combat_id = 1;
+  int32 combat_type = 2;
+  int32 level_id = 3;
+}
+
+message BattleStartEventResult {
+  bool invalid_combat = 1;
+}
+
+message BattleEndEventResult {
+  repeated pb.Item reward = 1;
+}
+

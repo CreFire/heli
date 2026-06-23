@@ -4,19 +4,289 @@ package pb;
 
 option go_package = "game/src/proto/pb";
 
-message LoginReq { 
-    string gid = 1; 
-    string nickname = 2;
- }
+import "common.proto";
+import "micro.proto";
+import "error.proto";
+import "gamer.proto";
+enum DrawType {
+  DRAW_NULL = 0;
+  DRAW_ONE = 1;
+  DRAW_TEN = 2;
+}
 
-message LoginResp { int32 code = 1; string message = 2; string player_id = 3; }
+message NotifyKickNTF {
+}
 
-message MatchReq { string mode = 1; }
+message SystemTipsNtf {
+  string tipId = 1;
+  string param = 2;
+}
 
-message MatchResp { int32 code = 1; string message = 2; string room_id = 3; repeated string player_ids = 4; }
+message AuthPingREQ {
+  int64 clientTime = 1;
+}
 
-message PlayerOp { string room_id = 1; int64 client_frame = 2; int32 op = 3; int32 x = 4; int32 y = 5; int32 unit_id = 6; }
+message AuthPingRSP {
+  int64 clientTime = 1;
+  int64 serverTime = 2;
+}
 
-message GameSnapshot { string room_id = 1; int64 frame = 2; repeated PlayerOp ops = 3; }
+message NotifyLevelChangeRSP {
+  int32 level = 1;
+  int32 exp = 2;
+}
 
-message Heartbeat { int64 unix_ms = 1; }
+message NotifyFlagsRSP {
+  uint64 flags = 1;
+}
+
+message PlayerInfoNTF {
+  PlayerBase base = 1;
+}
+
+message PlayerSetConfigREQ {
+  string name = 1;
+}
+
+message PlayerSetConfigRSP {
+}
+
+message AccountInfoRSP {
+  int32 birthRecharge = 1;
+  RechargeAccountInfo rechargeInfo = 2;
+}
+
+message AccountInfoUpdateRSP {
+  RechargeAccountInfo rechargeInfo = 1;
+}
+
+message RechargeAccountInfo {
+  uint64 rechargeMonthTotal = 1;
+  int64 rechargeUnix = 2;
+}
+
+message MainFlagSetREQ {
+  repeated FlagUnit units = 1;
+}
+
+message MainFlagSetRSP {
+  repeated FlagUnit units = 1;
+}
+
+message FlagUnit {
+  GAMER_FLAGS flag = 1;
+  bool open = 2;
+}
+
+message NotifyRewardsRSP {
+  repeated Item items = 1;
+  repeated Item ItemsDecomp = 2;
+}
+
+message MainGmREQ {
+  string cmd = 1;
+}
+
+message MainGmRSP {
+}
+
+message PackInfoNTF {
+  bool all = 1;
+  map<string, Item> items = 2;
+}
+
+message PackChangeRSP {
+  repeated Item items = 1;
+}
+
+message PackUseREQ {
+  int64 instId = 1;
+  int32 confId = 2;
+  int32 num = 3;
+  repeated int32 chooses = 4;
+}
+
+message PackUseRSP {
+}
+
+message PackSaleREQ {
+  repeated Item items = 1;
+}
+
+message PackSaleRSP {
+}
+
+message ShopInfoREQ {
+  repeated int32 ShopTabId = 1;
+  bool All = 2;
+}
+
+message ShopInfoRSP {
+  repeated ShopInfo ShopInfoList = 1;
+}
+
+message ShopInfo {
+  int32 ShopTabId = 1;
+  map<int32, int32> buyCount = 2;
+}
+
+message ShopBuyREQ {
+  int32 shopTabId = 1;
+  int32 goodsId = 2;
+  int32 goodsNum = 3;
+}
+
+message ShopBuyRSP {
+  map<int32, int32> buyCount = 1;
+  repeated Item items = 2;
+  int32 shopTabId = 3;
+  int32 goodsId = 4;
+}
+
+message LotteryInfoREQ {
+}
+
+message LotteryInfoRSP {
+  map<int32, LotteryRecord> record = 1;
+}
+
+message LotteryData {
+  repeated int32 custom_list = 1;
+}
+
+message LotteryDrawREQ {
+  int32 LotteryId = 1;
+  DrawType draw_type = 2;
+  repeated Item consume = 3;
+}
+
+message LotteryDrawRSP {
+  repeated Item draw_items = 1;
+  map<int32, LotteryRecord> record = 2;
+  int32 LotteryId = 3;
+  DrawType draw_type = 4;
+  repeated Item items = 5;
+}
+
+message ConversionItem {
+  Item source = 1;
+  repeated Item target = 2;
+}
+
+message LotteryRecord {
+  map<int32, int32> draw_cnt = 1;
+}
+
+
+message TaskInfoNTF {
+  bool isAll = 1;
+  repeated GameTask tasks = 2;
+  repeated int32 del = 3;
+  GamerTaskData data = 4;
+  repeated int32 completed = 5;
+  map<int32, GameTask> tasks_map = 6;
+  map<int32, bool> del_map = 7;
+  map<int32, bool> completed_map = 8;
+}
+
+message TaskChangeRSP {
+  repeated GameTask tasks = 1;
+}
+
+message TaskRewardREQ {
+  int32 typeId = 1;
+  int32 taskId = 2;
+  bool isOneKey = 3;
+}
+
+message TaskRewardRSP {
+  repeated Item Items = 1;
+}
+
+message TaskRefreshREQ {
+  int32 typeId = 1;
+}
+
+message TaskRefreshRSP {
+}
+message SwitchServerRSP {
+  bool SwitchSuccess = 1;
+}
+message SwitchServerREQ {
+  
+}
+
+message SwitchServerNTF {
+  
+}
+
+
+message ActivityRewardREQ {
+  int32 activity_id = 1;
+  int32 ac_type = 2;
+}
+
+message ActivityRewardRSP {
+  repeated Item items = 1;
+}
+
+message AchievementInfoRSP {
+  int64 gid = 1;
+  repeated int32 trophies = 2;
+  map<int32, int32> chapters = 3;
+}
+
+message AchievementChangeRSP {
+  repeated int32 trophies = 1;
+  map<int32, int32> chapters = 2;
+}
+
+message AchievementRewardREQ {
+  int32 trophyId = 1;
+}
+
+message AchievementRewardRSP {
+}
+
+message MailInfoREQ {
+  int64 lastId = 1;
+}
+
+message MailInfoRSP {
+  repeated MailNew mails = 1;
+}
+
+message MailInfoNTF {
+  repeated MailNew mails = 1;
+}
+
+message MailReadREQ {
+  repeated int64 mailIds = 1;
+}
+
+message MailReadRSP {
+  repeated int64 mailIds = 1;
+}
+
+message MailPickREQ {
+  repeated int64 mailIds = 1;
+}
+
+message MailPickRSP {
+  repeated Item items = 1;
+  repeated int64 mailIds = 2;
+}
+
+message MailDeleteREQ {
+  repeated int64 mailIds = 1;
+}
+
+message MailDeleteRSP {
+  repeated int64 mailIds = 1;
+}
+
+message HeroInfoNTF {
+  bool all = 1;
+  map<int32, HeroCard> hero = 2;
+}
+

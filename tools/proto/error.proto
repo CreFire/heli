@@ -3,10 +3,106 @@ syntax = "proto3";
 package errorpb;
 
 option go_package = "game/src/proto/errorpb";
+
 enum ERROR {
-  SUCCESS    = 0;
-  FAILED     = 1;
-  UNEXPECTED = 2;
-  PB_PACK    = 3;
-  PB_UNPACK  = 4;
+  SUCCESS                       = 0;
+  FAILED                        = 1;
+  UNEXPECTED                    = 2;
+  PB_PACK                       = 3;
+  PB_UNPACK                     = 4;
+  DATA_TOO_SHORT                = 5;
+  DATA_TOO_LONG                 = 6;
+  DATA_DECRYPT                  = 7;
+  HTTP_TOO_FAST                 = 8;
+  REQUEST_PARAMS                = 9;
+  TCP_C2S_TOO_FAST              = 10;
+  VERSION_TOO_LOW               = 11;
+  VERSION_NOT_FOUND             = 12;
+  UNMARSHAL_JSON_FAILED         = 13;
+  UNMARSHAL_OCTET_FAILED        = 14;
+  UNSUPPORT_HTTP_METHOD         = 15;
+  UNSUPPORT_HTTP_CONTENT_TYPE   = 16;
+  RPC_SERVER_RSP_ERROR          = 17;
+  AUTH_ACCOUNT_CREATE_CLOSED    = 1000;
+  AUTH_SESSION                  = 1001;
+  AUTH_TOKEN_TIMEOUT            = 1002;
+  AUTH_TOKEN_INVALID            = 1003;
+  AUTH_ACCOUNT_NOT_FOUND        = 1004;
+  AUTH_PASSWORD                 = 1005;
+  AUTH_ACCOUNT_FORMAT           = 1006;
+  AREA_ROLE_CREATE_CLOSED       = 1010;
+  AREA_CLOSED                   = 1011;
+  AREA_NOT_FOUND                = 1012;
+  AREA_FIX                      = 1013;
+  AREA_BLACK                    = 1014;
+  ROLE_CREATE_FAILED            = 1020;
+  ROLE_NAME_REPEATED            = 1021;
+  COMMON_MAIL_MAX_ID_SET_FAILED = 1022;
+  HAS_SENSITIVE_WORDS           = 1023;
+  HAS_BAD_CHAR                  = 1024;
+  LOGIN_SESSION_INVALID         = 1030;
+  LOGIN_TOO_FAST                = 1031;
+  LOGIN_RECON_SESSION_INVALID   = 1032;
+  LOGIN_PARAM_INVALID           = 1033;
+  LOGIN_DATA_EXCEPTION          = 1034;
+  LOGIN_NOT_OFFLINE             = 1035;
+  LOGIN_TIMEOUT                 = 1036;
+  LOGIN_REPEAT                  = 1037;
+  LOGIN_AUTH_FAILED             = 1038;
+  LOGIN_SYNC_DATA_FAILED        = 1039;
+  LOGIC_SERVER_NOT_FOUND        = 1040;
+  LOGIC_SERVER_BUSY             = 1041;
+  CENTER_SERVER_NOT_FOUND       = 1042;
+  ASSOC_SERVER_NOT_FOUND        = 1043;
+  MATCH_SERVER_NOT_FOUND        = 1044;
+  PVP_SERVER_NOT_FOUND          = 1045;
+  RPC_MUTEX_OPERATE_TIMEOUT     = 1046;
+  ACCOUNT_CLEARED               = 1047;
+  LOGIN_IN_QUEUE                = 1048;
+  LOGIN_EXIT_QUEUE              = 1049;
+  PVP_SERVER_BUSY               = 1050;
+  KICK_OTHER_DEVICE_LOGIN       = 2050;
+  KICK_NOTICE                   = 2051;
+  KICK_DATA_EXCEPTION           = 2052;
+  KICK_NET_PB_UNPACK            = 2053;
+  KICK_SERVER_FIX               = 2054;
+  GM_FORBID_ACCOUNT             = 2060;
+  GM_FORBID_ROLE                = 2061;
+  GM_FORBID_IP                  = 2062;
+  GM_FORBID_SPEAK               = 2063;
+  MAIN_GM_PARAMS                = 2064;
+  FIGHT_PVP_NOT_FOUND_ROOM      = 1140;
+  FIGHT_PVP_CREATE_EXCEPT       = 2143;
+  FIGHT_PVP_INPUT_EXCEPT        = 2144;
+  ROOM_QUESTION_ID              = 2250;
+  ITEM_NOT_ENOUGH               = 2300;
+  PACK_FULL                     = 2301;
+  PACK_ITEM_IS_NIL              = 2402;
+  PACK_ITEM_CONF_NOT_FOUND      = 2403;
+  ITEM_NOT_ENOUGH_DIAMOND       = 2404;
+  ITEM_NOT_ENOUGH_GOLD          = 2405;
+  ITEM_NOT_ENOUGH_CURRENCY      = 2406;
+  REWARD_REPEATED               = 2450;
+  CONF_NOT_FOUND                = 2451;
+  HERO_NOT_FOUND                = 2500;
+  HERO_LEVEL_MAX                = 2501;
+  FUNCTION_NOT_OPEN             = 2502;
+
+  RPC_SEND_FAILED           = 4000;
+  RPC_GAMER_NOT_FOUND       = 4001;
+  RPC_GAMER_TASK_ADD_FAILED = 4002;
+  RPC_LOGIC_FAILED          = 4003;
+  RPC_WAIT_TIMEOUT          = 4004;
+  RPC_SERVER_PROCESSING     = 4005;
+}
+
+message HttpError {
+  int32               err_code  = 1;
+  string              err_desc  = 2;
+  map<string, string> meta_data = 3;
+}
+
+message RpcError {
+  ERROR  err_code = 1;
+  string err_desc = 2;
 }

@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "game/src/proto/pb";
+
+import "common.proto";
+
+message GamerPackData {
+  map<string, Item> item_map = 1; //@gotags: bson:"it"
+  map<string, Item> currency_map = 2; //@gotags: bson:"cu"
+}
+
+message GamerBaseData {
+  PlayerBase player_base = 1; //@gotags: bson:"pl"
+}
+
+message GamerRecordData {
+  map<int32, int64> record_map = 1; //@gotags: bson:"re"
+}
+
+message GamerShopData {
+  map<int32, ShopTabData> ShopTabs = 1; //@gotags: bson:"tab"
+}
+
+
+message GamerTaskData {
+  map<int32, GameTask>     task_map          = 1; //@gotags: bson:"t"
+  int64                    last_fresh_time   = 2; //@gotags: bson:"lft"
+}

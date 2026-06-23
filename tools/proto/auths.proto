@@ -1,0 +1,158 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "game/src/proto/pb";
+
+import "micro.proto";
+import "common.proto";
+import "error.proto";
+
+message LogicServerInfo {
+  int32        id       = 1;
+  string       name     = 2;
+  SERVER_STATE state    = 3;
+  bool         register = 4;
+  int64        time     = 5;
+}
+
+message UserRoleInfo {
+  int64  gid   = 1;
+  int32  sid   = 2;
+  int32  level = 3;
+  int32  icon  = 4;
+  string name  = 5;
+}
+
+message ServerAddr {
+  string ip   = 1;
+  int32  port = 2;
+}
+
+enum AuthLoginType {
+  AUTH_LOGIN_TYPE_ACCOUNT       = 0;        // 普通账号登录
+  AUTH_LOGIN_TYPE_CODE2_SESSION = 1;  // 小程序 / H5 主登录 code2Session
+  AUTH_LOGIN_TYPE_WX_LOGIN      = 2;       // APP 微信登录 wxlogin
+}
+
+message Code2SessionLoginInfo {
+  string serverCa = 1;   // 登录接口鉴权串 server_ca
+  string module   = 2;     // 固定 login
+  string method   = 3;     // 固定 code2Session
+  string code     = 4;       // 登录 code，本地 debug 下直接当 openId/unionId
+  string protocol = 5;   // 连接协议，通常 ws
+  string app      = 6;        // 应用标识，默认 sg
+  string platform = 7;   // 平台标识，例如 h5
+  string parentId = 8;   // 邀请人/上级 id
+  string friendId = 9;   // 邀请好友 id
+  string openId   = 10;    // code 换取后的 openId
+  string unionId  = 11;   // code 换取后的 unionId
+}
+
+message AuthLoginREQ {
+  string                account      = 1;
+  DeviceInfo            deviceInfo   = 2;
+  string                token        = 3;
+  AuthLoginType         loginType    = 4;            // 登录类型，默认普通账号登录
+  Code2SessionLoginInfo code2Session = 5; // code2Session 登录参数
+}
+
+message AuthLoginRSP {
+  errorpb.HttpError        err           = 1;
+  string                   account       = 2;
+  string                   session       = 3;
+  repeated UserRoleInfo    roles         = 4;
+  int32                    timeZone      = 5;
+  uint64                   globalFlags   = 6;
+  int32                    CreatedDays   = 7;
+  repeated LogicServerInfo areas         = 8;
+  bool                     showWaterMark = 9;
+  string                   Ip            = 10;
+  AuthLoginType            loginType     = 11;  // 本次登录类型
+  string                   openId        = 12;            // 小程序登录绑定的 openId
+  string                   unionId       = 13;           // 小程序登录绑定的 unionId
+}
+
+message AuthCheckREQ {
+  string     account    = 1;
+  int32      lsId       = 2;
+  DeviceInfo deviceInfo = 3;
+}
+
+message AuthUseRoleREQ {
+  string     session    = 1;
+  int32      sid        = 2;
+  DeviceInfo deviceInfo = 3;
+  string     name       = 4;
+}
+
+message UserLoginQueue {
+  int32 index        = 1;
+  int64 NextReqTime  = 2;
+  int64 nextDuration = 3;
+}
+
+message AuthUseRoleRSP {
+  errorpb.HttpError err          = 1;
+  int64             gid          = 2;
+  ServerAddr        addr         = 3;
+  int64             forbidStart  = 4;
+  int64             forbidEnd    = 5;
+  string            forbidReason = 6;
+  int32             timeZone     = 7;
+  UserLoginQueue    queue        = 9;
+  string            Host         = 10;
+}
+
+message LoginBySessionREQ {
+  int64      gid        = 1;
+  string     session    = 2;
+  bool       reconnect  = 3;
+  DeviceInfo deviceInfo = 4;
+}
+
+message LoginReconnectREQ {
+  int64  gid     = 1;
+  string session = 2;
+  int32  ack     = 3;
+}
+
+message LoginReconnectRSP {
+  int32 ack = 1;
+}
+
+message LoginBySessionRSP {
+  errorpb.ERROR  err            = 1;
+  Gamer          main           = 2;
+  int64          forbidStart    = 4;
+  int64          forbidEnd      = 5;
+  string         forbidReason   = 6;
+  int32          timeZone       = 7;
+  int64          registerTime   = 8;
+  int32          index          = 9;
+  int32          maxProcesseNum = 10;
+  int32          reqIntervalSec = 11;
+  repeated int32 guides         = 12;
+}
+
+message LoginSyncNTF {
+  int32 status       = 1;
+  bool  deviceChange = 2;
+}
+
+message LoginOutREQ {
+  int64 gid = 1;
+}
+
+message LoginOutRSP {
+}
+
+message ServerCloseNTF {
+  int32  code      = 1;
+  int64  shut_time = 2;
+  string reason    = 3;
+}
+
+service AuthLoginService {
+  rpc AuthLogin (AuthLoginREQ) returns (AuthLoginRSP);
+}

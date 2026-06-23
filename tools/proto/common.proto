@@ -3,26 +3,126 @@ syntax = "proto3";
 package pb;
 
 option go_package = "game/src/proto/pb";
-enum GAMER_STATUS {
-  OFFLINE  = 0;
-  ONLINE   = 1;
-  MATCH    = 2;
-  INCOMING = 3;
-  FIGHTING = 4;
-  EXITING  = 5;
-  INTERACT = 6;
+
+import "micro.proto";
+message DeviceInfo {
+  int64  gid             = 1;//@inject_tag: bson:"gid" // 玩家id
+  string channel         = 2;//@inject_tag: bson:"channel"         // 渠道类型
+  string platform        = 3; //@inject_tag: bson:"platform"        // 平台类型: pc/ios/android
+  string deviceModel     = 4;   //@inject_tag: bson:"deviceModel"     // 设备型号
+  string deviceId        = 5; //@inject_tag: bson:"deviceId"        // 设备串号
+  string operatingSystem = 6;//@inject_tag: bson:"operatingSystem" // 系统
+  int32  cpuNum          = 7;  //@inject_tag: bson:"cpuNum"          // CPU核心数
+  int32  memSize         = 8;   //@inject_tag: bson:"memSize"         // 内存大小（MB）
+  string version         = 9;  //@inject_tag: bson:"version"         // 配置版本号
+  string clientVersion   = 10;  //@inject_tag: bson:"clientVersion"   // 客户端程序版本
+  bool   checkVersion    = 11; //@inject_tag: bson:"checkVersion"    // 是否检查版本
+  string machineCode     = 12;    //@inject_tag: bson:"machineCode"     // 机器唯一码
 }
 
 message Gamer {
-  int64        id      = 1;
-  string       account = 2;
-  GAMER_STATUS status  = 3;
-  string       session = 4;
-  int32        pSId    = 5;
+  int64        id              = 1;
+  string       account         = 2;
+  GAMER_STATUS status          = 3;
+  string       session         = 4;
+  int32        LsId            = 5;
+  int32        pSId            = 6;
+  int64        registerTime    = 10;
+  int64        LoginTime       = 11;
+  int64        OfflineTime     = 12;
+  int64        lastPassDayTime = 13;
+  int32        lastConfVersion = 14;
+}
+
+message GlobalMail {
+  int64               Id              = 1; //@gotags: bson:"id"
+  int64               CreateTime      = 2; //@gotags: bson:"ct"
+  int64               EndTime         = 3; //@gotags: bson:"et"
+  repeated Item       Items           = 4; //@gotags: bson:"i"
+  string              Content         = 5; //@gotags: bson:"c"
+  string              Title           = 6; //@gotags: bson:"t"
+  MailNew             Mail            = 7; //@gotags: bson:"m"
+  GlobalMailLimitType LimitType       = 8; //@gotags: bson:"lt"
+  int32               LvMin           = 9; //@gotags: bson:"lmin"
+  int32               LvMax           = 10; //@gotags: bson:"lmax"
+  int64               GamerCreateTime = 11; //@gotags: bson:"gct"
+  repeated int64      gamer_list      = 12; //@gotags: bson:"gl"
+}
+
+message MailNew {
+  int64           MailId      = 1; //@gotags: bson:"mid"
+  int32           MailType    = 2; //@gotags: bson:"mt"
+  int32           MailState   = 3; //@gotags: bson:"ms"
+  int32           TemplateId  = 4; //@gotags: bson:"tid"
+  string          Title       = 5; //@gotags: bson:"ttl"
+  string          Content     = 6; //@gotags: bson:"ct"
+  int64           SendTime    = 7; //@gotags: bson:"st"
+  int64           EndTime     = 8; //@gotags: bson:"et"
+  repeated Item   Attachments = 9; //@gotags: bson:"at"
+  repeated string Params      = 10; //@gotags: bson:"p"
+  string          Sender      = 11; //@gotags: bson:"s"
+}
+
+enum GlobalMailLimitType {
+  GMLT_NONE        = 0;
+  GMLT_LV          = 1;
+  GMLT_CREATE_TIME = 2;
+  GMLT_GAMER_LIST  = 3;
+}
+
+message GlobalMailData {
+  map<int64, GlobalMail> MailData = 1; //@gotags: bson:"m"
+}
+
+message HeroCard {
+  string instId = 1; //@gotags: bson:"ins"
+  int32  confId = 2; //@gotags: bson:"cid"
 }
 
 message PlayerBase {
-  int64  id       = 1;// @gotags: bson:"gid";
+  int64  gid      = 1;// @gotags: bson:"gid";
   string nickname = 2;// @gotags: bson:"nickname";
-  int32  serverId = 3;// @gotags: bson:"server_id";
+  int32  serverId = 3;// @gotags: bson:"sid";
+  int32  lv       = 4; //@gotags: bson:"lv";
+  int32  icon     = 5;//@gotags: bson:"icon";
+}
+
+message Item {
+  int64  instId  = 1; //@gotags: bson:"iid"
+  string confId  = 2; //@gotags: bson:"cid"
+  int32  type    = 3; //@gotags: bson:"t"
+  int64  num     = 4; //@gotags: bson:"n"
+  int64  expires = 5; //@gotags: bson:"exp"
+  int64  ctime   = 6; //@gotags: bson:"ct"
+  int64  change  = 7; //@gotags: bson:"chg"
+}
+
+message RpcForward {
+  int32 fromId   = 1;
+  int64 gid      = 2;
+  bool  toClient = 3;
+  int32 cmd      = 4;
+  int32 act      = 5;
+  bytes content  = 6;
+  bool  force    = 7;
+}
+
+message GameTask {
+  int32      id        = 1; //@gotags: bson:"id"
+  TASK_STATE state     = 2; //@gotags: bson:"st"
+  int32      progress  = 3; //@gotags: bson:"p"
+  int32      finishNum = 4; //@gotags: bson:"fn"
+  int64      lastTime  = 5; //@gotags: bson:"lt"
+  int64      startTime = 6; //@gotags: bson:"s"
+  int64      endTime   = 7; //@gotags: bson:"e"
+  int32      taskType  = 9; //@gotags: bson:"tt"
+}
+
+message ShopTabData {
+  int64             refreshTime = 1; //@gotags: bson:"rt"
+  map<int32, int32> buyCount    = 2; //@gotags: bson:"bc"
+}
+
+message ExpireAtDate {
+  int64 unix_sec = 1;
 }

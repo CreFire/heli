@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package msgbase;
+
+option go_package = "game/deps/proto/msgbase";
+
+// import "micro.proto";
+// import "error.proto";
+
+// MsgType 对应 WebSocket 业务头中的 msgType 字节。
+// 当前 WebSocket 线协议使用 bit 标记：
+//   MSG_TYPE_UNKNOWN / MSG_TYPE_NONE = 0：普通消息
+//   MSG_TYPE_RPC = 0x01：RPC 消息，后续会携带 rpc_call_id
+// 旧的 C2S/S2C/S2S 枚举值保留用于兼容现有服务端代码。
+enum MsgType {
+  MSG_TYPE_UNKNOWN = 0;
+  MSG_TYPE_C2S_REQ = 1;
+  MSG_TYPE_S2C_RSP = 2;
+  MSG_TYPE_RPC_REQ = 3;
+  MSG_TYPE_RPC_RSP = 4;
+  MSG_TYPE_S2S_NTF = 5;
+}
+
+// MsgHead 是服务端内部归一化后的消息头。
+//
+// WebSocket 线协议是二进制格式，不是 protobuf：
+//   normal: | len:uint16 LE | checkCode:uint8 | msgType:uint8 | cmd:uint32 LE | body |
+//   rpc:    | len:uint16 LE | checkCode:uint8 | msgType:uint8 | cmd:uint32 LE | rpcCallId:uint32 LE | body |
+//
+// 该 protobuf 消息仅表示 WebSocket 二进制头解析后的进程内结构。
+// body 不在 MsgHead 中定义，由 cmd 对应的业务 protobuf 消息解析。
+message MsgHead {
+  // WebSocket 解析后的头字段。
+  int32  body_len    = 1;   // 仅 body 长度；线协议中的 len 不包含自身，但包含 check_code
+  uint32 check_code  = 2;  // 解析出的 checkCode 字节，主要用于调试
+  uint32 msg_id      = 3;  // 原始 cmd = main_cmd_id | sub_cmd_id << 16
+  uint32 cmd_id      = 4;  // cmd 低 16 位
+  uint32 act_id      = 5;  // cmd 高 16 位
+  bytes  msg_type    = 6;  // WebSocket 原始 msgType 字节
+  uint32 rpc_call_id = 7;  // 仅当 msgType 包含 MSG_TYPE_RPC 标记时存在
+}
+
+enum MsgFlags {
+  MSG_FLAG_NONE     = 0;
+  MSG_FLAG_ENCRYPT  = 1;
+  MSG_FLAG_BROAD    = 2;
+  MSG_FLAG_ACK      = 4;
+  MSG_FLAG_COMPRESS = 8;
+  MSG_FLAG_ROUT     = 16;
+}
