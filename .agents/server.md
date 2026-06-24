@@ -2,405 +2,117 @@
 
 > 项目路径：`E:\work\heli\server`  
 > Go module：`game`  
-> 当前定位：Go TCP 长连接游戏服务器，使用 Protobuf 协议，依赖 MongoDB 与 Redis。  
-> 最近同步：已执行 `codegraph sync`，退出码 `0`。
+> 当前定位：Go 游戏服务端工程，已从最小 TCP 联机样例演进为多服务/多依赖基础库工程。  
+> 最近同步：2026-06-24（基于当前仓库文件事实更新）。
 
 ---
 
-## 1. 项目概览
+## 1. 当前项目事实
 
-`server` 是 `heli` 项目的服务端工程，当前已具备最小联机闭环的核心代码：
+当前仓库已经不再是单一的最小 TCP 样例骨架，现状更接近“通用服务基础设施 + auth/gate/battle/logic 等服务拆分中的游戏服务端工程”：
 
-- TCP 长连接服务器。
-- 大端序二进制包头协议。
-- Protobuf 消息体编解码。
-- 登录/创建玩家。
-- 简单匹配组房。
-- 玩家操作广播为游戏快照。
-- MongoDB 持久化玩家与房间数据。
-- Redis 写入房间运行状态。
-- Viper 配置加载与环境变量覆盖。
-
-当前 `src/main.go` 仍为空入口，仅包含 `package main`。`README.md` 中写的是 `go run ./cmd/server`，但当前工程未发现 `cmd/server` 目录，需要补齐启动入口或修正文档中的启动命令。
+- `go.mod` 仍为模块 `game`，Go 版本 `1.26.4`。
+- 配置目录当前存在 `conf/auth.yaml`、`conf/gate.yaml`、`conf/global.yaml`、`conf/logic.yaml`，原 `conf/local.yaml` 已不存在。
+- 当前仓库根目录未发现 `cmd/`，也未发现 `src/main.go`。
+- 已存在服务目录：`src/service/auth/`、`src/service/gate/`、`src/service/battle/`。
+- 已新增较多基础组件：`deps/etcd`、`deps/redis`、`deps/router`、`deps/server`、`deps/service_mgr`、`deps/transport`、`deps/xgrpc`、`deps/xhttp` 等。
+- battle 方向当前已落地 `src/service/battle/sync/` 作为局内权威状态同步领域层。
+- proto 生成脚本当前存在 `tools/gen_proto.ps1` 与 `tools/server_gen_proto.py`；README 中写的 `tools/gen-proto.ps1` 与当前文件名不一致。
 
 ---
 
-## 2. 当前目录结构
+## 2. 当前应作为“项目记忆”的重点
 
-```text
-server/
-├── .agents/
-│   └── server.md                  # 本文档
-├── bin/                           # 二进制或运行产物目录
-├── conf/
-│   └── local.yaml                 # 本地配置
-├── deps/                          # 依赖资源目录
-├── docconf/                       # 文档/配置辅助目录
-├── internal/
-│   ├── config/
-│   │   ├── config.go              # 配置加载
-│   │   └── config_test.go         # 配置测试
-│   ├── game/
-│   │   └── manager.go             # 登录、匹配、房间、快照管理
-│   ├── netserver/
-│   │   └── server.go              # TCP 服务与会话处理
-│   ├── protocol/
-│   │   ├── codec.go               # TCP 包读写
-│   │   ├── commands.go            # 指令号定义
-│   │   └── game.pb.go             # 生成的 Protobuf 代码
-│   └── store/
-│       └── store.go               # MongoDB/Redis 连接管理
-├── src/
-│   ├── main.go                    # 当前入口占位
-│   └── proto/pb/                  # 另一份生成的 Protobuf 代码
-├── tools/
-│   ├── bin/                       # protoc 与 Go 生成插件
-│   ├── proto/                     # proto 源文件
-│   ├── server_gen_proto.py        # 协议生成脚本
-│   └── export_proto_common.py     # 协议导出辅助脚本
-├── go.mod
-├── go.sum
-└── README.md
-```
+### 2.1 硬约束
+
+- proto 调用统一使用 `google.golang.org/protobuf/proto`。
+- 不手工修改 `.pb.go` 表达业务语义；业务语义回到 `.proto` 或业务代码。
+- 修改 proto 时仅编辑 `tools/proto/*.proto`，再通过脚本生成代码。
+
+### 2.2 当前协作主线
+
+截至 2026-06-24，最近明确完成的开发主线是：
+
+- 目标：编写 battle 战斗服状态同步领域层。
+- 范围：`src/service/battle/sync` 的内存权威状态、快照、增量事件，以及建塔/重随/合成/矿工操作。
+- 不做范围：本次未接网络、未改 proto、未生成 pb.go、未实现杀怪/波次/悬赏怪物金币来源。
+
+### 2.3 battle/sync 当前能力
+
+已实现文件：
+
+- `src/service/battle/sync/room.go`
+- `src/service/battle/sync/room_test.go`
+
+已记录能力：
+
+- `RoomConfig`：初始资源、建塔/重随/矿工成本、矿工产出、塔等级上限、玩家建造范围、默认塔池。
+- `Room`：维护玩家资源、塔、矿工、`server_tick`、增量事件。
+- `BuildTower`：校验玩家、建造范围、格子占用、金币；扣金币并生成 1 级随机塔。
+- `RerollTower`：仅允许重随自己的塔；扣魔力；等级不变，只随机塔种类。
+- `MergeTower`：要求同玩家、同类型、同等级、未达等级上限；新塔保留主塔位置，材料塔位置清空。
+- `BuyMiner` / `AdvanceToTick`：购买矿工并按固定 tick 产出魔力。
+- `Snapshot`：输出玩家、塔、矿工快照。
+- `FlushDeltas`：输出并清空资源变化、建塔、重随、合成、买矿工、矿工产出等增量事件。
 
 ---
 
-## 3. 技术栈
+## 3. 当前验证事实
 
-| 类型 | 选型 |
-| --- | --- |
-| 语言 | Go |
-| 网络 | TCP 长连接 |
-| 协议 | Protobuf |
-| 配置 | Viper |
-| 数据库 | MongoDB |
-| 缓存 | Redis |
-| 日志 | 当前主要使用标准库 `log`，`go.mod` 已引入 `zap` |
-| 测试 | Go test + testify |
-
-主要依赖见 `go.mod`：
-
-- `github.com/spf13/viper`
-- `github.com/redis/go-redis/v9`
-- `go.mongodb.org/mongo-driver`
-- `google.golang.org/protobuf`
-- `go.uber.org/zap`
-- `github.com/stretchr/testify`
-
----
-
-## 4. 配置说明
-
-默认配置文件：`conf/local.yaml`
-
-```yaml
-tcp_addr: ":7001"
-mongo_uri: "mongodb://127.0.0.1:27017"
-mongo_db: "heli"
-redis_addr: "127.0.0.1:6379"
-redis_password: ""
-redis_db: 0
-room_size: 2
-tick_interval: "200ms"
-```
-
-配置加载逻辑位于 `internal/config/config.go`：
-
-1. 设置默认值。
-2. 优先读取环境变量 `CONFIG_FILE` 指定的配置文件。
-3. 未指定时读取 `conf/local.yaml` 或当前目录下的 `local.yaml`。
-4. 支持环境变量覆盖，`.` 会映射为 `_`。
-
-常用环境变量：
+### 3.1 已通过
 
 ```powershell
-$env:TCP_ADDR=":7001"
-$env:MONGO_URI="mongodb://127.0.0.1:27017"
-$env:MONGO_DB="heli"
-$env:REDIS_ADDR="127.0.0.1:6379"
-$env:REDIS_PASSWORD=""
-$env:REDIS_DB="0"
-$env:ROOM_SIZE="2"
-$env:TICK_INTERVAL="200ms"
-$env:CONFIG_FILE="E:\work\heli\server\conf\local.yaml"
+go test ./src/service/battle/sync
 ```
 
----
+### 3.2 当前全量测试阻塞
 
-## 5. 启动依赖
+`go test ./...` 当前未完成全量通过。已知交接中记录的阻塞项包括：
 
-本地运行前需要准备：
+- `src/service/auth/bs.go` 引用缺失包 `game/src/backend`
+- `src/service/gate/gatesvr.go` 引用缺失包 `game/src/metrics`
+- `src/service/gate/module/login/handler.go` 引用缺失包 `game/src/common/bi`
+- 持久化/生成代码仍存在既有缺口，历史交接中记录过 `pb.GamerMailDataNew` 等未定义问题
 
-- MongoDB：`127.0.0.1:27017`
-- Redis：`127.0.0.1:6379`
-
-连接逻辑位于 `internal/store/store.go`：
-
-- MongoDB 连接超时：`5s`
-- Redis 连接超时：共用 `5s` 上下文
-- 连接成功后返回 `Stores{Mongo, DB, Redis}`
-- `Close` 会关闭 MongoDB 与 Redis 连接
+后续任何人声称“项目全量可编译/可启动”前，应重新以当前代码事实复核。
 
 ---
 
-## 6. 网络协议
+## 4. 当前文档不一致点
 
-协议实现位于 `internal/protocol/codec.go`。
+以下内容已确认与当前代码事实不一致，后续阅读时不要继续沿用旧说法：
 
-### 6.1 TCP 包格式
+1. **旧说法：** 项目默认配置为 `conf/local.yaml`  
+   **当前事实：** 当前 `conf/` 下未发现 `local.yaml`，存在 `auth.yaml`、`gate.yaml`、`global.yaml`、`logic.yaml`。
 
-大端序：
+2. **旧说法：** 启动命令为 `go run ./cmd/server`  
+   **当前事实：** 当前仓库未发现 `cmd/` 目录；需按具体服务入口重新确认启动方式。
 
-```text
-uint32 body_length + uint16 cmd + protobuf_body
-```
+3. **旧说法：** `src/main.go` 为占位入口  
+   **当前事实：** 当前未发现 `src/main.go`。
 
-字段说明：
+4. **旧说法：** proto 脚本是 `tools/gen-proto.ps1`  
+   **当前事实：** 当前实际存在的是 `tools/gen_proto.ps1`。
 
-| 字段 | 长度 | 说明 |
-| --- | --- | --- |
-| `body_length` | 4 字节 | Protobuf 消息体长度 |
-| `cmd` | 2 字节 | 指令号 |
-| `protobuf_body` | N 字节 | Protobuf 序列化后的消息体 |
-
-### 6.2 协议限制
-
-```go
-const (
-    HeaderSize    = 6
-    MaxPacketSize = 1 << 20
-)
-```
-
-单包最大消息体：`1 MiB`。
+5. **旧说法：** 项目仍主要围绕最小 TCP/Mongo/Redis MVP 目录组织  
+   **当前事实：** 仓库已出现 auth/gate/battle、多类 deps 基础设施和更大规模 proto/config 产物，应按新工程事实理解。
 
 ---
 
-## 7. 指令清单
+## 5. 当前建议的维护策略
 
-指令定义位于 `internal/protocol/commands.go`。
-
-| Cmd | 消息 | 方向 | 说明 |
-| --- | --- | --- | --- |
-| `1001` | `LoginReq` | Client -> Server | 登录/创建玩家 |
-| `1002` | `LoginResp` | Server -> Client | 登录响应 |
-| `1101` | `MatchReq` | Client -> Server | 加入匹配队列 |
-| `1102` | `MatchResp` | Server -> Client | 匹配中/匹配成功 |
-| `1201` | `PlayerOp` | Client -> Server | 玩家战斗操作 |
-| `1202` | `GameSnapshot` | Server -> Client | 帧快照/操作广播 |
-| `9001` | `Heartbeat` | 双向 | 心跳 |
+- 继续保留 `.agents/coordination/` 作为协作事实来源，优先相信最新交接文件而不是旧总览文档。
+- 后续如有人补齐新的服务入口、配置加载链路、proto 生成目标，应同步修正 README 与本文档。
+- 如要恢复“项目一键启动/全量测试通过”的记忆，必须先跑通实际命令并记录结果，不要凭旧文档推断。
 
 ---
 
-## 8. 当前联机闭环
-
-当前核心流程：
-
-1. 客户端建立 TCP 连接。
-2. 客户端发送 `LoginReq`。
-3. 服务端在 MongoDB `players` 集合中 upsert 玩家数据。
-4. 客户端发送 `MatchReq`。
-5. 服务端按 `room_size` 将等待队列中的玩家组房。
-6. 服务端在 MongoDB `rooms` 集合中插入房间记录。
-7. 服务端向 Redis 写入 `room:{room_id}:status = playing`。
-8. 客户端发送 `PlayerOp`。
-9. 服务端将操作加入房间操作队列。
-10. 服务端生成 `GameSnapshot` 并广播给房间内所有会话。
-
----
-
-## 9. 模块说明
-
-### 9.1 `internal/netserver`
-
-职责：
-
-- 监听 TCP 地址。
-- 接收客户端连接。
-- 为每个连接创建 `Session`。
-- 分离读循环与写循环。
-- 根据 `cmd` 分发处理逻辑。
-
-当前会话处理逻辑：
-
-- `CmdLoginReq`：反序列化 `LoginReq`，调用 `game.Manager.Login`。
-- `CmdMatchReq`：要求已登录，调用 `game.Manager.Match`。
-- `CmdPlayerOp`：写入房间操作并广播快照。
-- `CmdHeartbeat`：回包当前毫秒时间戳。
-- 未知指令：打印日志后忽略。
-
-### 9.2 `internal/game`
-
-职责：
-
-- 玩家登录。
-- 匹配等待队列。
-- 房间创建和内存管理。
-- 玩家操作暂存。
-- 快照生成。
-
-关键内存结构：
-
-- `waiting []Session`：匹配等待队列。
-- `rooms map[string]*Room`：房间表。
-- `playerRoom map[string]string`：玩家所在房间索引。
-
-### 9.3 `internal/store`
-
-职责：
-
-- 连接 MongoDB。
-- 连接 Redis。
-- 聚合存储依赖并提供关闭方法。
-
-### 9.4 `internal/config`
-
-职责：
-
-- 读取配置文件。
-- 设置默认配置。
-- 支持环境变量覆盖。
-
----
-
-## 10. 本地开发命令
-
-### 10.1 安装/整理依赖
-
-```powershell
-go mod tidy
-```
-
-### 10.2 运行测试
-
-```powershell
-go test ./...
-```
-
-### 10.3 启动服务
-
-当前代码尚未补齐可用启动入口。推荐补齐以下入口之一：
-
-方案 A：新增 `cmd/server/main.go`，保持 `README.md` 中的命令不变：
-
-```powershell
-go run ./cmd/server
-```
-
-方案 B：将 `src/main.go` 改为真实入口，并将启动命令修正为：
-
-```powershell
-go run ./src
-```
-
-建议优先使用方案 A，符合 Go 服务端常见布局。
-
----
-
-## 11. Proto 生成
-
-协议源文件位于：
-
-```text
-tools/proto/
-├── common.proto
-├── client.proto
-└── micro.proto
-```
-
-当前仓库包含：
-
-- `tools/server_gen_proto.py`
-- `tools/export_proto_common.py`
-- `tools/bin/protoc.exe`
-- `tools/bin/protoc-gen-go.exe`
-- `tools/bin/protoc-gen-go-grpc.exe`
-- `tools/bin/protoc-gen-gotag.exe`
-- `tools/bin/protoc-go-inject-tag.exe`
-
-生成产物目前存在两处：
-
-```text
-internal/protocol/game.pb.go
-src/proto/pb/*.pb.go
-```
-
-需要后续统一生成目标，避免协议代码重复和导入路径混乱。
-
----
-
-## 12. 已知问题与待办
-
-### 12.1 高优先级
-
-- [ ] 补齐真实启动入口：建议新增 `cmd/server/main.go`。
-- [ ] 修正 `README.md` 与实际目录结构不一致的问题。
-- [ ] 明确 `src/proto/pb` 与 `internal/protocol` 两套 pb 代码的用途，并统一协议生成路径。
-- [ ] 为 TCP server 增加优雅停机流程和连接清理。
-- [ ] 为 `PlayerOp` 增加登录态、房间归属和玩家权限校验。
-
-### 12.2 中优先级
-
-- [ ] 使用 `zap` 替换标准库 `log`，统一结构化日志。
-- [ ] 增加连接读写超时、心跳超时和空闲连接清理。
-- [ ] 增加包频率限制和恶意包防护。
-- [ ] 为匹配队列增加去重逻辑，避免同一会话重复排队。
-- [ ] 为 MongoDB `players`、`rooms` 建索引。
-
-### 12.3 后续玩法
-
-- [ ] 怪物波次。
-- [ ] 塔属性与升级规则。
-- [ ] 战斗结算。
-- [ ] 断线重连。
-- [ ] 房间恢复。
-- [ ] 多房间定时 Tick。
-- [ ] 战斗日志或回放。
-
----
-
-## 13. 推荐启动入口草案
-
-建议新增 `cmd/server/main.go`，逻辑如下：
-
-1. 加载配置。
-2. 连接 MongoDB/Redis。
-3. 创建 `netserver.Server`。
-4. 监听系统信号。
-5. 启动 TCP 服务。
-6. 收到退出信号后关闭依赖。
-
-推荐伪流程：
-
-```text
-cfg := config.Load()
-stores := store.Connect(ctx, cfg)
-srv := netserver.New(cfg, stores)
-srv.Run(ctx)
-```
-
----
-
-## 14. 验收清单
-
-最小可运行版本建议满足：
-
-- [ ] `go test ./...` 通过。
-- [ ] `go run ./cmd/server` 可启动。
-- [ ] 缺少 MongoDB/Redis 时能输出明确错误。
-- [ ] 客户端可成功 TCP 连接 `:7001`。
-- [ ] 发送 `LoginReq` 可收到 `LoginResp`。
-- [ ] 两个客户端发送 `MatchReq` 可收到 `matched`。
-- [ ] 房间内发送 `PlayerOp` 可收到 `GameSnapshot`。
-- [ ] 发送 `Heartbeat` 可收到心跳回包。
-
----
-
-## 15. 维护说明
-
-更新本文档时优先基于当前代码事实：
-
-1. 先检查 `go.mod`、`README.md`、`conf/local.yaml`。
-2. 再检查 `internal/config`、`internal/netserver`、`internal/game`、`internal/store`、`internal/protocol`。
-3. 若修改了启动方式、协议指令、配置字段或依赖，必须同步更新本文档。
-4. 若新增 proto 生成脚本或改变生成目标，必须同步更新第 11 节。
+## 6. 下次更新本文档时优先核对
+
+1. `go.mod`
+2. `conf/`
+3. `src/service/`
+4. `src/proto/`
+5. `tools/` 下 proto 脚本
+6. `.agents/coordination/status-board.md`
+7. `.agents/coordination/handoff-dev-to-test.md`
