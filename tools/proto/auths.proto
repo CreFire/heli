@@ -64,7 +64,6 @@ message AuthLoginRSP {
   repeated UserRoleInfo    roles         = 4;
   int32                    timeZone      = 5;
   uint64                   globalFlags   = 6;
-  int32                    CreatedDays   = 7;
   repeated LogicServerInfo areas         = 8;
   bool                     showWaterMark = 9;
   string                   Ip            = 10;
@@ -84,6 +83,7 @@ message AuthUseRoleREQ {
   int32      sid        = 2;
   DeviceInfo deviceInfo = 3;
   string     name       = 4;
+  int64      gid        = 5;
 }
 
 message UserLoginQueue {
@@ -151,8 +151,4 @@ message ServerCloseNTF {
   int32  code      = 1;
   int64  shut_time = 2;
   string reason    = 3;
-}
-
-service AuthLoginService {
-  rpc AuthLogin (AuthLoginREQ) returns (AuthLoginRSP);
 }

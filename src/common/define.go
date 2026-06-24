@@ -40,7 +40,7 @@ func GetServerType(serverName string) int32 {
 }
 
 const (
-	GID_MIN = 1 << 60
+	GID_MIN = 1024
 )
 
 const (

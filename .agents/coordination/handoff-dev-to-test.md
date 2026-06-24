@@ -2,52 +2,104 @@
 
 ## 本次开发内容
 
-- 目标：开始编写 battle 战斗服的状态同步领域层。
-- 范围：先落地 `src/service/battle/sync` 内存权威状态核心，不接网络、不改 proto、不生成 pb.go。
-- 同步模式：服务端权威状态同步，客户端只提交操作意图。
+- 目标：补 battle 服 `BATTLE_JOIN_REQ` / `BATTLE_OP_REQ` handler 和 `battle_token` 校验骨架。
+- 范围：
+  - battle 客户端进房请求处理。
+  - battle 局内操作请求处理。
+  - 房间侧记录已进房 session。
+  - 最小 token 校验骨架。
+  - 操作成功后广播 battle delta。
+- 不做范围：
+  - battle token 签名/过期时间/防重放正式安全方案。
+  - WebSocket/TCP 实机联调。
+  - 断线重连恢复策略。
+  - 真实战斗结束自动触发结算。
 
 ## 已实现
 
-- 新增 `src/service/battle/sync/room.go`：
-  - `RoomConfig`：局内初始资源、建塔/重随/矿工成本、矿工产出、塔等级上限、玩家建造范围、默认塔池。
-  - `Room`：维护玩家资源、塔、矿工、server_tick、增量事件。
-  - `BuildTower`：校验玩家、建造范围、格子占用、金币；扣金币并生成 1 级随机塔。
-  - `RerollTower`：只能重随自己的塔；扣魔力；保持等级不变并随机塔种类。
-  - `MergeTower`：客户端提交 `main_tower_id` 与 `material_tower_id`；校验同玩家、同类型、同等级、未达等级上限；新塔保留主塔位置，材料塔位置清空。
-  - `BuyMiner` / `AdvanceToTick`：花金币购买矿工，矿工按固定 tick 间隔产出固定魔力。
-  - `Snapshot`：输出玩家、塔、矿工快照。
-  - `FlushDeltas`：输出并清空资源变化、建塔、重随、合成、买矿工、矿工产出等增量事件。
-- 新增 `src/service/battle/sync/room_test.go`：覆盖建塔、建造范围拒绝、重随、拒绝重随他人塔、合成位置规则、矿工产魔力。
+### 1. battle 进房与操作 handler
+
+- 更新 `src/service/battle/handler.go`：
+  - 注册 `BATTLE_JOIN_REQ`。
+  - 注册 `BATTLE_OP_REQ`。
+  - `reqBattleJoin(...)`：
+    - 校验 `room_id` / `battle_token`。
+    - 校验玩家是否属于房间。
+    - 记录该玩家当前 battle session。
+    - 返回 `S2CBattleJoinRSP`，附带当前快照 `snapshot`。
+  - `reqBattleOp(...)`：
+    - 校验房间存在。
+    - 校验该玩家已完成 battle join 且 session 匹配。
+    - 根据 op 类型调用 `sync.Room`：建塔 / 重随 / 合成 / 买矿工。
+    - 成功后返回 `S2CBattleOpRSP`。
+    - 同时广播 `S2CBattleDeltaNTF` 给房间内已进房玩家。
+
+### 2. battle 房间数据补充
+
+- 更新 `src/service/battle/room_manager.go`：
+  - `battleRoom` 新增：
+    - `allowedToken`
+    - `joinedSess map[playerID]sessID`
+  - `createRoom(...)` 增加 `battleToken` 入参。
+  - 新增：
+    - `hasPlayer(...)`
+    - `bindPlayerSession(...)`
+    - `matchPlayerSession(...)`
+
+### 3. battle token 校验骨架
+
+- 更新 `src/service/battle/battlesvr.go`：
+  - 新增 `verifyBattleToken(...)`。
+- 当前校验规则：
+  - 房间存在。
+  - `room_id` 一致。
+  - 玩家属于该房间。
+  - token 非空。
+  - token 与建房时记录值一致。
+  - token 前缀符合 `battle:<room_id>:`。
+
+> 当前仍是占位安全方案，不是最终生产方案。
+
+### 4. battle 广播骨架
+
+- 更新 `src/service/battle/battlesvr.go`：
+  - 新增 `sendProtoToSess(...)`
+  - 新增 `broadcastRoomDelta(...)`
+  - 操作成功后会把 `sync.Room.FlushDeltas()` 转成 `S2CBattleDeltaNTF` 下发给房间内已 join 的玩家。
 
 ## 已执行验证
 
 ```powershell
-go test ./src/service/battle/sync
+go test ./src/service/battle ./src/service/battle/sync
+go test ./src/service/logic/module/match ./src/service/logic/module ./src/service/logic/...
 ```
 
 结果：通过。
 
-尝试执行：
+## 新增/更新测试
 
-```powershell
-go test ./...
-```
+- 更新 `src/service/battle/battle_logic_bridge_test.go`：
+  - 适配 createRoom 新签名。
+  - 增加 `verifyBattleToken` 测试。
 
-结果：未完成全量通过，暴露项目既有编译/包缺口，与本次新增 `battle/sync` 包无关：
+## 当前实现边界
 
-- `src/service/auth/bs.go` 引用缺失包 `game/src/backend`。
-- `src/service/gate/gatesvr.go` 引用缺失包 `game/src/metrics`。
-- `src/service/gate/module/login/handler.go` 引用缺失包 `game/src/common/bi`。
-- `src/persist/public_gamer_data.go` 引用未定义 `pb.GamerMailDataNew`、`newGamerMailData`。
+- `battle_token` 现在只是“字符串一致性 + 前缀格式”校验。
+- 还没有：
+  - HMAC/签名
+  - 过期时间
+  - player_id 显式编码与校验
+  - 一次性消费/防重放
+- `BATTLE_OP_REQ` 当前只支持：
+  - 建塔
+  - 重随
+  - 合成
+  - 买矿工
+- 进房成功后返回快照，但还未补低频心跳/重连补快照策略。
 
-## 测试建议
+## 后续建议
 
-- 先验收新增包：`go test ./src/service/battle/sync`。
-- 若要跑 `go test ./...`，需要先修复上述既有缺失包/生成代码问题。
-
-## 后续开发建议
-
-1. 将 `sync.Room` 接入 battle 服务连接/房间管理。
-2. 定义或补充 protobuf：建塔、重随、合成、买矿工、快照、增量事件、操作结果。
-3. 接入 battle 直连鉴权：校验 logic/auth 下发的短期 battle token。
-4. 后续扩展金币来源：杀怪、每波结算、自行召唤悬赏怪物。
+1. 把 `battle_token` 升级为：`player_id + room_id + expire_at + sign`。
+2. 补 battle 断线重连与重复 join 规则。
+3. 把 `AdvanceToTick` 和周期性 delta 推送接到 battle 主循环。
+4. 在房间结束时接 `settleRoom(...)` 做真实结算上报。

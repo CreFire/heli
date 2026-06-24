@@ -77,6 +77,12 @@ uint32 body_length + uint16 cmd + protobuf_body
 | 1201 | PlayerOp | 玩家战斗操作，例如放置/升级塔 |
 | 1202 | GameSnapshot | 帧快照/操作广播 |
 | 9001 | Heartbeat | 心跳 |
+| 501 | BattleJoinREQ | 战斗服直连后进入房间，携带 room_id 与 battle_token |
+| 502 | BattleJoinRSP | 战斗服进房响应，可携带当前快照 |
+| 503 | BattleOpREQ | 局内操作：建塔、魔力重随、合成、购买矿工 |
+| 504 | BattleOpRSP | 局内操作结果，返回 op_id、server_tick、tower_id/miner_id |
+| 505 | BattleSnapshotNTF | 战斗服下发完整状态快照 |
+| 506 | BattleDeltaNTF | 战斗服下发状态增量事件 |
 
 ## 当前玩法闭环
 
@@ -86,3 +92,14 @@ uint32 body_length + uint16 cmd + protobuf_body
 4. 客户端发送 `PlayerOp`，服务端按房间广播 `GameSnapshot`。
 
 这是最小联机闭环；怪物波次、塔属性、结算、断线重连后续再补。
+## Battle 状态同步补充
+
+- 怪物状态使用 `route_id + spawn_tick + progress + speed` 表达路径进度，客户端按路线本地插值表现。
+- 完整快照 `BattleSnapshotNTF` 包含玩家资源、塔、矿工和怪物列表。
+- 增量 `BattleDeltaNTF` 包含资源、塔、矿工，以及怪物出生、血量变化、状态变化、死亡、到达终点、进度纠偏事件。
+## Battle 结算上报
+
+- 战斗结束由 battle 生成 `S2S_BATTLE_SETTLE_REQ` 发送给 logic。
+- 结算请求包含 `room_id`、`battle_id`、胜负、开始/结束 tick、结束原因，以及每个玩家的金币、魔力、击杀数、悬赏怪召唤数和奖励金币。
+- logic 收到后返回 `S2S_BATTLE_SETTLE_RSP`，用于确认是否接受本次结算。
+

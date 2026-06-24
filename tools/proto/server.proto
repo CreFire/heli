@@ -229,6 +229,41 @@ message S2SSyncGmTimeREQ {
 message S2SSyncGmTimeRSP {
 }
 
+
+
+enum BattleFinishReason {
+  BATTLE_FINISH_NONE    = 0;
+  BATTLE_FINISH_WIN     = 1;
+  BATTLE_FINISH_LOSE    = 2;
+  BATTLE_FINISH_TIMEOUT = 3;
+  BATTLE_FINISH_ABORT   = 4;
+}
+
+message BattlePlayerSettle {
+  int64 player_id           = 1;
+  int64 gold                = 2;
+  int64 mana                = 3;
+  int32 kill_count          = 4;
+  int32 summon_bounty_count = 5;
+  int64 reward_gold         = 6;
+}
+
+message S2SBattleSettleREQ {
+  string             room_id       = 1;
+  string             battle_id     = 2;
+  bool               win           = 3;
+  int64              start_tick    = 4;
+  int64              end_tick      = 5;
+  BattleFinishReason finish_reason = 6;
+  repeated BattlePlayerSettle players = 7;
+}
+
+message S2SBattleSettleRSP {
+  string room_id  = 1;
+  bool   accepted = 2;
+  string message  = 3;
+}
+
 service LogicService {
   rpc StreamMessage (stream StreamMsgC2S) returns (stream StreamMsgS2C);
 }

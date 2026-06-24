@@ -176,6 +176,24 @@ func (m *SystemHandler) reqStress(ctx iface.IGamerContext, data *msg.Message) (e
 
 func (m *SystemHandler) checkLoginOnline(playerSession, gid int64, msgque netmgr.IMsgQue) *actor.Gamer {
 	gamer := actor.GamerMgr.GetGamerByGid(gid)
+	gateSessId := int64(0)
+	if msgque != nil {
+		gateSessId = msgque.SessId()
+	}
+	if gamer != nil {
+		if gamer.IsStop() {
+			xlog.Warnf("gamer[gid=%d] login but gamer stopped", gid)
+			return nil
+		}
+		gamer.Online(gateSessId, playerSession)
+		return gamer
+	}
 
-	return gamer
+	newGamer, err := actor.NewGamer(gid, gateSessId, playerSession)
+	if err != nil {
+		xlog.Errorf("create gamer failed. gid:%d gateSessId:%d playerSessId:%d err:%v", gid, gateSessId, playerSession, err)
+		return nil
+	}
+	actor.GamerMgr.AddGamer(playerSession, gid, newGamer)
+	return newGamer
 }

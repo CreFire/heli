@@ -40,6 +40,19 @@ message HeartRSP {
   int64 SvrTs = 2;
 }
 
+message C2SMatchJoin {
+  int32 level_id    = 1;
+  int32 combat_type = 2;
+  repeated int32 tower_deck = 3;
+}
+
+message S2CMatchJoin {
+  string room_id      = 1;
+  string battle_addr  = 2;
+  string battle_token = 3;
+  repeated int64 player_ids = 4;
+}
+
 message NotifyLevelChangeRSP {
   int32 level = 1;
   int32 exp   = 2;
@@ -306,3 +319,151 @@ message UseItemREQ {
 message UseItemRSP {
   repeated Item items = 1;
 }
+
+enum BattleOpType {
+  BATTLE_OP_NONE         = 0;
+  BATTLE_OP_BUILD_TOWER  = 1;
+  BATTLE_OP_REROLL_TOWER = 2;
+  BATTLE_OP_MERGE_TOWER  = 3;
+  BATTLE_OP_BUY_MINER    = 4;
+}
+
+enum BattleDeltaType {
+  BATTLE_DELTA_NONE                   = 0;
+  BATTLE_DELTA_RESOURCE_CHANGED       = 1;
+  BATTLE_DELTA_TOWER_BUILT            = 2;
+  BATTLE_DELTA_TOWER_REROLLED         = 3;
+  BATTLE_DELTA_TOWER_MERGED           = 4;
+  BATTLE_DELTA_MINER_BOUGHT           = 5;
+  BATTLE_DELTA_MINER_PRODUCED         = 6;
+  BATTLE_DELTA_MONSTER_SPAWNED        = 7;
+  BATTLE_DELTA_MONSTER_HP_CHANGED     = 8;
+  BATTLE_DELTA_MONSTER_STATUS_CHANGED = 9;
+  BATTLE_DELTA_MONSTER_DEAD           = 10;
+  BATTLE_DELTA_MONSTER_ARRIVED        = 11;
+  BATTLE_DELTA_MONSTER_PROGRESS_FIXED = 12;
+}
+
+enum BattleMonsterStatus {
+  BATTLE_MONSTER_NONE    = 0;
+  BATTLE_MONSTER_ALIVE   = 1;
+  BATTLE_MONSTER_DEAD    = 2;
+  BATTLE_MONSTER_ARRIVED = 3;
+  BATTLE_MONSTER_PAUSED  = 4;
+}
+
+message C2SBattleJoinREQ {
+  string room_id      = 1;
+  string battle_token = 2;
+}
+
+message S2CBattleJoinRSP {
+  errorpb.ERROR        code      = 1;
+  string               message   = 2;
+  string               room_id   = 3;
+  int64                player_id = 4;
+  S2CBattleSnapshotNTF snapshot  = 5;
+}
+
+message BattleBuildTowerOp {
+  int32 grid_id = 1;
+}
+
+message BattleRerollTowerOp {
+  int64 tower_id = 1;
+}
+
+message BattleMergeTowerOp {
+  int64 main_tower_id     = 1;
+  int64 material_tower_id = 2;
+}
+
+message BattleBuyMinerOp {
+}
+
+message BattlePlayerOp {
+  BattleOpType        type         = 1;
+  BattleBuildTowerOp  build_tower  = 2;
+  BattleRerollTowerOp reroll_tower = 3;
+  BattleMergeTowerOp  merge_tower  = 4;
+  BattleBuyMinerOp    buy_miner    = 5;
+}
+
+message C2SBattleOpREQ {
+  string         room_id = 1;
+  string         op_id   = 2;
+  BattlePlayerOp op      = 3;
+}
+
+message S2CBattleOpRSP {
+  errorpb.ERROR code        = 1;
+  string        message     = 2;
+  string        room_id     = 3;
+  string        op_id       = 4;
+  int64         server_tick = 5;
+  int64         tower_id    = 6;
+  int64         miner_id    = 7;
+}
+
+message BattlePlayerState {
+  int64                     player_id = 1;
+  int64                     gold      = 2;
+  int64                     mana      = 3;
+  repeated BattleMinerState miners    = 4;
+}
+
+message BattleTowerState {
+  int64 tower_id        = 1;
+  int64 owner_player_id = 2;
+  int32 tower_type      = 3;
+  int32 level           = 4;
+  int32 grid_id         = 5;
+}
+
+message BattleMinerState {
+  int64 miner_id          = 1;
+  int64 owner_player_id   = 2;
+  int64 next_produce_tick = 3;
+}
+
+message BattleMonsterState {
+  int64               monster_id   = 1;
+  int32               monster_type = 2;
+  int32               route_id     = 3;
+  int64               spawn_tick   = 4;
+  int64               progress     = 5;
+  int64               speed        = 6;
+  int64               hp           = 7;
+  int64               max_hp       = 8;
+  BattleMonsterStatus status       = 9;
+}
+
+message S2CBattleSnapshotNTF {
+  string                      room_id     = 1;
+  int64                       server_tick = 2;
+  repeated BattlePlayerState  players     = 3;
+  repeated BattleTowerState   towers      = 4;
+  repeated BattleMonsterState monsters    = 5;
+}
+
+message BattleStateDelta {
+  BattleDeltaType    type              = 1;
+  int64              server_tick       = 2;
+  int64              player_id         = 3;
+  string             op_id             = 4;
+  int64              tower_id          = 5;
+  int64              material_tower_id = 6;
+  int64              miner_id          = 7;
+  int64              gold              = 8;
+  int64              mana              = 9;
+  BattleTowerState   tower             = 10;
+  BattleMinerState   miner             = 11;
+  BattleMonsterState monster           = 12;
+}
+
+message S2CBattleDeltaNTF {
+  string                    room_id     = 1;
+  int64                     server_tick = 2;
+  repeated BattleStateDelta events      = 3;
+}
+

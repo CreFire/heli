@@ -4,6 +4,8 @@ import (
 	"game/src/common"
 	"game/src/proto/errorpb"
 	"game/src/proto/pb"
+
+	"google.golang.org/protobuf/proto"
 )
 
 type ILogger interface {
@@ -77,4 +79,8 @@ type IFunctionModule interface {
 type IPackModule interface {
 	AddItem(item ...*pb.Item)
 	SubItem(item ...*pb.Item)
+}
+
+type IMatchModule interface {
+	Join(playerID int64, req *pb.C2SMatchJoin) (errorpb.ERROR, proto.Message)
 }

@@ -101,6 +101,7 @@ func (g *GateSvr) OnStart() error {
 	}
 
 	listenOpt := options.NewMsgQueOptions()
+	listenOpt.SetTransport(options.TransportWebSocket) // 设置ws 作为连接点
 	listenOpt.SetListenParams(options.NewListenParams(fmt.Sprintf(":%v", server.MS.ConfBase.Server.Port)))
 	listenOpt.SetIsGate(true)
 	listenOpt.SetNetCfg(server.MS.ConfBase.Server.Net)

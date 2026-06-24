@@ -12,6 +12,7 @@ import (
 	"game/src/proto/pb"
 	"game/src/service/logic/gamedata"
 	"game/src/service/logic/iface"
+	matchmodule "game/src/service/logic/module/matchbiz"
 	"math/rand"
 	"sync/atomic"
 	"time"
@@ -61,6 +62,7 @@ type Gamer struct {
 	activityModule iface.IActivityModule
 	packModule     iface.IPackModule
 	functionModule iface.IFunctionModule
+	matchModule    iface.IMatchModule
 }
 
 func (r *Gamer) updateSessState(update func(state *GamerSessState)) GamerSessState {
@@ -134,6 +136,7 @@ func (r *Gamer) Mail() iface.IMailModule         { return r.mailModule }
 func (r *Gamer) Activity() iface.IActivityModule { return r.activityModule }
 func (r *Gamer) Player() iface.IPlayerModule     { return r.playerModule }
 func (r *Gamer) Function() iface.IFunctionModule { return r.functionModule }
+func (r *Gamer) Match() iface.IMatchModule       { return r.matchModule }
 
 func (r *Gamer) SendMsg(m proto.Message)                      { r.sendWithCode(errorpb.ERROR_SUCCESS, m) }
 func (r *Gamer) SendCode(code errorpb.ERROR, m proto.Message) { r.sendWithCode(code, m) }
@@ -177,11 +180,11 @@ func (r *Gamer) AddMsgTask(_ pb.MSG_ID, f func()) error {
 		return ErrGamerTaskQueueFull
 	}
 }
-func (r *Gamer) LoginFirst(now int64)                                     {}
+func (r *Gamer) LoginFirst(now int64) {}
 func (r *Gamer) OnLogin(now int64, dayFirstLogin bool, changeDevice bool) {
-	
+
 }
-func (r *Gamer) LoginAfter(reconnect bool, changeDevice bool) bool        { return true }
+func (r *Gamer) LoginAfter(reconnect bool, changeDevice bool) bool { return true }
 func (r *Gamer) Save(stopSave bool) {
 	if r.Model != nil {
 		_ = r.Model.Save()
@@ -240,6 +243,7 @@ func (r *Gamer) bindModules() {
 	if r == nil || r.Model == nil {
 		return
 	}
+	r.matchModule = matchmodule.NewMatchModule(r, r.Model)
 	// if r.Model.GamerMods[persist.GamerBaseModIndex] != nil || r.Model.GamerMods[persist.GamerMainModIndex] != nil {
 	// 	r.playerModule = playermodule.NewPlayerModule(r, r.Model)
 	// }

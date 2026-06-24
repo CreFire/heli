@@ -20,6 +20,61 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type BattleFinishReason int32
+
+const (
+	BattleFinishReason_BATTLE_FINISH_NONE    BattleFinishReason = 0
+	BattleFinishReason_BATTLE_FINISH_WIN     BattleFinishReason = 1
+	BattleFinishReason_BATTLE_FINISH_LOSE    BattleFinishReason = 2
+	BattleFinishReason_BATTLE_FINISH_TIMEOUT BattleFinishReason = 3
+	BattleFinishReason_BATTLE_FINISH_ABORT   BattleFinishReason = 4
+)
+
+// Enum value maps for BattleFinishReason.
+var (
+	BattleFinishReason_name = map[int32]string{
+		0: "BATTLE_FINISH_NONE",
+		1: "BATTLE_FINISH_WIN",
+		2: "BATTLE_FINISH_LOSE",
+		3: "BATTLE_FINISH_TIMEOUT",
+		4: "BATTLE_FINISH_ABORT",
+	}
+	BattleFinishReason_value = map[string]int32{
+		"BATTLE_FINISH_NONE":    0,
+		"BATTLE_FINISH_WIN":     1,
+		"BATTLE_FINISH_LOSE":    2,
+		"BATTLE_FINISH_TIMEOUT": 3,
+		"BATTLE_FINISH_ABORT":   4,
+	}
+)
+
+func (x BattleFinishReason) Enum() *BattleFinishReason {
+	p := new(BattleFinishReason)
+	*p = x
+	return p
+}
+
+func (x BattleFinishReason) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (BattleFinishReason) Descriptor() protoreflect.EnumDescriptor {
+	return file_server_proto_enumTypes[0].Descriptor()
+}
+
+func (BattleFinishReason) Type() protoreflect.EnumType {
+	return &file_server_proto_enumTypes[0]
+}
+
+func (x BattleFinishReason) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use BattleFinishReason.Descriptor instead.
+func (BattleFinishReason) EnumDescriptor() ([]byte, []int) {
+	return file_server_proto_rawDescGZIP(), []int{0}
+}
+
 type ServerNet struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -2245,6 +2300,245 @@ func (*S2SSyncGmTimeRSP) Descriptor() ([]byte, []int) {
 	return file_server_proto_rawDescGZIP(), []int{34}
 }
 
+type BattlePlayerSettle struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	PlayerId          int64 `protobuf:"varint,1,opt,name=player_id,json=playerId,proto3" json:"player_id,omitempty"`
+	Gold              int64 `protobuf:"varint,2,opt,name=gold,proto3" json:"gold,omitempty"`
+	Mana              int64 `protobuf:"varint,3,opt,name=mana,proto3" json:"mana,omitempty"`
+	KillCount         int32 `protobuf:"varint,4,opt,name=kill_count,json=killCount,proto3" json:"kill_count,omitempty"`
+	SummonBountyCount int32 `protobuf:"varint,5,opt,name=summon_bounty_count,json=summonBountyCount,proto3" json:"summon_bounty_count,omitempty"`
+	RewardGold        int64 `protobuf:"varint,6,opt,name=reward_gold,json=rewardGold,proto3" json:"reward_gold,omitempty"`
+}
+
+func (x *BattlePlayerSettle) Reset() {
+	*x = BattlePlayerSettle{}
+	mi := &file_server_proto_msgTypes[35]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BattlePlayerSettle) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BattlePlayerSettle) ProtoMessage() {}
+
+func (x *BattlePlayerSettle) ProtoReflect() protoreflect.Message {
+	mi := &file_server_proto_msgTypes[35]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BattlePlayerSettle.ProtoReflect.Descriptor instead.
+func (*BattlePlayerSettle) Descriptor() ([]byte, []int) {
+	return file_server_proto_rawDescGZIP(), []int{35}
+}
+
+func (x *BattlePlayerSettle) GetPlayerId() int64 {
+	if x != nil {
+		return x.PlayerId
+	}
+	return 0
+}
+
+func (x *BattlePlayerSettle) GetGold() int64 {
+	if x != nil {
+		return x.Gold
+	}
+	return 0
+}
+
+func (x *BattlePlayerSettle) GetMana() int64 {
+	if x != nil {
+		return x.Mana
+	}
+	return 0
+}
+
+func (x *BattlePlayerSettle) GetKillCount() int32 {
+	if x != nil {
+		return x.KillCount
+	}
+	return 0
+}
+
+func (x *BattlePlayerSettle) GetSummonBountyCount() int32 {
+	if x != nil {
+		return x.SummonBountyCount
+	}
+	return 0
+}
+
+func (x *BattlePlayerSettle) GetRewardGold() int64 {
+	if x != nil {
+		return x.RewardGold
+	}
+	return 0
+}
+
+type S2SBattleSettleREQ struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	RoomId       string                `protobuf:"bytes,1,opt,name=room_id,json=roomId,proto3" json:"room_id,omitempty"`
+	BattleId     string                `protobuf:"bytes,2,opt,name=battle_id,json=battleId,proto3" json:"battle_id,omitempty"`
+	Win          bool                  `protobuf:"varint,3,opt,name=win,proto3" json:"win,omitempty"`
+	StartTick    int64                 `protobuf:"varint,4,opt,name=start_tick,json=startTick,proto3" json:"start_tick,omitempty"`
+	EndTick      int64                 `protobuf:"varint,5,opt,name=end_tick,json=endTick,proto3" json:"end_tick,omitempty"`
+	FinishReason BattleFinishReason    `protobuf:"varint,6,opt,name=finish_reason,json=finishReason,proto3,enum=pb.BattleFinishReason" json:"finish_reason,omitempty"`
+	Players      []*BattlePlayerSettle `protobuf:"bytes,7,rep,name=players,proto3" json:"players,omitempty"`
+}
+
+func (x *S2SBattleSettleREQ) Reset() {
+	*x = S2SBattleSettleREQ{}
+	mi := &file_server_proto_msgTypes[36]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *S2SBattleSettleREQ) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*S2SBattleSettleREQ) ProtoMessage() {}
+
+func (x *S2SBattleSettleREQ) ProtoReflect() protoreflect.Message {
+	mi := &file_server_proto_msgTypes[36]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use S2SBattleSettleREQ.ProtoReflect.Descriptor instead.
+func (*S2SBattleSettleREQ) Descriptor() ([]byte, []int) {
+	return file_server_proto_rawDescGZIP(), []int{36}
+}
+
+func (x *S2SBattleSettleREQ) GetRoomId() string {
+	if x != nil {
+		return x.RoomId
+	}
+	return ""
+}
+
+func (x *S2SBattleSettleREQ) GetBattleId() string {
+	if x != nil {
+		return x.BattleId
+	}
+	return ""
+}
+
+func (x *S2SBattleSettleREQ) GetWin() bool {
+	if x != nil {
+		return x.Win
+	}
+	return false
+}
+
+func (x *S2SBattleSettleREQ) GetStartTick() int64 {
+	if x != nil {
+		return x.StartTick
+	}
+	return 0
+}
+
+func (x *S2SBattleSettleREQ) GetEndTick() int64 {
+	if x != nil {
+		return x.EndTick
+	}
+	return 0
+}
+
+func (x *S2SBattleSettleREQ) GetFinishReason() BattleFinishReason {
+	if x != nil {
+		return x.FinishReason
+	}
+	return BattleFinishReason_BATTLE_FINISH_NONE
+}
+
+func (x *S2SBattleSettleREQ) GetPlayers() []*BattlePlayerSettle {
+	if x != nil {
+		return x.Players
+	}
+	return nil
+}
+
+type S2SBattleSettleRSP struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	RoomId   string `protobuf:"bytes,1,opt,name=room_id,json=roomId,proto3" json:"room_id,omitempty"`
+	Accepted bool   `protobuf:"varint,2,opt,name=accepted,proto3" json:"accepted,omitempty"`
+	Message  string `protobuf:"bytes,3,opt,name=message,proto3" json:"message,omitempty"`
+}
+
+func (x *S2SBattleSettleRSP) Reset() {
+	*x = S2SBattleSettleRSP{}
+	mi := &file_server_proto_msgTypes[37]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *S2SBattleSettleRSP) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*S2SBattleSettleRSP) ProtoMessage() {}
+
+func (x *S2SBattleSettleRSP) ProtoReflect() protoreflect.Message {
+	mi := &file_server_proto_msgTypes[37]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use S2SBattleSettleRSP.ProtoReflect.Descriptor instead.
+func (*S2SBattleSettleRSP) Descriptor() ([]byte, []int) {
+	return file_server_proto_rawDescGZIP(), []int{37}
+}
+
+func (x *S2SBattleSettleRSP) GetRoomId() string {
+	if x != nil {
+		return x.RoomId
+	}
+	return ""
+}
+
+func (x *S2SBattleSettleRSP) GetAccepted() bool {
+	if x != nil {
+		return x.Accepted
+	}
+	return false
+}
+
+func (x *S2SBattleSettleRSP) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
 var File_server_proto protoreflect.FileDescriptor
 
 var file_server_proto_rawDesc = []byte{
@@ -2475,14 +2769,58 @@ var file_server_proto_rawDesc = []byte{
 	0x10, 0x53, 0x32, 0x53, 0x53, 0x79, 0x6e, 0x63, 0x47, 0x6d, 0x54, 0x69, 0x6d, 0x65, 0x52, 0x45,
 	0x51, 0x12, 0x16, 0x0a, 0x06, 0x67, 0x6d, 0x54, 0x69, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28,
 	0x03, 0x52, 0x06, 0x67, 0x6d, 0x54, 0x69, 0x6d, 0x65, 0x22, 0x12, 0x0a, 0x10, 0x53, 0x32, 0x53,
-	0x53, 0x79, 0x6e, 0x63, 0x47, 0x6d, 0x54, 0x69, 0x6d, 0x65, 0x52, 0x53, 0x50, 0x32, 0x47, 0x0a,
-	0x0c, 0x4c, 0x6f, 0x67, 0x69, 0x63, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x37, 0x0a,
-	0x0d, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x10,
-	0x2e, 0x70, 0x62, 0x2e, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x4d, 0x73, 0x67, 0x43, 0x32, 0x53,
-	0x1a, 0x10, 0x2e, 0x70, 0x62, 0x2e, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x4d, 0x73, 0x67, 0x53,
-	0x32, 0x43, 0x28, 0x01, 0x30, 0x01, 0x42, 0x13, 0x5a, 0x11, 0x67, 0x61, 0x6d, 0x65, 0x2f, 0x73,
-	0x72, 0x63, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x70, 0x62, 0x62, 0x06, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x33,
+	0x53, 0x79, 0x6e, 0x63, 0x47, 0x6d, 0x54, 0x69, 0x6d, 0x65, 0x52, 0x53, 0x50, 0x22, 0xc9, 0x01,
+	0x0a, 0x12, 0x42, 0x61, 0x74, 0x74, 0x6c, 0x65, 0x50, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x53, 0x65,
+	0x74, 0x74, 0x6c, 0x65, 0x12, 0x1b, 0x0a, 0x09, 0x70, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x5f, 0x69,
+	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x08, 0x70, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x49,
+	0x64, 0x12, 0x12, 0x0a, 0x04, 0x67, 0x6f, 0x6c, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52,
+	0x04, 0x67, 0x6f, 0x6c, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x6d, 0x61, 0x6e, 0x61, 0x18, 0x03, 0x20,
+	0x01, 0x28, 0x03, 0x52, 0x04, 0x6d, 0x61, 0x6e, 0x61, 0x12, 0x1d, 0x0a, 0x0a, 0x6b, 0x69, 0x6c,
+	0x6c, 0x5f, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x04, 0x20, 0x01, 0x28, 0x05, 0x52, 0x09, 0x6b,
+	0x69, 0x6c, 0x6c, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x2e, 0x0a, 0x13, 0x73, 0x75, 0x6d, 0x6d,
+	0x6f, 0x6e, 0x5f, 0x62, 0x6f, 0x75, 0x6e, 0x74, 0x79, 0x5f, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18,
+	0x05, 0x20, 0x01, 0x28, 0x05, 0x52, 0x11, 0x73, 0x75, 0x6d, 0x6d, 0x6f, 0x6e, 0x42, 0x6f, 0x75,
+	0x6e, 0x74, 0x79, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x1f, 0x0a, 0x0b, 0x72, 0x65, 0x77, 0x61,
+	0x72, 0x64, 0x5f, 0x67, 0x6f, 0x6c, 0x64, 0x18, 0x06, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0a, 0x72,
+	0x65, 0x77, 0x61, 0x72, 0x64, 0x47, 0x6f, 0x6c, 0x64, 0x22, 0x85, 0x02, 0x0a, 0x12, 0x53, 0x32,
+	0x53, 0x42, 0x61, 0x74, 0x74, 0x6c, 0x65, 0x53, 0x65, 0x74, 0x74, 0x6c, 0x65, 0x52, 0x45, 0x51,
+	0x12, 0x17, 0x0a, 0x07, 0x72, 0x6f, 0x6f, 0x6d, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x06, 0x72, 0x6f, 0x6f, 0x6d, 0x49, 0x64, 0x12, 0x1b, 0x0a, 0x09, 0x62, 0x61, 0x74,
+	0x74, 0x6c, 0x65, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x62, 0x61,
+	0x74, 0x74, 0x6c, 0x65, 0x49, 0x64, 0x12, 0x10, 0x0a, 0x03, 0x77, 0x69, 0x6e, 0x18, 0x03, 0x20,
+	0x01, 0x28, 0x08, 0x52, 0x03, 0x77, 0x69, 0x6e, 0x12, 0x1d, 0x0a, 0x0a, 0x73, 0x74, 0x61, 0x72,
+	0x74, 0x5f, 0x74, 0x69, 0x63, 0x6b, 0x18, 0x04, 0x20, 0x01, 0x28, 0x03, 0x52, 0x09, 0x73, 0x74,
+	0x61, 0x72, 0x74, 0x54, 0x69, 0x63, 0x6b, 0x12, 0x19, 0x0a, 0x08, 0x65, 0x6e, 0x64, 0x5f, 0x74,
+	0x69, 0x63, 0x6b, 0x18, 0x05, 0x20, 0x01, 0x28, 0x03, 0x52, 0x07, 0x65, 0x6e, 0x64, 0x54, 0x69,
+	0x63, 0x6b, 0x12, 0x3b, 0x0a, 0x0d, 0x66, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x5f, 0x72, 0x65, 0x61,
+	0x73, 0x6f, 0x6e, 0x18, 0x06, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x16, 0x2e, 0x70, 0x62, 0x2e, 0x42,
+	0x61, 0x74, 0x74, 0x6c, 0x65, 0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x52, 0x65, 0x61, 0x73, 0x6f,
+	0x6e, 0x52, 0x0c, 0x66, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x52, 0x65, 0x61, 0x73, 0x6f, 0x6e, 0x12,
+	0x30, 0x0a, 0x07, 0x70, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x73, 0x18, 0x07, 0x20, 0x03, 0x28, 0x0b,
+	0x32, 0x16, 0x2e, 0x70, 0x62, 0x2e, 0x42, 0x61, 0x74, 0x74, 0x6c, 0x65, 0x50, 0x6c, 0x61, 0x79,
+	0x65, 0x72, 0x53, 0x65, 0x74, 0x74, 0x6c, 0x65, 0x52, 0x07, 0x70, 0x6c, 0x61, 0x79, 0x65, 0x72,
+	0x73, 0x22, 0x63, 0x0a, 0x12, 0x53, 0x32, 0x53, 0x42, 0x61, 0x74, 0x74, 0x6c, 0x65, 0x53, 0x65,
+	0x74, 0x74, 0x6c, 0x65, 0x52, 0x53, 0x50, 0x12, 0x17, 0x0a, 0x07, 0x72, 0x6f, 0x6f, 0x6d, 0x5f,
+	0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x72, 0x6f, 0x6f, 0x6d, 0x49, 0x64,
+	0x12, 0x1a, 0x0a, 0x08, 0x61, 0x63, 0x63, 0x65, 0x70, 0x74, 0x65, 0x64, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x08, 0x52, 0x08, 0x61, 0x63, 0x63, 0x65, 0x70, 0x74, 0x65, 0x64, 0x12, 0x18, 0x0a, 0x07,
+	0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x6d,
+	0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2a, 0x8f, 0x01, 0x0a, 0x12, 0x42, 0x61, 0x74, 0x74, 0x6c,
+	0x65, 0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x52, 0x65, 0x61, 0x73, 0x6f, 0x6e, 0x12, 0x16, 0x0a,
+	0x12, 0x42, 0x41, 0x54, 0x54, 0x4c, 0x45, 0x5f, 0x46, 0x49, 0x4e, 0x49, 0x53, 0x48, 0x5f, 0x4e,
+	0x4f, 0x4e, 0x45, 0x10, 0x00, 0x12, 0x15, 0x0a, 0x11, 0x42, 0x41, 0x54, 0x54, 0x4c, 0x45, 0x5f,
+	0x46, 0x49, 0x4e, 0x49, 0x53, 0x48, 0x5f, 0x57, 0x49, 0x4e, 0x10, 0x01, 0x12, 0x16, 0x0a, 0x12,
+	0x42, 0x41, 0x54, 0x54, 0x4c, 0x45, 0x5f, 0x46, 0x49, 0x4e, 0x49, 0x53, 0x48, 0x5f, 0x4c, 0x4f,
+	0x53, 0x45, 0x10, 0x02, 0x12, 0x19, 0x0a, 0x15, 0x42, 0x41, 0x54, 0x54, 0x4c, 0x45, 0x5f, 0x46,
+	0x49, 0x4e, 0x49, 0x53, 0x48, 0x5f, 0x54, 0x49, 0x4d, 0x45, 0x4f, 0x55, 0x54, 0x10, 0x03, 0x12,
+	0x17, 0x0a, 0x13, 0x42, 0x41, 0x54, 0x54, 0x4c, 0x45, 0x5f, 0x46, 0x49, 0x4e, 0x49, 0x53, 0x48,
+	0x5f, 0x41, 0x42, 0x4f, 0x52, 0x54, 0x10, 0x04, 0x32, 0x47, 0x0a, 0x0c, 0x4c, 0x6f, 0x67, 0x69,
+	0x63, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x37, 0x0a, 0x0d, 0x53, 0x74, 0x72, 0x65,
+	0x61, 0x6d, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x10, 0x2e, 0x70, 0x62, 0x2e, 0x53,
+	0x74, 0x72, 0x65, 0x61, 0x6d, 0x4d, 0x73, 0x67, 0x43, 0x32, 0x53, 0x1a, 0x10, 0x2e, 0x70, 0x62,
+	0x2e, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x4d, 0x73, 0x67, 0x53, 0x32, 0x43, 0x28, 0x01, 0x30,
+	0x01, 0x42, 0x13, 0x5a, 0x11, 0x67, 0x61, 0x6d, 0x65, 0x2f, 0x73, 0x72, 0x63, 0x2f, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x2f, 0x70, 0x62, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -2497,62 +2835,69 @@ func file_server_proto_rawDescGZIP() []byte {
 	return file_server_proto_rawDescData
 }
 
-var file_server_proto_msgTypes = make([]protoimpl.MessageInfo, 35)
+var file_server_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
+var file_server_proto_msgTypes = make([]protoimpl.MessageInfo, 38)
 var file_server_proto_goTypes = []any{
-	(*ServerNet)(nil),                     // 0: pb.ServerNet
-	(*ServerInfo)(nil),                    // 1: pb.ServerInfo
-	(*ServerConfig)(nil),                  // 2: pb.ServerConfig
-	(*RobotAuth)(nil),                     // 3: pb.RobotAuth
-	(*ServerWarn)(nil),                    // 4: pb.ServerWarn
-	(*InnerNotifyData)(nil),               // 5: pb.InnerNotifyData
-	(*InnerPublishInfo)(nil),              // 6: pb.InnerPublishInfo
-	(*InnerPublishInfoList)(nil),          // 7: pb.InnerPublishInfoList
-	(*InnerSubscribeInfo)(nil),            // 8: pb.InnerSubscribeInfo
-	(*ServerMaster)(nil),                  // 9: pb.ServerMaster
-	(*InnerLoginOtherDevice)(nil),         // 10: pb.InnerLoginOtherDevice
-	(*InnerLoginOtherDeviceCallback)(nil), // 11: pb.InnerLoginOtherDeviceCallback
-	(*GamerQueueMsg)(nil),                 // 12: pb.GamerQueueMsg
-	(*UserData)(nil),                      // 13: pb.UserData
-	(*Head)(nil),                          // 14: pb.Head
-	(*StreamMsgC2S)(nil),                  // 15: pb.StreamMsgC2S
-	(*StreamMsgS2C)(nil),                  // 16: pb.StreamMsgS2C
-	(*StreamMsg)(nil),                     // 17: pb.StreamMsg
-	(*InnerCombatTest)(nil),               // 18: pb.InnerCombatTest
-	(*StressREQ)(nil),                     // 19: pb.StressREQ
-	(*StressRSP)(nil),                     // 20: pb.StressRSP
-	(*SayHelloREQ)(nil),                   // 21: pb.SayHelloREQ
-	(*SayHelloRSP)(nil),                   // 22: pb.SayHelloRSP
-	(*Gate2LogicKickSessionREQ)(nil),      // 23: pb.Gate2LogicKickSessionREQ
-	(*Gate2LogicKickSessionRSP)(nil),      // 24: pb.Gate2LogicKickSessionRSP
-	(*Logic2GateKickSessionREQ)(nil),      // 25: pb.Logic2GateKickSessionREQ
-	(*Logic2GateKickSessionRSP)(nil),      // 26: pb.Logic2GateKickSessionRSP
-	(*S2SAddGlobalMailREQ)(nil),           // 27: pb.S2SAddGlobalMailREQ
-	(*S2SAddGlobalMailRSP)(nil),           // 28: pb.S2SAddGlobalMailRSP
-	(*S2SSendBatchUserMailREQ)(nil),       // 29: pb.S2SSendBatchUserMailREQ
-	(*S2SSendBatchUserMailRSP)(nil),       // 30: pb.S2SSendBatchUserMailRSP
-	(*S2SRemoveGlobalMailREQ)(nil),        // 31: pb.S2SRemoveGlobalMailREQ
-	(*S2SRemoveGlobalMailRSP)(nil),        // 32: pb.S2SRemoveGlobalMailRSP
-	(*S2SSyncGmTimeREQ)(nil),              // 33: pb.S2SSyncGmTimeREQ
-	(*S2SSyncGmTimeRSP)(nil),              // 34: pb.S2SSyncGmTimeRSP
-	(*GlobalMail)(nil),                    // 35: pb.GlobalMail
+	(BattleFinishReason)(0),               // 0: pb.BattleFinishReason
+	(*ServerNet)(nil),                     // 1: pb.ServerNet
+	(*ServerInfo)(nil),                    // 2: pb.ServerInfo
+	(*ServerConfig)(nil),                  // 3: pb.ServerConfig
+	(*RobotAuth)(nil),                     // 4: pb.RobotAuth
+	(*ServerWarn)(nil),                    // 5: pb.ServerWarn
+	(*InnerNotifyData)(nil),               // 6: pb.InnerNotifyData
+	(*InnerPublishInfo)(nil),              // 7: pb.InnerPublishInfo
+	(*InnerPublishInfoList)(nil),          // 8: pb.InnerPublishInfoList
+	(*InnerSubscribeInfo)(nil),            // 9: pb.InnerSubscribeInfo
+	(*ServerMaster)(nil),                  // 10: pb.ServerMaster
+	(*InnerLoginOtherDevice)(nil),         // 11: pb.InnerLoginOtherDevice
+	(*InnerLoginOtherDeviceCallback)(nil), // 12: pb.InnerLoginOtherDeviceCallback
+	(*GamerQueueMsg)(nil),                 // 13: pb.GamerQueueMsg
+	(*UserData)(nil),                      // 14: pb.UserData
+	(*Head)(nil),                          // 15: pb.Head
+	(*StreamMsgC2S)(nil),                  // 16: pb.StreamMsgC2S
+	(*StreamMsgS2C)(nil),                  // 17: pb.StreamMsgS2C
+	(*StreamMsg)(nil),                     // 18: pb.StreamMsg
+	(*InnerCombatTest)(nil),               // 19: pb.InnerCombatTest
+	(*StressREQ)(nil),                     // 20: pb.StressREQ
+	(*StressRSP)(nil),                     // 21: pb.StressRSP
+	(*SayHelloREQ)(nil),                   // 22: pb.SayHelloREQ
+	(*SayHelloRSP)(nil),                   // 23: pb.SayHelloRSP
+	(*Gate2LogicKickSessionREQ)(nil),      // 24: pb.Gate2LogicKickSessionREQ
+	(*Gate2LogicKickSessionRSP)(nil),      // 25: pb.Gate2LogicKickSessionRSP
+	(*Logic2GateKickSessionREQ)(nil),      // 26: pb.Logic2GateKickSessionREQ
+	(*Logic2GateKickSessionRSP)(nil),      // 27: pb.Logic2GateKickSessionRSP
+	(*S2SAddGlobalMailREQ)(nil),           // 28: pb.S2SAddGlobalMailREQ
+	(*S2SAddGlobalMailRSP)(nil),           // 29: pb.S2SAddGlobalMailRSP
+	(*S2SSendBatchUserMailREQ)(nil),       // 30: pb.S2SSendBatchUserMailREQ
+	(*S2SSendBatchUserMailRSP)(nil),       // 31: pb.S2SSendBatchUserMailRSP
+	(*S2SRemoveGlobalMailREQ)(nil),        // 32: pb.S2SRemoveGlobalMailREQ
+	(*S2SRemoveGlobalMailRSP)(nil),        // 33: pb.S2SRemoveGlobalMailRSP
+	(*S2SSyncGmTimeREQ)(nil),              // 34: pb.S2SSyncGmTimeREQ
+	(*S2SSyncGmTimeRSP)(nil),              // 35: pb.S2SSyncGmTimeRSP
+	(*BattlePlayerSettle)(nil),            // 36: pb.BattlePlayerSettle
+	(*S2SBattleSettleREQ)(nil),            // 37: pb.S2SBattleSettleREQ
+	(*S2SBattleSettleRSP)(nil),            // 38: pb.S2SBattleSettleRSP
+	(*GlobalMail)(nil),                    // 39: pb.GlobalMail
 }
 var file_server_proto_depIdxs = []int32{
-	0,  // 0: pb.ServerInfo.net:type_name -> pb.ServerNet
-	1,  // 1: pb.ServerConfig.Server:type_name -> pb.ServerInfo
-	3,  // 2: pb.ServerConfig.Robot:type_name -> pb.RobotAuth
-	6,  // 3: pb.InnerPublishInfoList.infos:type_name -> pb.InnerPublishInfo
-	17, // 4: pb.StreamMsgC2S.m:type_name -> pb.StreamMsg
-	17, // 5: pb.StreamMsgS2C.m:type_name -> pb.StreamMsg
-	14, // 6: pb.StreamMsg.head:type_name -> pb.Head
-	13, // 7: pb.StreamMsg.user:type_name -> pb.UserData
-	35, // 8: pb.S2SAddGlobalMailREQ.mail:type_name -> pb.GlobalMail
-	15, // 9: pb.LogicService.StreamMessage:input_type -> pb.StreamMsgC2S
-	16, // 10: pb.LogicService.StreamMessage:output_type -> pb.StreamMsgS2C
-	10, // [10:11] is the sub-list for method output_type
-	9,  // [9:10] is the sub-list for method input_type
-	9,  // [9:9] is the sub-list for extension type_name
-	9,  // [9:9] is the sub-list for extension extendee
-	0,  // [0:9] is the sub-list for field type_name
+	1,  // 0: pb.ServerInfo.net:type_name -> pb.ServerNet
+	2,  // 1: pb.ServerConfig.Server:type_name -> pb.ServerInfo
+	4,  // 2: pb.ServerConfig.Robot:type_name -> pb.RobotAuth
+	7,  // 3: pb.InnerPublishInfoList.infos:type_name -> pb.InnerPublishInfo
+	18, // 4: pb.StreamMsgC2S.m:type_name -> pb.StreamMsg
+	18, // 5: pb.StreamMsgS2C.m:type_name -> pb.StreamMsg
+	15, // 6: pb.StreamMsg.head:type_name -> pb.Head
+	14, // 7: pb.StreamMsg.user:type_name -> pb.UserData
+	39, // 8: pb.S2SAddGlobalMailREQ.mail:type_name -> pb.GlobalMail
+	0,  // 9: pb.S2SBattleSettleREQ.finish_reason:type_name -> pb.BattleFinishReason
+	36, // 10: pb.S2SBattleSettleREQ.players:type_name -> pb.BattlePlayerSettle
+	16, // 11: pb.LogicService.StreamMessage:input_type -> pb.StreamMsgC2S
+	17, // 12: pb.LogicService.StreamMessage:output_type -> pb.StreamMsgS2C
+	12, // [12:13] is the sub-list for method output_type
+	11, // [11:12] is the sub-list for method input_type
+	11, // [11:11] is the sub-list for extension type_name
+	11, // [11:11] is the sub-list for extension extendee
+	0,  // [0:11] is the sub-list for field type_name
 }
 
 func init() { file_server_proto_init() }
@@ -2566,13 +2911,14 @@ func file_server_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_server_proto_rawDesc,
-			NumEnums:      0,
-			NumMessages:   35,
+			NumEnums:      1,
+			NumMessages:   38,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
 		GoTypes:           file_server_proto_goTypes,
 		DependencyIndexes: file_server_proto_depIdxs,
+		EnumInfos:         file_server_proto_enumTypes,
 		MessageInfos:      file_server_proto_msgTypes,
 	}.Build()
 	File_server_proto = out.File

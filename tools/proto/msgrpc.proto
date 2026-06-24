@@ -129,5 +129,7 @@ message S2SBattleCreateRoomRSP {
   bool ok = 1;
   string room_id = 2;
   int64 player_count = 3;
+  string battle_addr = 4;
+  string battle_token = 5;
 }
 

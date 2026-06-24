@@ -42,6 +42,7 @@ type IGamerContext interface {
 	Activity() IActivityModule
 	Player() IPlayerModule
 	Function() IFunctionModule
+	Match() IMatchModule
 }
 
 type IHeroModule interface {

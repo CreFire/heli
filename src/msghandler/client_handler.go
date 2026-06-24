@@ -63,9 +63,9 @@ func (c *ClientNetEventHandler) OnProcessMsg(msgque netmgr.IMsgQue, data *msg.Me
 		return false
 	}
 
-	// if svrType == common.InnerServerTypeGate {
-	// 	return c.handleC2GateMessage(msgId, msgque, data)
-	// }
+	if svrType == common.InnerServerTypeGate {
+		return c.handleC2GateMessage(msgId, msgque, data)
+	}
 
 	if msgque.GetAgent().GetCltUser() <= 0 {
 		xlog.Infof("drop client message because gamerId <= 0, sessId:%d msgId:%v", msgque.SessId(), msgId)

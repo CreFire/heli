@@ -16,7 +16,7 @@ func TestBattleClientProtocolTypesCompile(t *testing.T) {
 		RoomId: "room-1",
 		OpId:   "op-1",
 		Op: &pb.BattlePlayerOp{
-			Type: pb.BattleOpType_BATTLE_OP_BUILD_TOWER,
+			Type:       pb.BattleOpType_BATTLE_OP_BUILD_TOWER,
 			BuildTower: &pb.BattleBuildTowerOp{GridId: 1001},
 		},
 	}
@@ -25,7 +25,7 @@ func TestBattleClientProtocolTypesCompile(t *testing.T) {
 	}
 
 	merge := &pb.BattlePlayerOp{
-		Type: pb.BattleOpType_BATTLE_OP_MERGE_TOWER,
+		Type:       pb.BattleOpType_BATTLE_OP_MERGE_TOWER,
 		MergeTower: &pb.BattleMergeTowerOp{MainTowerId: 1, MaterialTowerId: 2},
 	}
 	if merge.GetMergeTower().GetMainTowerId() != 1 || merge.GetMergeTower().GetMaterialTowerId() != 2 {
@@ -35,8 +35,8 @@ func TestBattleClientProtocolTypesCompile(t *testing.T) {
 	snapshot := &pb.S2CBattleSnapshotNTF{
 		RoomId:     "room-1",
 		ServerTick: 10,
-		Players: []*pb.BattlePlayerState{{PlayerId: 1, Gold: 100, Mana: 20}},
-		Towers: []*pb.BattleTowerState{{TowerId: 1, OwnerPlayerId: 1, TowerType: 101, Level: 1, GridId: 1001}},
+		Players:    []*pb.BattlePlayerState{{PlayerId: 1, Gold: 100, Mana: 20}},
+		Towers:     []*pb.BattleTowerState{{TowerId: 1, OwnerPlayerId: 1, TowerType: 101, Level: 1, GridId: 1001}},
 	}
 	if snapshot.GetPlayers()[0].GetGold() != 100 || snapshot.GetTowers()[0].GetTowerType() != 101 {
 		t.Fatalf("unexpected snapshot: %+v", snapshot)
@@ -45,7 +45,7 @@ func TestBattleClientProtocolTypesCompile(t *testing.T) {
 	delta := &pb.S2CBattleDeltaNTF{
 		RoomId:     "room-1",
 		ServerTick: 11,
-		Events: []*pb.BattleStateDelta{{Type: pb.BattleDeltaType_BATTLE_DELTA_TOWER_BUILT, PlayerId: 1, Tower: snapshot.GetTowers()[0]}},
+		Events:     []*pb.BattleStateDelta{{Type: pb.BattleDeltaType_BATTLE_DELTA_TOWER_BUILT, PlayerId: 1, Tower: snapshot.GetTowers()[0]}},
 	}
 	if delta.GetEvents()[0].GetType() != pb.BattleDeltaType_BATTLE_DELTA_TOWER_BUILT {
 		t.Fatalf("unexpected delta: %+v", delta)
@@ -67,4 +67,3 @@ func TestBattleClientMessageIDsCompile(t *testing.T) {
 		}
 	}
 }
-

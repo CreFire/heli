@@ -71,10 +71,33 @@ type MinerState struct {
 	NextProduceTick int64
 }
 
+type MonsterStatus string
+
+const (
+	MonsterNone    MonsterStatus = "NONE"
+	MonsterAlive   MonsterStatus = "ALIVE"
+	MonsterDead    MonsterStatus = "DEAD"
+	MonsterArrived MonsterStatus = "ARRIVED"
+	MonsterPaused  MonsterStatus = "PAUSED"
+)
+
+type MonsterSnapshot struct {
+	MonsterID   int64
+	MonsterType int32
+	RouteID     int32
+	SpawnTick   int64
+	Progress    int64
+	Speed       int64
+	HP          int64
+	MaxHP       int64
+	Status      MonsterStatus
+}
+
 type Snapshot struct {
 	ServerTick int64
 	Players    map[int64]PlayerSnapshot
 	Towers     map[int64]TowerSnapshot
+	Monsters   map[int64]MonsterSnapshot
 }
 
 type PlayerSnapshot struct {
@@ -100,12 +123,18 @@ type MinerSnapshot struct {
 type DeltaType string
 
 const (
-	DeltaResourceChanged DeltaType = "RESOURCE_CHANGED"
-	DeltaTowerBuilt      DeltaType = "TOWER_BUILT"
-	DeltaTowerRerolled   DeltaType = "TOWER_REROLLED"
-	DeltaTowerMerged     DeltaType = "TOWER_MERGED"
-	DeltaMinerBought     DeltaType = "MINER_BOUGHT"
-	DeltaMinerProduced   DeltaType = "MINER_PRODUCED"
+	DeltaResourceChanged      DeltaType = "RESOURCE_CHANGED"
+	DeltaTowerBuilt           DeltaType = "TOWER_BUILT"
+	DeltaTowerRerolled        DeltaType = "TOWER_REROLLED"
+	DeltaTowerMerged          DeltaType = "TOWER_MERGED"
+	DeltaMinerBought          DeltaType = "MINER_BOUGHT"
+	DeltaMinerProduced        DeltaType = "MINER_PRODUCED"
+	DeltaMonsterSpawned       DeltaType = "MONSTER_SPAWNED"
+	DeltaMonsterHPChanged     DeltaType = "MONSTER_HP_CHANGED"
+	DeltaMonsterStatusChanged DeltaType = "MONSTER_STATUS_CHANGED"
+	DeltaMonsterDead          DeltaType = "MONSTER_DEAD"
+	DeltaMonsterArrived       DeltaType = "MONSTER_ARRIVED"
+	DeltaMonsterProgressFixed DeltaType = "MONSTER_PROGRESS_FIXED"
 )
 
 type Delta struct {
@@ -116,9 +145,11 @@ type Delta struct {
 	TowerID         int64
 	MaterialTowerID int64
 	MinerID         int64
+	MonsterID       int64
 	Gold            int64
 	Mana            int64
 	Tower           TowerSnapshot
+	Monster         MonsterSnapshot
 }
 
 type OpResult struct {
@@ -280,7 +311,7 @@ func (r *Room) AdvanceToTick(targetTick int64) {
 }
 
 func (r *Room) Snapshot() Snapshot {
-	s := Snapshot{ServerTick: r.serverTick, Players: make(map[int64]PlayerSnapshot, len(r.players)), Towers: make(map[int64]TowerSnapshot, len(r.towers))}
+	s := Snapshot{ServerTick: r.serverTick, Players: make(map[int64]PlayerSnapshot, len(r.players)), Towers: make(map[int64]TowerSnapshot, len(r.towers)), Monsters: make(map[int64]MonsterSnapshot)}
 	for id, p := range r.players {
 		ps := PlayerSnapshot{PlayerID: p.PlayerID, Gold: p.Gold, Mana: p.Mana, Miners: make([]MinerSnapshot, 0, len(p.Miners))}
 		for _, m := range p.Miners {

@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package msgtest;
+
+option go_package = "game/deps/msg;msg";
+
+message TestPacketBody {
+  string name = 1;
+  int32 value = 2;
+}

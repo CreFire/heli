@@ -47,16 +47,17 @@
 ## 当前已知测试事实
 
 - `go test ./src/service/battle/sync` 已通过。
-- `go test ./...` 当前仍受既有缺失包/生成代码问题阻塞，不能把全量通过视为当前项目事实。
+- `go test ./src/service/logic/module/match ./src/service/logic/module ./src/service/logic/... ./src/service/battle ./src/service/battle/sync` 已通过。
+- `go test ./...` 仍不能宣称全量通过；本次未做全仓联机闭环验证。
 
 ## 后续候选需求池
 
 - battle sync 接入真实服务连接/房间管理。
 - battle 直连鉴权与准入 token 校验。
-- 建塔/重随/合成/买矿工/快照/增量事件 protobuf 补齐。
+- battle 客户端进房 handler。
 - 怪物波次。
 - 塔属性与升级。
-- 战斗结算。
+- 战斗结算持久化与奖励入账。
 - 断线重连。
 - 房间状态恢复。
 - 更完整的协议错误码。
@@ -66,3 +67,36 @@
 - 新需求先写清目标和不做范围，再进入 product 到 dev 的交接。
 - 协议变更需要同时记录客户端期望、服务端处理和兼容影响。
 - 若项目结构继续演进，优先更新本文档与 `.agents/server.md`，避免旧的启动/配置记忆误导后续协作。
+
+## Battle 客户端直连协议草案
+
+- `BATTLE_JOIN_REQ` / `BATTLE_JOIN_RSP`：客户端直连 battle 后，携带 `room_id` 与 `battle_token` 进入房间；battle 校验通过后返回当前快照。
+- `BATTLE_OP_REQ` / `BATTLE_OP_RSP`：客户端提交局内操作，包含 `op_id` 和 `BattlePlayerOp`；当前操作类型覆盖建塔、魔力重随、塔合成、购买矿工。
+- `BATTLE_SNAPSHOT_NTF`：battle 下发完整快照，包含玩家资源、矿工和塔列表。
+- `BATTLE_DELTA_NTF`：battle 下发状态增量，包含资源变化、建塔、重随、合成、购买矿工、矿工产出等事件。
+- proto 源位于 `tools\proto\client.proto` 和 `tools\proto\micro.proto`，生成结果位于 `src\proto\pb\client.pb.go` 和 `src\proto\pb\micro.pb.go`。
+
+## Battle 怪物状态协议
+
+- `BattleMonsterState` 使用路径进度同步：`monster_id`、`monster_type`、`route_id`、`spawn_tick`、`progress`、`speed`、`hp`、`max_hp`、`status`。
+- `S2CBattleSnapshotNTF.monsters` 下发完整怪物列表，用于进房、断线重连和低频纠偏。
+- `BattleStateDelta.monster` 下发怪物增量，类型包括出生、血量变化、状态变化、死亡、到达终点、进度纠偏。
+- 怪物坐标不作为协议核心字段；客户端应根据路线配置与进度推算坐标。
+
+## Match / Battle 对接现状
+
+- `logic.match` 已接客户端 `MATCH_JOIN_REQ`，当前 P0 逻辑为单人立即建房，不做完整多人队列。
+- `logic.match` 调用 `logic.battle.CreateRoom(...)`，再由 logic 向 battle 发起 `S2S_BATTLE_CREATE_ROOM_REQ`。
+- battle 返回 `room_id`、`battle_addr`、`battle_token` 给 logic，再由 logic 回给客户端。
+- 当前 `battle_token` 仅为最小占位串，尚未实现签名、过期时间和防伪校验。
+
+## Battle 结算上报协议
+
+- `S2S_BATTLE_SETTLE_REQ`：battle 在房间战斗结束时发送给 logic，携带房间结算结果。
+- `S2S_BATTLE_SETTLE_RSP`：logic 对结算请求的确认响应。
+- 结算字段包含：`room_id`、`battle_id`、`win`、`start_tick`、`end_tick`、`finish_reason`、玩家结算列表。
+- 玩家结算字段包含：`player_id`、局内剩余 `gold` / `mana`、`kill_count`、`summon_bounty_count`、`reward_gold`。
+- 当前代码事实：
+  - battle 已有 `settleRoom(...)` 发送能力。
+  - logic 已注册并接收 `S2S_BATTLE_SETTLE_REQ`，返回 `S2S_BATTLE_SETTLE_RSP`。
+  - logic 目前仅做最小确认，不做幂等、落库和奖励结算。

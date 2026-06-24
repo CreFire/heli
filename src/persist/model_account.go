@@ -133,7 +133,7 @@ func GetOrCreateMiniProgramAccount(ctx context.Context, appId string, openId str
 			return nil, err
 		}
 	}
-
+	// 更新账号unionId
 	if acc.UnionId == "" && unionId != "" {
 		coll := GetDatabase().Collection(COLLECTION_AUTH_ACCOUNT)
 		_, err := coll.UpdateOne(ctx, bson.M{"account": acc.Account}, bson.M{"$set": bson.M{"unionId": unionId}})
@@ -152,6 +152,14 @@ func GetAccountWithPassword(ctx context.Context, account string, password string
 	var result Account
 	err = coll.FindOne(ctx, filter).Decode(&result)
 	if err != nil {
+		if errors.Is(err, mongo.ErrNoDocuments) {
+			acc = NewAccount(account, xtime.NowUnix())
+			acc.Password = password
+			if err := CreateAccount(ctx, acc); err != nil {
+				return nil, err
+			}
+			return acc, nil
+		}
 		xlog.Errorf("GetAccountWithPassword error: %v", err)
 		return nil, err // 发生错误
 	}
@@ -214,6 +222,7 @@ func ListAccounts(ctx context.Context, statusFilter *Status, limit, skip int64) 
 	return list, nil
 }
 
+// 创建玩家
 func CreateGamer(ctx context.Context, account string, name string) int64 {
 	gid := fastid.GenInt64ID()
 	gamer := NewGamerPartData(gid, GamerMainModIndex, GamerBaseModIndex)
@@ -225,7 +234,9 @@ func CreateGamer(ctx context.Context, account string, name string) int64 {
 	}
 	gamer.Main.SetData(main)
 	base := &pb.PlayerBase{
-		Gid: gid,
+		Gid:  gid,
+		Icon: 1,
+		Lv:   1,
 	}
 	gamer.Base.SetData(base)
 	//gamer.Device.SetData(deviceInfo)

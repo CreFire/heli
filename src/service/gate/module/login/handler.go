@@ -71,7 +71,7 @@ func reqGamerLogin(msgque netmgr.IMsgQue, req *msg.Message) (errCode errorpb.ERR
 	c2s := req.Message().(*pb.LoginBySessionREQ)
 	s2c := &pb.LoginBySessionRSP{}
 
-	// 默认设置错误状态和时区。
+	// 设置状态和时区。
 	_, offset := xtime.Now().Zone()
 	s2c.TimeZone = int32(offset / xtime.HourSec)
 
@@ -89,22 +89,22 @@ func reqGamerLogin(msgque netmgr.IMsgQue, req *msg.Message) (errCode errorpb.ERR
 
 	ip := msgque.GetAgent().GetCltRemote()
 
-	god, err := cache.GetGamerOnlineData(gid)
+	onlineData, err := cache.GetGamerOnlineData(gid)
 	if err != nil {
 		xlog.Warnf("userole reject login session load failed. gid:%d ip:%s err:%v", gid, ip, err)
 		kickSessionWithErrCode(gid, msgque.SessId(), errorpb.ERROR_LOGIN_DATA_EXCEPTION, "load_online_data")
 		return
 	}
 
-	if god.AuthToken != c2s.Session {
+	if onlineData.AuthToken != c2s.Session {
 		kickSessionWithErrCode(gid, msgque.SessId(), errorpb.ERROR_LOGIN_SESSION_INVALID, "session_mismatch")
 		return
 	}
 	msgque.GetAgent().AddCltUser(gid)
 
-	cancelFunc, err := redisclient.RedLock(server.MS.RedisDB.Client, context.Background(), cache.AccountLoginLockKey(god.Account))
+	cancelFunc, err := redisclient.RedLock(server.MS.RedisDB.Client, context.Background(), cache.AccountLoginLockKey(onlineData.Account))
 	if err != nil {
-		xlog.Warnf("login lock failed. gid:%d sessId:%d account:%s ip:%s err:%v", gid, msgque.SessId(), god.Account, ip, err)
+		xlog.Warnf("login lock failed. gid:%d sessId:%d account:%s ip:%s err:%v", gid, msgque.SessId(), onlineData.Account, ip, err)
 		kickSessionWithErrCode(gid, msgque.SessId(), errorpb.ERROR_LOGIN_REPEAT, "account_lock")
 		return
 	}
@@ -121,10 +121,10 @@ func reqGamerLogin(msgque netmgr.IMsgQue, req *msg.Message) (errCode errorpb.ERR
 
 	// get logic server
 	var ins *servicemgr.ServiceInstance
-	if god.LogicSvrId != 0 {
+	if onlineData.LogicSvrId != 0 {
 		inss := server.MS.SvrMgr.List(common.InnerServerTypeLogic,
 			func(si *servicemgr.ServiceInstance) bool {
-				return god.LogicSvrId == si.InstanceId
+				return onlineData.LogicSvrId == si.InstanceId
 			},
 		)
 
@@ -165,11 +165,11 @@ func reqGamerLogin(msgque netmgr.IMsgQue, req *msg.Message) (errCode errorpb.ERR
 		kickSessionWithErrCode(gid, msgque.SessId(), errCode, "login_rpc_failed")
 		return
 	}
-	god.LoginTime = xtime.NowUnix()
-	god.GateSession = msgque.SessId()
-	god.GateSvrId = server.MS.ConfBase.Server.Id
-	god.LogicSvrId = ins.InstanceId
-	if err := cache.SetGamerOnlineData(gid, god); err != nil {
+	onlineData.LoginTime = xtime.NowUnix()
+	onlineData.GateSession = msgque.SessId()
+	onlineData.GateSvrId = server.MS.ConfBase.Server.Id
+	onlineData.LogicSvrId = ins.InstanceId
+	if err := cache.SetGamerOnlineData(gid, onlineData); err != nil {
 		xlog.Warnf("set gamer online data failed after login. gid:%d err:%v", gid, err)
 	}
 

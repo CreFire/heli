@@ -12,6 +12,7 @@ import (
 	"io"
 	"net/http"
 	"net/netip"
+	"strings"
 	"time"
 
 	"google.golang.org/protobuf/encoding/protojson"
@@ -148,11 +149,12 @@ func (s *StateAuth) authUseRole(robot *Robot) error {
 }
 
 func (s *StateAuth) connectGate(robot *Robot) error {
-	addr, err := resolveAuthUseRoleGateAddr(s.authUseRoleRsp)
+	addr, transport, err := resolveRobotGateConnectAddr(s.authUseRoleRsp)
 	if err != nil {
 		return err
 	}
 	opt := options.NewMsgQueOptions()
+	opt.SetTransport(transport)
 	opt.SetReadSize(20 * 1024).SetWriteSize(20 * 1024).SetWriteChanSize(options.WRITE_CHAN_SIZE_C)
 	opt.SetConnectParams(options.NewConnectParams(addr, "gate", 100))
 	opt.SetEnableDH(true)
@@ -204,6 +206,56 @@ func nextAuthUseRoleQueueWait(queue *pb.UserLoginQueue, now time.Time) time.Dura
 		return time.Duration(queue.NextDuration) * time.Second
 	}
 	return time.Second
+}
+
+func resolveRobotGateConnectAddr(rsp *pb.AuthUseRoleRSP) (string, options.Transport, error) {
+	addr, err := resolveAuthUseRoleGateAddr(rsp)
+	if err != nil {
+		return "", "", err
+	}
+	transport, path := robotGateTransportAndPath()
+	if transport != options.TransportWebSocket {
+		return addr, transport, nil
+	}
+	return withWebSocketSchemeAndPath(addr, path), transport, nil
+}
+
+func robotGateTransportAndPath() (options.Transport, string) {
+	cfg := robotServerCfg()
+	if cfg == nil || cfg.Net == nil {
+		return options.TransportTCP, options.DefaultWSPath
+	}
+	transport := strings.ToLower(strings.TrimSpace(cfg.Net.Transport))
+	path := strings.TrimSpace(cfg.Net.WSPath)
+	if path == "" {
+		path = options.DefaultWSPath
+	}
+	switch transport {
+	case "ws", string(options.TransportWebSocket):
+		return options.TransportWebSocket, path
+	default:
+		return options.TransportTCP, path
+	}
+}
+
+func withWebSocketSchemeAndPath(addr string, path string) string {
+	addr = strings.TrimSpace(addr)
+	if addr == "" {
+		return addr
+	}
+	if path == "" {
+		path = options.DefaultWSPath
+	}
+	if !strings.HasPrefix(path, "/") {
+		path = "/" + path
+	}
+	if strings.HasPrefix(addr, "ws://") || strings.HasPrefix(addr, "wss://") {
+		if strings.Contains(addr, "/") {
+			return addr
+		}
+		return addr + path
+	}
+	return "ws://" + addr + path
 }
 
 func resolveAuthUseRoleGateAddr(rsp *pb.AuthUseRoleRSP) (string, error) {

@@ -145,10 +145,21 @@ enum MSG_ID {
   STRESS_RSP                    = 143;
   PLAYER_LOAD_USER_REQ          = 144;
   PLAYER_LOAD_USER_RSP          = 145;
+  MATCH_JOIN_REQ                = 146;
+  MATCH_JOIN_RSP                = 147;
   ITEM_LOAD_BAG_REQ             = 150;
   ITEM_LOAD_BAG_RSP             = 151;
 
   LOGIC_END                     = 199;
+
+  BATTLE_START                  = 500;
+  BATTLE_JOIN_REQ               = 501;
+  BATTLE_JOIN_RSP               = 502;
+  BATTLE_OP_REQ                 = 503;
+  BATTLE_OP_RSP                 = 504;
+  BATTLE_SNAPSHOT_NTF           = 505;
+  BATTLE_DELTA_NTF              = 506;
+  BATTLE_END                    = 599;
 
   S2S_REQ_END                = 3999;
   S2S_RPC_START              = 4000;
@@ -169,6 +180,8 @@ enum MSG_ID {
   S2S_PING_RSP               = 4116;
   S2S_BATTLE_CREATE_ROOM_REQ = 4117;
   S2S_BATTLE_CREATE_ROOM_RSP = 4118;
+  S2S_BATTLE_SETTLE_REQ      = 4119;
+  S2S_BATTLE_SETTLE_RSP      = 4120;
   S2S_RPC_END                = 4999;
 }
 

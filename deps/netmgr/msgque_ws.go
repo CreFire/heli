@@ -161,7 +161,7 @@ func (r *wsMsgQue) connectOnce(netmgr *NetMgr) {
 	addr := opt.ConnectParams.ConnectAddr
 	svrType, svrId := opt.ConnectParams.SvrType, opt.ConnectParams.SvrId
 	dialer := websocket.Dialer{
-		HandshakeTimeout: 3 * time.Second,
+		HandshakeTimeout: 15 * time.Second,
 		ReadBufferSize:   int(opt.ReadSize),
 		WriteBufferSize:  int(opt.WriteSize),
 	}

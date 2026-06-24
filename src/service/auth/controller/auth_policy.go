@@ -5,7 +5,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"game/deps/misc"
 	"game/deps/server"
 	servicemgr "game/deps/service_mgr"
 	"game/deps/transport"
@@ -22,10 +21,7 @@ import (
 	"net/http"
 	"net/url"
 	"regexp"
-	"strings"
 	"time"
-
-	"github.com/samber/lo"
 
 	"google.golang.org/protobuf/proto"
 )
@@ -40,7 +36,7 @@ func ensureAccountFormat(account string) error {
 	return nil
 }
 
-// Login 统一处理 HTTP 和 gRPC 的登录请求.
+// Login 统一处理 HTTP 的登录请求.
 func Login(ctx context.Context, req proto.Message) (_ proto.Message, httpErr *xhttp.HttpError) {
 	loginReq, ok := req.(*pb.AuthLoginREQ)
 	if !ok {
@@ -52,7 +48,7 @@ func Login(ctx context.Context, req proto.Message) (_ proto.Message, httpErr *xh
 		return nil, err
 	}
 
-	if err := checkLoginAccess(loginCtx); err != nil {
+	if err := beforecheckLogin(loginCtx); err != nil {
 		return nil, err
 	}
 
@@ -84,9 +80,9 @@ type loginContext struct {
 func newLoginContext(ctx context.Context, loginReq *pb.AuthLoginREQ) (*loginContext, *xhttp.HttpError) {
 	code2Session := loginReq.GetCode2Session()
 	loginType := normalizeLoginType(loginReq)
-	if loginReq.DeviceInfo == nil || loginReq.DeviceInfo.DeviceId == "" {
-		return nil, xhttp.NewHttpError(int32(errorpb.ERROR_REQUEST_PARAMS), "invalid request, param error ")
-	}
+	// if loginReq.DeviceInfo == nil || loginReq.DeviceInfo.DeviceId == "" {
+	// 	return nil, xhttp.NewHttpError(int32(errorpb.ERROR_REQUEST_PARAMS), "invalid request, param error ")
+	// }
 	if loginType == pb.AuthLoginType_AUTH_LOGIN_TYPE_CODE2_SESSION {
 		if code2Session == nil || code2Session.GetCode() == "" {
 			return nil, xhttp.NewHttpError(int32(errorpb.ERROR_REQUEST_PARAMS), "invalid code2Session login params")
@@ -97,7 +93,7 @@ func newLoginContext(ctx context.Context, loginReq *pb.AuthLoginREQ) (*loginCont
 
 	accountForLog := loginReq.Account
 	if loginType == pb.AuthLoginType_AUTH_LOGIN_TYPE_CODE2_SESSION {
-		accountForLog = persist.MiniProgramAccountName(code2SessionApp(code2Session), code2Session.GetCode())
+		accountForLog = persist.MiniProgramAccountName(code2SessionApp(code2Session), code2Session.GetOpenId())
 	}
 
 	var clientIP string
@@ -112,7 +108,7 @@ func newLoginContext(ctx context.Context, loginReq *pb.AuthLoginREQ) (*loginCont
 		code2Session:  code2Session,
 		loginType:     loginType,
 		accountForLog: accountForLog,
-		clientIP:      clientIP,
+		// clientIP:      clientIP,
 	}, nil
 }
 
@@ -127,8 +123,8 @@ func normalizeLoginType(loginReq *pb.AuthLoginREQ) pb.AuthLoginType {
 	return pb.AuthLoginType_AUTH_LOGIN_TYPE_ACCOUNT
 }
 
-// checkLoginAccess 处理登录前置准入检查：白名单、队列、IP 限流和全局限流.
-func checkLoginAccess(loginCtx *loginContext) *xhttp.HttpError {
+// beforecheckLogin 处理登录前置准入检查：白名单、队列、IP 限流和全局限流.
+func beforecheckLogin(loginCtx *loginContext) *xhttp.HttpError {
 	loginReq := loginCtx.req
 	if whiteListSwitch {
 		ok, err := persist.IsInWhiteList(loginCtx.accountForLog, loginReq.DeviceInfo.DeviceId, loginCtx.clientIP)
@@ -143,19 +139,6 @@ func checkLoginAccess(loginCtx *loginContext) *xhttp.HttpError {
 			return xhttp.NewHttpError(int32(errorpb.ERROR_AREA_FIX), "account  ip dev_id not in white list")
 		}
 	}
-
-	// if LoginQueue.CurQueueCount.Get() > 50000 {
-	// 	xlog.Infof("login reject queue full. account:%s ip:%s queueCount:%d",
-	// 		loginCtx.accountForLog, loginCtx.clientIP, LoginQueue.CurQueueCount.Get())
-	// 	return xhttp.NewHttpError(int32(errorpb.ERROR_HTTP_TOO_FAST), "too many  player in login queue ,try later")
-	// }
-
-	// limiter := getIPLimiter(loginCtx.clientIP)
-	// if !limiter.Allow() {
-	// 	xlog.Debugf("login reject ip rate limit. account:%s ip:%s ratePerIp:%v",
-	// 		loginCtx.accountForLog, loginCtx.clientIP, server.MS.ConfBase.Server.Auth.RatePerIp)
-	// 	return xhttp.NewHttpError(int32(errorpb.ERROR_HTTP_TOO_FAST), "too many requests")
-	// }
 
 	if ok := GetLoginLimiter().Allow(); !ok {
 		xlog.Debugf("login reject global rate limit. account:%s ip:%s gateServerCount:%d",
@@ -193,6 +176,7 @@ func loadCode2SessionAccount(ctx context.Context, loginCtx *loginContext) (*pers
 	loginCtx.result.LoginType = pb.AuthLoginType_AUTH_LOGIN_TYPE_CODE2_SESSION
 	loginCtx.result.OpenId = dbAccount.OpenId
 	loginCtx.result.UnionId = dbAccount.UnionId
+	loginCtx.result.Account = dbAccount.Account
 	return dbAccount, nil
 }
 
@@ -288,13 +272,13 @@ func loadAccountLoginAccount(ctx context.Context, loginCtx *loginContext) (*pers
 	loginReq := loginCtx.req
 	//todo 移除内部判断路径
 	//内部使用非标准账号登录
-	if isInternalLoginIP(loginCtx.clientIP) && ensureAccountFormat(loginReq.Account) != nil {
+	if ensureAccountFormat(loginReq.Account) != nil {
 		return loadInternalAccount(ctx, loginCtx)
 	}
 	return loadPasswordAccount(ctx, loginCtx)
 }
 
-// loadInternalAccount 处理内网调试账号路径.
+// loadInternalAccount 处理调试账号路径.
 func loadInternalAccount(ctx context.Context, loginCtx *loginContext) (*persist.Account, *xhttp.HttpError) {
 	loginReq := loginCtx.req
 	dbAccount, err := persist.GetAccount(context.Background(), loginReq.Account)
@@ -337,7 +321,6 @@ func loadPasswordAccount(ctx context.Context, loginCtx *loginContext) (*persist.
 
 // fillLoginSession 确保账号有角色、生成登录 session、写入在线数据并填充响应.
 func fillLoginSession(ctx context.Context, result *pb.AuthLoginRSP, dbAccount *persist.Account, deviceInfo *pb.DeviceInfo, clientIP string) *xhttp.HttpError {
-	createDays := int32(xtime.GetDaysBetween(dbAccount.CreateAt, xtime.NowUnix()))
 	roles := dbAccount.Roles
 	if len(roles) == 0 {
 		gid := persist.CreateGamer(ctx, dbAccount.Account, "")
@@ -353,7 +336,7 @@ func fillLoginSession(ctx context.Context, result *pb.AuthLoginRSP, dbAccount *p
 	if gid == 0 || len(rolesInfo) == 0 {
 		return xhttp.NewHttpError(int32(errorpb.ERROR_FAILED), "no valid roles")
 	}
-
+	// 7天
 	session, err := xtoken.UserTokenEncode(gid, deviceInfo.DeviceId)
 	if err != nil {
 		xlog.Errorf("UserTokenEncode gid:%d error:%v", gid, err)
@@ -373,7 +356,6 @@ func fillLoginSession(ctx context.Context, result *pb.AuthLoginRSP, dbAccount *p
 	}
 
 	result.Session = session
-	result.CreatedDays = createDays
 	result.Account = dbAccount.Account
 	result.Roles = rolesInfo
 	result.Ip = clientIP
@@ -381,14 +363,14 @@ func fillLoginSession(ctx context.Context, result *pb.AuthLoginRSP, dbAccount *p
 	return nil
 }
 
-// isInternalLoginIP 判断是否为内网或本机登录来源.
-func isInternalLoginIP(clientIP string) bool {
-	return strings.HasPrefix(clientIP, "192.168") ||
-		strings.HasPrefix(clientIP, "::1") ||
-		strings.HasPrefix(clientIP, "172.168") ||
-		strings.HasPrefix(clientIP, "127.0") ||
-		strings.HasPrefix(clientIP, "10.244")
-}
+// // isInternalLoginIP 判断是否为内网或本机登录来源.
+// func isInternalLoginIP(clientIP string) bool {
+// 	return strings.HasPrefix(clientIP, "192.168") ||
+// 		strings.HasPrefix(clientIP, "::1") ||
+// 		strings.HasPrefix(clientIP, "172.168") ||
+// 		strings.HasPrefix(clientIP, "127.0") ||
+// 		strings.HasPrefix(clientIP, "10.244")
+// }
 
 func getRoles(account *persist.Account) (gid int64, roles []*pb.UserRoleInfo) {
 	var rolesInfo []*pb.UserRoleInfo
@@ -415,38 +397,23 @@ func getRoles(account *persist.Account) (gid int64, roles []*pb.UserRoleInfo) {
 func UseRole(ctx context.Context, req proto.Message) (_ proto.Message, httpErr *xhttp.HttpError) {
 
 	Req := req.(*pb.AuthUseRoleREQ)
-	res := &pb.AuthUseRoleRSP{}
+	resp := &pb.AuthUseRoleRSP{}
 	if Req.DeviceInfo == nil || Req.Session == "" || Req.DeviceInfo.Gid <= 0 {
 		gid := int64(0)
 		if Req.DeviceInfo != nil {
 			gid = Req.DeviceInfo.Gid
 		}
 		xlog.Infof("userole reject invalid request. gid:%d", gid)
-		return res, xhttp.NewHttpError(int32(errorpb.ERROR_LOGIN_PARAM_INVALID), "invalid request")
+		return resp, xhttp.NewHttpError(int32(errorpb.ERROR_LOGIN_PARAM_INVALID), "invalid request")
 	}
 	tr, ok := transport.FromClientContext(ctx)
 	if !ok || tr == nil {
-		return res, xhttp.NewHttpError(int32(errorpb.ERROR_UNEXPECTED), "transport is nil")
+		return resp, xhttp.NewHttpError(int32(errorpb.ERROR_UNEXPECTED), "transport is nil")
 	}
-	GamerId := int64(0)
-	if GamerId = misc.StrToInt64(tr.RequestHeader().Get("GamerId")); GamerId == 0 {
-		xlog.Infof("userole reject empty gamerId in header. reqGid:%d ip:%s", Req.DeviceInfo.Gid, tr.ClientIP())
-		return nil, xhttp.NewHttpError(int32(errorpb.ERROR_UNEXPECTED), "GamerId is empty")
-	}
+	GamerId := Req.Gid
 	if GamerId != Req.DeviceInfo.Gid {
 		xlog.Infof("userole reject gamerId mismatch. header:%d req:%d ip:%s", GamerId, Req.DeviceInfo.Gid, tr.ClientIP())
-		return res, xhttp.NewHttpError(int32(errorpb.ERROR_UNEXPECTED), "GamerId not match")
-	}
-
-	if !LoginQueue.CheckUserCanEnter(Req.DeviceInfo.Gid) {
-		n := LoginQueue.GetUserPosition(Req.DeviceInfo.Gid)
-		rate := min(server.MS.ConfBase.Server.Auth.RatePerGate*gateServerCount, server.MS.ConfBase.Server.Auth.RateMax)
-		add := lo.Ternary(n < int64(rate), 3, 13)
-		res.Queue = &pb.UserLoginQueue{
-			Index:       int32(n),
-			NextReqTime: xtime.NowUnix() + int64(add),
-		}
-		return res, nil
+		return resp, xhttp.NewHttpError(int32(errorpb.ERROR_UNEXPECTED), "GamerId not match")
 	}
 
 	clientIP := tr.ClientIP()
@@ -454,35 +421,29 @@ func UseRole(ctx context.Context, req proto.Message) (_ proto.Message, httpErr *
 	god, err := cache.GetGamerOnlineData(Req.DeviceInfo.Gid)
 	if err != nil {
 		xlog.Warnf("userole auth session load failed. gid:%d ip:%s err:%v", Req.DeviceInfo.Gid, clientIP, err)
-		return res, xhttp.NewHttpError(int32(errorpb.ERROR_AUTH_SESSION), "auth session failed")
+		return resp, xhttp.NewHttpError(int32(errorpb.ERROR_AUTH_SESSION), "auth session failed")
 	}
 	if god == nil {
 		xlog.Warnf("userole auth session load failed. gid:%d ip:%s reason:nil_online_data", Req.DeviceInfo.Gid, clientIP)
-		return res, xhttp.NewHttpError(int32(errorpb.ERROR_AUTH_SESSION), "auth session failed")
+		return resp, xhttp.NewHttpError(int32(errorpb.ERROR_AUTH_SESSION), "auth session failed")
 	}
 	if god.AuthToken != Req.Session {
 		xlog.Infof("userole reject auth session mismatch. gid:%d ip:%s", Req.DeviceInfo.Gid, clientIP)
-		return res, xhttp.NewHttpError(int32(errorpb.ERROR_AUTH_SESSION), "auth session failed")
+		return resp, xhttp.NewHttpError(int32(errorpb.ERROR_AUTH_SESSION), "auth session failed")
 	}
 	account := god.Account
-	// cancelFunc, err := redisclient.RedLock(server.MS.RedisDB.Client, context.Background(), cache.AccountLoginLockKey(account))
-	// if err != nil {
-	// 	xlog.Errorf("UserRole error: %v", err)
-	// 	return res, xhttp.NewHttpError(int32(errorpb.ERROR_HTTP_TOO_FAST), "redlock failed")
-	// }
-	// defer cancelFunc()
 
 	ins, err := server.MS.SvrMgr.PickMinOnline(common.InnerServerTypeGate, false)
 	if err != nil {
 		xlog.Warnf("PickMinOnline gate instance failed: %v", err)
-		return res, xhttp.NewHttpError(int32(errorpb.ERROR_AREA_NOT_FOUND), "gate server not found")
+		return resp, xhttp.NewHttpError(int32(errorpb.ERROR_AREA_NOT_FOUND), "gate server not found")
 	}
 	ins.IncOnlineCount(1)
 	xlog.Infof("use role bind account:%v gid:%v gate:%v ip:%s session:%v", account, Req.DeviceInfo.Gid, ins.InstanceId, clientIP, Req.Session)
 
-	res.Gid = Req.DeviceInfo.Gid
-	fillUseRoleServerEndpoint(res, ins)
-	return res, nil
+	resp.Gid = Req.DeviceInfo.Gid
+	fillUseRoleServerEndpoint(resp, ins) // ws服务器
+	return resp, nil
 }
 
 func fillUseRoleServerEndpoint(res *pb.AuthUseRoleRSP, ins *servicemgr.ServiceInstance) {
