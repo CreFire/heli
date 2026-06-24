@@ -344,9 +344,18 @@ func (r *wsMsgQue) getDisconnectReason() string {
 	return reason
 }
 
+// readFromConn 从 websocket 连接中读取原始字节并追加到 state.buf。
+//
+// 和 tcp conn.Read 不同，websocket 底层存在 message/frame 边界，因此这里分两层处理：
+// 1. 先通过 NextReader() 获取当前二进制 frame 的 reader；
+// 2. 再从该 reader 中连续读取 payload，直到读满、超时或 frame 结束。
+//
+// 注意：这里把单个 websocket frame 的 io.EOF 视为“当前 frame 读完”，而不是“连接断开”。
+// 如果本次 EOF 之前已经读到字节，则先把有效数据交给上层拆包；若本次未读到字节，则继续切到下一帧。
 func (r *wsMsgQue) readFromConn(state *readState) (int, error) {
 	for {
 		if r.reader == nil {
+			// 当前没有正在消费的 websocket frame，需要先切到下一条 binary message。
 			timeout := r.opt.Timeout
 			if timeout > 0 {
 				_ = r.conn.SetReadDeadline(time.Now().Add(time.Second * time.Duration(timeout)))
@@ -362,25 +371,35 @@ func (r *wsMsgQue) readFromConn(state *readState) (int, error) {
 			r.reader = reader
 		}
 
+		// 对当前 frame 的实际读取也单独刷新读超时，避免长时间阻塞在 Read 上。
 		timeout := r.opt.Timeout
 		if timeout > 0 {
 			_ = r.conn.SetReadDeadline(time.Now().Add(time.Second * time.Duration(timeout)))
 		}
 		n, err := r.reader.Read(state.buf[state.offset:])
 		if n > 0 {
+			// 把本次读取到的字节追加到累计缓冲区尾部。
 			state.offset += n
 		}
 		if errors.Is(err, io.EOF) {
+			// EOF 在 websocket reader 语义下表示“当前 frame 读完”，不是整个连接断开。
 			r.reader = nil
 			if n > 0 {
+				// 当前 frame 最后一段数据依然有效，先返回给上层做拆包。
 				return n, nil
 			}
+			// 当前 frame 恰好空读结束，继续获取下一帧。
 			continue
 		}
 		return n, err
 	}
 }
 
+// ensureFrameCapacity 在消息头解析完成后，校验当前完整业务包所需的缓冲区容量。
+//
+// total = 固定 2 字节 headLen + 消息头长度 + 消息体长度。
+// 对外部客户端连接，包长超过配置读缓冲上限时直接拒绝；
+// 对内部服务连接，允许在 4 倍上限以内按需扩容，兼顾联机服务间传输弹性。
 func (r *wsMsgQue) ensureFrameCapacity(state *readState) bool {
 	total := HEAD_SIZE + state.headLen + state.bodyLen
 	max := int(r.opt.ReadSize)
@@ -402,6 +421,10 @@ func (r *wsMsgQue) ensureFrameCapacity(state *readState) bool {
 	return true
 }
 
+// handleReadMessage 把缓冲区中已经收全的一条消息组装成 msg.Message 并交给上层处理。
+//
+// 这里会把 body 拷贝到新的切片中，避免后续 read()/搬移缓冲区时覆盖当前消息内容。
+// 当 bodyLen 为 0 时，说明这是一个仅包含消息头的空包，可直接进入 processMsg。
 func (r *wsMsgQue) handleReadMessage(state *readState, ptr int) bool {
 	if state.msg == nil {
 		return false
@@ -415,27 +438,48 @@ func (r *wsMsgQue) handleReadMessage(state *readState, ptr int) bool {
 	return r.processMsg(r, state.msg)
 }
 
+// consumeReadBuffer 会从累计读缓冲中尽可能多地拆出完整业务包并顺序处理。
+//
+// 当前项目的 websocket 传输虽然底层有 frame 边界，但这里仍按统一的自定义包格式解析：
+// 1. 先读固定 2 字节的 headLen；
+// 2. 再按 headLen 解析消息头；
+// 3. 再按消息头中的 BodyLen 读取消息体；
+// 4. 每组装出一条完整消息后，交给 handleReadMessage/processMsg 处理。
+//
+// 这个函数只消费 state.buf[0:state.offset] 中“已经收到”的数据：
+// - 数据不足一个完整字段时直接 break，等待后续 read() 继续补数据；
+// - 成功消费的前缀数据会在函数末尾整体左移；
+// - 返回 false 表示拆包或处理过程中出现致命异常，调用方应停止当前 msgque。
 func (r *wsMsgQue) consumeReadBuffer(state *readState) bool {
+	// ptr 表示本轮已经从缓冲区前部消费了多少字节。
+	// 注意它和 state.offset 不同：
+	// - ptr 是“已解析游标”；
+	// - state.offset 是“当前缓冲区累计有效字节数”。
 	ptr := 0
 	for {
 		if state.headLen == 0 {
+			// 连固定 2 字节 headLen 都不够，说明还不能开始解析下一帧，等后续数据到达。
 			if state.offset-ptr < HEAD_SIZE {
 				break
 			}
+			// 读取消息头长度。协议使用大端编码。
 			state.headLen = int(binary.BigEndian.Uint16(state.buf[ptr : ptr+HEAD_SIZE]))
 			if state.headLen > MAX_HEAD_LEN {
 				xlog.Warnf("[%d] websocket packet head len invalid: %d, stop msgque.", r.sessId, state.headLen)
 				return false
 			}
 
+			// 固定长度字段已消费，游标跳过 HEAD_SIZE。
 			ptr += HEAD_SIZE
 		}
 
 		if state.bodyLen == 0 {
+			// 已经知道 headLen，但当前缓冲区还放不下完整消息头，继续等后续数据。
 			if state.offset-ptr < state.headLen {
 				break
 			}
 			message := &msg.Message{}
+			// 用项目统一的 MessageHead 解析逻辑，从缓冲区中还原消息头。
 			head, err := message.NewMessageHead(state.headLen, state.buf[ptr:])
 			if head == nil || err != nil {
 				xlog.Warnf("[%d] websocket packet head err. stop msgque.", r.sessId)
@@ -446,36 +490,56 @@ func (r *wsMsgQue) consumeReadBuffer(state *readState) bool {
 				return false
 			}
 			state.msg = message
+			// 消息头已经消费完，游标继续跳过 headLen。
 			ptr += state.headLen
 			state.bodyLen = int(head.BodyLen)
+			// 检查整个包（固定头 + 消息头 + 消息体）是否超出允许上限；
+			// 对内部连接允许适度扩容，对外部连接则严格限制。
 			if !r.ensureFrameCapacity(state) {
 				return false
 			}
 		}
 
+		// 消息头已齐，但消息体还没收全，等待下次 read() 继续补字节。
 		if state.offset-ptr < state.bodyLen {
 			break
 		}
 
+		// 到这里说明一整条消息已经完整落在缓冲区中，可以进入上层处理。
 		if !r.handleReadMessage(state, ptr) {
 			xlog.Warnf("websocket msgque:%v process msg failed, stop msgque. msgId:%v", r.sessId, state.msg.MsgId())
 			return false
 		}
+		// 消费完 body，游标后移，继续尝试解析缓冲区里后续可能连在一起的消息。
 		ptr += state.bodyLen
+		// 清空当前帧状态，准备解析下一条消息。
 		state.resetFrame()
 	}
 
+	// 正常情况下已消费游标不能超过有效数据边界；超出说明内部状态错乱。
 	if ptr > state.offset {
 		xlog.Errorf("something wrong for websocket sess = %d, stop msgque", r.sessId)
 		return false
 	}
 	if state.offset > ptr {
+		// 把未消费的残留字节左移到缓冲区起始处，供下次 read() 继续拼包。
 		copy(state.buf, state.buf[ptr:state.offset])
 	}
+	// 更新缓冲区当前有效长度。
 	state.offset -= ptr
 	return true
 }
 
+// read 是 websocket 收包主循环：负责持续读取底层字节、累计到缓冲区，并驱动统一拆包流程。
+//
+// 整体流程：
+// 1. 检查连接是否已关闭；
+// 2. 确保读缓冲区仍有空间，必要时仅对内部连接扩容；
+// 3. 调用 readFromConn 读取 websocket binary frame 数据；
+// 4. 调用 consumeReadBuffer 按项目协议拆出完整消息并处理。
+//
+// 一旦出现连接关闭、读错误、拆包失败或消息处理失败，read goroutine 会退出；
+// defer 中再统一负责关闭底层资源并触发断线事件。
 func (r *wsMsgQue) read() {
 	disconnected := true
 	defer func() {
@@ -500,6 +564,7 @@ func (r *wsMsgQue) read() {
 
 		if state.offset == len(state.buf) {
 			if r.isInternalConn() {
+				// 内部连接允许按需扩容，避免大包直接把链路打断。
 				state.grow(len(state.buf) * 2)
 			} else {
 				xlog.Warnf("[%d] websocket read buffer full", r.sessId)

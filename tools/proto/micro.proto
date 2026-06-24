@@ -147,8 +147,16 @@ enum MSG_ID {
   PLAYER_LOAD_USER_RSP          = 145;
   MATCH_JOIN_REQ                = 146;
   MATCH_JOIN_RSP                = 147;
+  SHOP_INFO_REQ                 = 148;
+  SHOP_INFO_RSP                 = 149;
   ITEM_LOAD_BAG_REQ             = 150;
   ITEM_LOAD_BAG_RSP             = 151;
+  SHOP_BUY_REQ                  = 152;
+  SHOP_BUY_RSP                  = 153;
+  TASK_REWARD_REQ               = 154;
+  TASK_REWARD_RSP               = 155;
+  TASK_REFRESH_REQ              = 156;
+  TASK_REFRESH_RSP              = 157;
 
   LOGIC_END                     = 199;
 

@@ -33,6 +33,8 @@ type ITaskModule interface {
 	SendTaskInfo()
 	SendTaskSync()
 	CheckTaskCompleted(id int32) bool
+	Reward(req *pb.TaskRewardREQ) (errorpb.ERROR, proto.Message)
+	Refresh(req *pb.TaskRefreshREQ) (errorpb.ERROR, proto.Message)
 }
 
 type IShopModule interface {
@@ -40,6 +42,7 @@ type IShopModule interface {
 	BuyGoods(shopId, goodsId int32, num int32) ([]*pb.Item, errorpb.ERROR)
 	RefreshShop(shopId int32) errorpb.ERROR
 	GetBuyCount(shopId, goodsId int32) int32
+	BuildShopInfoRsp(req *pb.ShopInfoREQ) *pb.ShopInfoRSP
 }
 
 type IMailModule interface {

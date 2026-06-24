@@ -1,6 +1,9 @@
 package sync
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 type ErrorCode string
 
@@ -34,18 +37,42 @@ type RoomConfig struct {
 	DefaultTowerDeck   []int32
 	RandomTowerTypes   []int32
 	BuildGridsByPlayer map[int64][]int32
+
+	BaseHP          int64
+	MonsterDamage   int64
+	WaveTimeoutTick int64
+	MonsterWaves    []MonsterWaveConfig
 }
 
+type RoomState string
+
+const (
+	RoomStateCreated RoomState = "CREATED"
+	RoomStateRunning RoomState = "RUNNING"
+	RoomStateClosed  RoomState = "CLOSED"
+)
+
 type Room struct {
-	cfg         RoomConfig
-	serverTick  int64
-	nextTowerID int64
-	nextMinerID int64
-	randomIndex int
+	cfg           RoomConfig
+	state         RoomState
+	serverTick    int64
+	startTick     int64
+	endTick       int64
+	nextTowerID   int64
+	nextMinerID   int64
+	nextWaveID    int32
+	nextMonsterID int64
+	randomIndex   int
+
+	finishReason FinishReason
+	settled      bool
+	baseHP       int64
 
 	players   map[int64]*PlayerState
 	towers    map[int64]*TowerState
 	gridTower map[int32]int64
+	monsters  map[int64]*MonsterState
+	waves     []MonsterWaveState
 	deltas    []Delta
 }
 
@@ -81,6 +108,41 @@ const (
 	MonsterPaused  MonsterStatus = "PAUSED"
 )
 
+type MonsterWaveConfig struct {
+	StartTick    int64
+	RouteID      int32
+	MonsterType  int32
+	MonsterCount int32
+	SpawnGapTick int64
+	Speed        int64
+	HP           int64
+	RewardGold   int64
+	PathLength   int64
+}
+
+type MonsterWaveState struct {
+	WaveID       int32
+	Config       MonsterWaveConfig
+	SpawnedCount int32
+	Finished     bool
+}
+
+type MonsterState struct {
+	MonsterID    int64
+	WaveID       int32
+	MonsterType  int32
+	RouteID      int32
+	SpawnTick    int64
+	Progress     int64
+	Speed        int64
+	HP           int64
+	MaxHP        int64
+	RewardGold   int64
+	PathLength   int64
+	Status       MonsterStatus
+	FinishedTick int64
+}
+
 type MonsterSnapshot struct {
 	MonsterID   int64
 	MonsterType int32
@@ -94,10 +156,15 @@ type MonsterSnapshot struct {
 }
 
 type Snapshot struct {
-	ServerTick int64
-	Players    map[int64]PlayerSnapshot
-	Towers     map[int64]TowerSnapshot
-	Monsters   map[int64]MonsterSnapshot
+	ServerTick   int64
+	State        RoomState
+	StartTick    int64
+	EndTick      int64
+	BaseHP       int64
+	FinishReason FinishReason
+	Players      map[int64]PlayerSnapshot
+	Towers       map[int64]TowerSnapshot
+	Monsters     map[int64]MonsterSnapshot
 }
 
 type PlayerSnapshot struct {
@@ -164,13 +231,56 @@ func NewRoom(cfg RoomConfig) *Room {
 	if cfg.TowerMaxLevel <= 0 {
 		cfg.TowerMaxLevel = 5
 	}
+	if cfg.BaseHP <= 0 {
+		cfg.BaseHP = 3
+	}
+	if cfg.MonsterDamage <= 0 {
+		cfg.MonsterDamage = 1
+	}
+	if cfg.WaveTimeoutTick <= 0 {
+		cfg.WaveTimeoutTick = 600
+	}
+	if cfg.MonsterWaves == nil {
+		cfg.MonsterWaves = defaultMonsterWaves()
+	}
+	waves := make([]MonsterWaveState, 0, len(cfg.MonsterWaves))
+	for idx, wave := range cfg.MonsterWaves {
+		if wave.MonsterCount <= 0 {
+			continue
+		}
+		if wave.SpawnGapTick <= 0 {
+			wave.SpawnGapTick = 1
+		}
+		if wave.Speed <= 0 {
+			wave.Speed = 1
+		}
+		if wave.HP <= 0 {
+			wave.HP = 1
+		}
+		if wave.PathLength <= 0 {
+			wave.PathLength = 100
+		}
+		waves = append(waves, MonsterWaveState{WaveID: int32(idx + 1), Config: wave})
+	}
 	return &Room{
-		cfg:         cfg,
-		nextTowerID: 1,
-		nextMinerID: 1,
-		players:     make(map[int64]*PlayerState),
-		towers:      make(map[int64]*TowerState),
-		gridTower:   make(map[int32]int64),
+		cfg:           cfg,
+		state:         RoomStateCreated,
+		baseHP:        cfg.BaseHP,
+		nextTowerID:   1,
+		nextMinerID:   1,
+		nextMonsterID: 1,
+		players:       make(map[int64]*PlayerState),
+		towers:        make(map[int64]*TowerState),
+		gridTower:     make(map[int32]int64),
+		monsters:      make(map[int64]*MonsterState),
+		waves:         waves,
+	}
+}
+
+func defaultMonsterWaves() []MonsterWaveConfig {
+	return []MonsterWaveConfig{
+		{StartTick: 1, RouteID: 1, MonsterType: 101, MonsterCount: 2, SpawnGapTick: 2, Speed: 40, HP: 10, RewardGold: 5, PathLength: 100},
+		{StartTick: 6, RouteID: 1, MonsterType: 102, MonsterCount: 2, SpawnGapTick: 2, Speed: 50, HP: 12, RewardGold: 6, PathLength: 100},
 	}
 }
 
@@ -192,6 +302,32 @@ func (r *Room) AddPlayer(playerID int64, deck []int32) error {
 		Miners:    make(map[int64]*MinerState),
 	}
 	return nil
+}
+
+func (r *Room) Start() bool {
+	if r.state != RoomStateCreated {
+		return false
+	}
+	r.state = RoomStateRunning
+	r.startTick = r.serverTick
+	return true
+}
+
+func (r *Room) Abort() bool {
+	return r.finish(FinishAbort)
+}
+
+func (r *Room) State() RoomState           { return r.state }
+func (r *Room) StartTick() int64           { return r.startTick }
+func (r *Room) EndTick() int64             { return r.endTick }
+func (r *Room) FinishReason() FinishReason { return r.finishReason }
+func (r *Room) Settled() bool              { return r.settled }
+func (r *Room) MarkSettled() bool {
+	if r.settled {
+		return false
+	}
+	r.settled = true
+	return true
 }
 
 func (r *Room) BuildTower(playerID int64, opID string, gridID int32) OpResult {
@@ -305,22 +441,46 @@ func (r *Room) BuyMiner(playerID int64, opID string) OpResult {
 
 func (r *Room) AdvanceToTick(targetTick int64) {
 	for r.serverTick < targetTick {
+		if r.state == RoomStateClosed {
+			return
+		}
+		if r.state == RoomStateCreated {
+			r.Start()
+		}
 		r.serverTick++
 		r.produceMinerMana()
+		r.spawnWaveMonsters()
+		r.advanceMonsters()
+		r.cleanupFinishedWaves()
+		r.checkFinishConditions()
 	}
 }
 
 func (r *Room) Snapshot() Snapshot {
-	s := Snapshot{ServerTick: r.serverTick, Players: make(map[int64]PlayerSnapshot, len(r.players)), Towers: make(map[int64]TowerSnapshot, len(r.towers)), Monsters: make(map[int64]MonsterSnapshot)}
+	s := Snapshot{
+		ServerTick:   r.serverTick,
+		State:        r.state,
+		StartTick:    r.startTick,
+		EndTick:      r.endTick,
+		BaseHP:       r.baseHP,
+		FinishReason: r.finishReason,
+		Players:      make(map[int64]PlayerSnapshot, len(r.players)),
+		Towers:       make(map[int64]TowerSnapshot, len(r.towers)),
+		Monsters:     make(map[int64]MonsterSnapshot, len(r.monsters)),
+	}
 	for id, p := range r.players {
 		ps := PlayerSnapshot{PlayerID: p.PlayerID, Gold: p.Gold, Mana: p.Mana, Miners: make([]MinerSnapshot, 0, len(p.Miners))}
 		for _, m := range p.Miners {
 			ps.Miners = append(ps.Miners, MinerSnapshot{MinerID: m.MinerID, NextProduceTick: m.NextProduceTick})
 		}
+		sort.Slice(ps.Miners, func(i, j int) bool { return ps.Miners[i].MinerID < ps.Miners[j].MinerID })
 		s.Players[id] = ps
 	}
 	for id, t := range r.towers {
 		s.Towers[id] = towerSnapshot(t)
+	}
+	for id, monster := range r.monsters {
+		s.Monsters[id] = monsterSnapshot(monster)
 	}
 	return s
 }
@@ -329,6 +489,33 @@ func (r *Room) FlushDeltas() []Delta {
 	out := append([]Delta(nil), r.deltas...)
 	r.deltas = nil
 	return out
+}
+
+func (r *Room) BuildSettlement(roomID string) Settlement {
+	players := make([]PlayerSettlement, 0, len(r.players))
+	ids := make([]int64, 0, len(r.players))
+	for id := range r.players {
+		ids = append(ids, id)
+	}
+	sort.Slice(ids, func(i, j int) bool { return ids[i] < ids[j] })
+	for _, id := range ids {
+		player := r.players[id]
+		players = append(players, PlayerSettlement{
+			PlayerID:  player.PlayerID,
+			Gold:      player.Gold,
+			Mana:      player.Mana,
+			KillCount: 0,
+		})
+	}
+	return Settlement{
+		RoomID:       roomID,
+		BattleID:     roomID,
+		Win:          r.finishReason == FinishWin,
+		StartTick:    r.startTick,
+		EndTick:      r.endTick,
+		FinishReason: r.finishReason,
+		Players:      players,
+	}
 }
 
 func (r *Room) produceMinerMana() {
@@ -345,6 +532,109 @@ func (r *Room) produceMinerMana() {
 			}
 		}
 	}
+}
+
+func (r *Room) spawnWaveMonsters() {
+	for idx := range r.waves {
+		wave := &r.waves[idx]
+		if wave.Finished || r.serverTick < wave.Config.StartTick {
+			continue
+		}
+		for wave.SpawnedCount < wave.Config.MonsterCount {
+			nextSpawnTick := wave.Config.StartTick + int64(wave.SpawnedCount)*wave.Config.SpawnGapTick
+			if r.serverTick < nextSpawnTick {
+				break
+			}
+			monster := &MonsterState{
+				MonsterID:   r.allocMonsterID(),
+				WaveID:      wave.WaveID,
+				MonsterType: wave.Config.MonsterType,
+				RouteID:     wave.Config.RouteID,
+				SpawnTick:   r.serverTick,
+				Speed:       wave.Config.Speed,
+				HP:          wave.Config.HP,
+				MaxHP:       wave.Config.HP,
+				RewardGold:  wave.Config.RewardGold,
+				PathLength:  wave.Config.PathLength,
+				Status:      MonsterAlive,
+			}
+			r.monsters[monster.MonsterID] = monster
+			wave.SpawnedCount++
+			r.appendMonsterDelta(DeltaMonsterSpawned, monster)
+		}
+	}
+}
+
+func (r *Room) advanceMonsters() {
+	for _, monster := range r.monsters {
+		if monster.Status != MonsterAlive {
+			continue
+		}
+		monster.Progress += monster.Speed
+		if monster.Progress >= monster.PathLength {
+			monster.Progress = monster.PathLength
+			monster.Status = MonsterArrived
+			monster.FinishedTick = r.serverTick
+			r.baseHP -= r.cfg.MonsterDamage
+			if r.baseHP < 0 {
+				r.baseHP = 0
+			}
+			r.appendMonsterDelta(DeltaMonsterArrived, monster)
+			continue
+		}
+		r.appendMonsterDelta(DeltaMonsterProgressFixed, monster)
+	}
+}
+
+func (r *Room) cleanupFinishedWaves() {
+	for idx := range r.waves {
+		wave := &r.waves[idx]
+		if wave.Finished || wave.SpawnedCount < wave.Config.MonsterCount {
+			continue
+		}
+		finished := true
+		for _, monster := range r.monsters {
+			if monster.WaveID == wave.WaveID && monster.Status == MonsterAlive {
+				finished = false
+				break
+			}
+		}
+		wave.Finished = finished
+	}
+}
+
+func (r *Room) checkFinishConditions() {
+	if r.state == RoomStateClosed {
+		return
+	}
+	if r.baseHP <= 0 {
+		r.finish(FinishLose)
+		return
+	}
+	if r.cfg.WaveTimeoutTick > 0 && r.serverTick-r.startTick >= r.cfg.WaveTimeoutTick {
+		r.finish(FinishTimeout)
+		return
+	}
+	allFinished := len(r.waves) > 0
+	for _, wave := range r.waves {
+		if !wave.Finished {
+			allFinished = false
+			break
+		}
+	}
+	if allFinished {
+		r.finish(FinishWin)
+	}
+}
+
+func (r *Room) finish(reason FinishReason) bool {
+	if r.state == RoomStateClosed {
+		return false
+	}
+	r.state = RoomStateClosed
+	r.finishReason = reason
+	r.endTick = r.serverTick
+	return true
 }
 
 func (r *Room) canBuildOn(playerID int64, gridID int32) bool {
@@ -388,6 +678,12 @@ func (r *Room) allocMinerID() int64 {
 	return id
 }
 
+func (r *Room) allocMonsterID() int64 {
+	id := r.nextMonsterID
+	r.nextMonsterID++
+	return id
+}
+
 func (r *Room) appendResourceDelta(playerID int64, opID string) {
 	p := r.players[playerID]
 	r.deltas = append(r.deltas, Delta{Type: DeltaResourceChanged, ServerTick: r.serverTick, PlayerID: playerID, OpID: opID, Gold: p.Gold, Mana: p.Mana})
@@ -397,8 +693,16 @@ func (r *Room) appendTowerDelta(deltaType DeltaType, playerID int64, opID string
 	r.deltas = append(r.deltas, Delta{Type: deltaType, ServerTick: r.serverTick, PlayerID: playerID, OpID: opID, TowerID: tower.TowerID, MaterialTowerID: materialTowerID, Tower: towerSnapshot(tower)})
 }
 
+func (r *Room) appendMonsterDelta(deltaType DeltaType, monster *MonsterState) {
+	r.deltas = append(r.deltas, Delta{Type: deltaType, ServerTick: r.serverTick, MonsterID: monster.MonsterID, Monster: monsterSnapshot(monster)})
+}
+
 func towerSnapshot(t *TowerState) TowerSnapshot {
 	return TowerSnapshot{TowerID: t.TowerID, OwnerPlayerID: t.OwnerPlayerID, TypeID: t.TypeID, Level: t.Level, GridID: t.GridID}
+}
+
+func monsterSnapshot(m *MonsterState) MonsterSnapshot {
+	return MonsterSnapshot{MonsterID: m.MonsterID, MonsterType: m.MonsterType, RouteID: m.RouteID, SpawnTick: m.SpawnTick, Progress: m.Progress, Speed: m.Speed, HP: m.HP, MaxHP: m.MaxHP, Status: m.Status}
 }
 
 func fail(opID string, code ErrorCode) OpResult {

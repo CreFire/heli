@@ -1,29 +1,31 @@
 # handoff-test-to-dev
 
-## 测试范围
-
-待填写。
-
-## 已执行命令/步骤
-
-待填写。
-
-## 通过项
-
-待填写。
-
-## 失败项
-
-待填写。
-
-## 复现步骤
-
-待填写。
-
-## 建议修复范围
-
-待填写。
-
-## 验收结论
-
-待填写。
+- 测试范围：
+  - battle P0 第二阶段定向自动化验收，仅覆盖 P0-4 / P0-5 / P0-6。
+  - 重点核验：join 返回 snapshot、非法 join/op 失败语义、房间结束后 op 拒绝且不再产生有效 delta、battle 结束 settle 只触发一次、logic 对合法/非法/重复 settle 的固定语义。
+- 已执行命令/步骤：
+  - `go test ./src/service/battle -run 'Test(ApplyBattleOpRejectsEmptyOpID|ApplyBattleOpRejectsClosedRoom|FinishBattleRoomSendsSettlementOnce)' -count=1`
+  - `go test ./src/service/logic/module/battle -run 'TestValidateAndMark(RejectsInvalidSettle|AcceptsDuplicateIdempotently)' -count=1`
+  - 复核实现与测试文件：
+    - [E:\work\heli\server\src\service\battle\handler.go](E:\work\heli\server\src\service\battle\handler.go)
+    - [E:\work\heli\server\src\service\battle\battlesvr.go](E:\work\heli\server\src\service\battle\battlesvr.go)
+    - [E:\work\heli\server\src\service\battle\room_manager.go](E:\work\heli\server\src\service\battle\room_manager.go)
+    - [E:\work\heli\server\src\service\battle\battle_stage2_test.go](E:\work\heli\server\src\service\battle\battle_stage2_test.go)
+    - [E:\work\heli\server\src\service\logic\module\battle\handler.go](E:\work\heli\server\src\service\logic\module\battle\handler.go)
+    - [E:\work\heli\server\src\service\logic\module\battle\handler_stage2_test.go](E:\work\heli\server\src\service\logic\module\battle\handler_stage2_test.go)
+- 通过项：
+  - `reqBattleJoin` 成功路径会返回 `S2CBattleJoinRSP`，并携带 `SnapshotToProto(...)` 生成的完整 snapshot；实现上已绑定 session 后再回快照。
+  - battle op 对空 `op_id` 返回 `ERROR_REQUEST_PARAMS` + `op id is empty`；对已结束房间返回 `ERROR_FAILED` + `battle already finished`。
+  - `reqBattleOp` 对未 join / session 不匹配返回 `ERROR_LOGIN_SESSION_INVALID` + `battle join required`，与交接语义一致。
+  - 房间结束后 `applyBattleOp` 在进入业务前即拒绝，成功广播 `delta` 的逻辑只存在于 `ERROR_SUCCESS` 分支；结合实现可确认结束后不会再广播有效 delta。
+  - `finishBattleRoom` 通过 `loop.settleOnce` + `room.MarkSettled()` 双层防重，单测验证同房间 settle 仅发送一次，且 battle 侧会记录 ack 成功状态。
+  - logic `validateAndMark` 对合法请求返回 `accepted=true,message=ok`；对非法请求稳定返回 `accepted=false` + 固定错误文案；对重复 settle 返回 `accepted=true,message=duplicate settle accepted`。
+- 失败项：
+  - 本次未发现新的自动化失败项。
+- 复现步骤：
+  - 在项目根目录执行上述两条 `go test` 定向命令即可复现本次验收结果。
+- 建议修复范围：
+  - 当前没有阻塞 battle P0 第二阶段验收的代码问题。
+  - 后续若进入双进程联调，建议补一条 battle join 成功返回 snapshot 的显式单测或集成测试，减少当前“由实现复核 + 周边测试佐证”的空档。
+- 验收结论：
+  - battle P0 第二阶段（P0-4 / P0-5 / P0-6）本次定向自动化验收通过，可继续进入联调或下一阶段工作。

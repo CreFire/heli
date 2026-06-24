@@ -1,4 +1,4 @@
-package main
+package battleapp
 
 import (
 	"game/deps/msg"
@@ -14,6 +14,10 @@ import (
 )
 
 func RegisterBattleHandlers() error {
+	// battle 当前对外只暴露三条最小链路：
+	// 1. logic -> battle 创房
+	// 2. client -> battle 进房
+	// 3. client -> battle 局内操作
 	server.MS.Rpc.RpcRegister(pb.MSG_ID_S2S_BATTLE_CREATE_ROOM_REQ, rpcCreateBattleRoom)
 	server.MS.Router.CSRegister(pb.MSG_ID_BATTLE_JOIN_REQ, reqBattleJoin)
 	server.MS.Router.CSRegister(pb.MSG_ID_BATTLE_OP_REQ, reqBattleOp)
@@ -21,6 +25,8 @@ func RegisterBattleHandlers() error {
 }
 
 func rpcCreateBattleRoom(_ netmgr.IMsgQue, reqMsg *msg.Message) *pbrpc.S2SRpcRSP {
+	// logic 在匹配/开局阶段调用 battle 创房。
+	// 当前为 P0 最小闭环：battle 负责生成 battle_token、创建内存房间并启动 tick loop。
 	req := reqMsg.Message().(*pbrpc.S2SBattleCreateRoomREQ)
 	battleToken := battleSvr.buildBattleToken(req.RoomId, req.PlayerIds)
 	rsp := &pbrpc.S2SRpcRSP{RspType: &pbrpc.S2SRpcRSP_BattleCreateRoomRsp{BattleCreateRoomRsp: &pbrpc.S2SBattleCreateRoomRSP{}}}
@@ -31,6 +37,7 @@ func rpcCreateBattleRoom(_ netmgr.IMsgQue, reqMsg *msg.Message) *pbrpc.S2SRpcRSP
 		rsp.Error = &errorpb.RpcError{ErrCode: errorpb.ERROR_RPC_LOGIC_FAILED, ErrDesc: err.Error()}
 		return rsp
 	}
+	battleSvr.startRoomLoop(room)
 
 	rsp.GetBattleCreateRoomRsp().Ok = true
 	rsp.GetBattleCreateRoomRsp().RoomId = room.id
@@ -41,6 +48,8 @@ func rpcCreateBattleRoom(_ netmgr.IMsgQue, reqMsg *msg.Message) *pbrpc.S2SRpcRSP
 }
 
 func reqBattleJoin(msgque netmgr.IMsgQue, reqMsg *msg.Message) (errorpb.ERROR, proto.Message) {
+	// join 是客户端直连 battle 后的第一步。
+	// P0 目标：校验 room_id / token / player 归属，并把完整 snapshot 返回给客户端做局内初始化。
 	req, ok := reqMsg.Message().(*pb.C2SBattleJoinREQ)
 	if !ok || req == nil || msgque == nil {
 		return errorpb.ERROR_REQUEST_PARAMS, nil
@@ -56,11 +65,15 @@ func reqBattleJoin(msgque netmgr.IMsgQue, reqMsg *msg.Message) (errorpb.ERROR, p
 	room.bindPlayerSession(playerID, msgque.SessId())
 	rsp.Code = errorpb.ERROR_SUCCESS
 	rsp.Message = "ok"
-	rsp.Snapshot = battlesync.SnapshotToProto(room.id, room.room.Snapshot())
+	rsp.Snapshot = battlesync.SnapshotToProto(room.id, room.roomSnapshot())
 	return errorpb.ERROR_SUCCESS, rsp
 }
 
 func reqBattleOp(msgque netmgr.IMsgQue, reqMsg *msg.Message) (errorpb.ERROR, proto.Message) {
+	// op 走 battle 权威执行：
+	// - 先做最小 session 归属校验
+	// - 再进入 sync.Room 执行状态变更
+	// - 成功后先返回 rsp，再广播本 tick 产生的 delta
 	req, ok := reqMsg.Message().(*pb.C2SBattleOpREQ)
 	if !ok || req == nil || msgque == nil || req.GetOp() == nil {
 		return errorpb.ERROR_REQUEST_PARAMS, nil

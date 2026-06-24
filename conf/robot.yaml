@@ -1,0 +1,28 @@
+id: 1
+type: "robot"
+cluster: "dev01"
+
+log:
+  level: "info"
+  path: "./logs"
+  fileName: "robot"
+  rotation: "daily"
+  maxFileSizeMB: 100
+  retentionDays: 14
+
+ip: "127.0.0.1"
+port: 10401
+
+gameDataPath: "../tools/excel"
+
+net:
+  transport: "websocket"
+  wsPath: "/ws"
+
+robot:
+  name: "robot"
+  count: 1
+  auth: "http://127.0.0.1:10101"
+  loginRate: 1
+  actionIntervalMs: 1000
+  recentReqLimit: 50

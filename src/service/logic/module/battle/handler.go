@@ -12,12 +12,16 @@ import (
 	"game/src/proto/errorpb"
 	"game/src/proto/pb"
 	"game/src/proto/pbrpc"
+	"sync"
 )
 
-type Handler struct{}
+type Handler struct {
+	mu        sync.Mutex
+	processed map[string]*pb.S2SBattleSettleRSP
+}
 
 func NewHandler() *Handler {
-	return &Handler{}
+	return &Handler{processed: make(map[string]*pb.S2SBattleSettleRSP)}
 }
 
 func (h *Handler) RegisterHandler(rpc *rpcmgr.RpcMgr, r *router.Router) error {
@@ -30,27 +34,49 @@ func (h *Handler) rpcBattleSettle(_ netmgr.IMsgQue, reqMsg *msg.Message) *pbrpc.
 	if !ok || req == nil {
 		return &pbrpc.S2SRpcRSP{Error: &errorpb.RpcError{ErrCode: errorpb.ERROR_REQUEST_PARAMS, ErrDesc: "invalid battle settle req"}}
 	}
-	xlog.Infof("logic recv battle settle roomId:%s battleId:%s win:%v finish:%s players:%d", req.GetRoomId(), req.GetBattleId(), req.GetWin(), req.GetFinishReason().String(), len(req.GetPlayers()))
-
-	accepted := req.GetRoomId() != ""
-	message := "ok"
-	if !accepted {
-		message = "room id is empty"
-	}
-
-	payload := &pb.S2SBattleSettleRSP{
-		RoomId:   req.GetRoomId(),
-		Accepted: accepted,
-		Message:  message,
-	}
-	data, err := msg.PBPack(payload)
+	rsp := h.validateAndMark(req)
+	xlog.Infof("logic recv battle settle roomId:%s battleId:%s accepted:%v message:%s players:%d", req.GetRoomId(), req.GetBattleId(), rsp.GetAccepted(), rsp.GetMessage(), len(req.GetPlayers()))
+	data, err := msg.PBPack(rsp)
 	if err != nil {
 		return &pbrpc.S2SRpcRSP{Error: &errorpb.RpcError{ErrCode: errorpb.ERROR_RPC_SERVER_RSP_ERROR, ErrDesc: err.Error()}}
 	}
-	return &pbrpc.S2SRpcRSP{
-		MsgId:   pb.MSG_ID_S2S_BATTLE_SETTLE_RSP,
-		PayLoad: data,
+	return &pbrpc.S2SRpcRSP{MsgId: pb.MSG_ID_S2S_BATTLE_SETTLE_RSP, PayLoad: data}
+}
+
+func (h *Handler) validateAndMark(req *pb.S2SBattleSettleREQ) *pb.S2SBattleSettleRSP {
+	if req == nil {
+		return &pb.S2SBattleSettleRSP{Accepted: false, Message: "settle req is nil"}
 	}
+	if req.GetRoomId() == "" {
+		return &pb.S2SBattleSettleRSP{RoomId: req.GetRoomId(), Accepted: false, Message: "room id is empty"}
+	}
+	if req.GetBattleId() == "" {
+		return &pb.S2SBattleSettleRSP{RoomId: req.GetRoomId(), Accepted: false, Message: "battle id is empty"}
+	}
+	if req.GetEndTick() < req.GetStartTick() {
+		return &pb.S2SBattleSettleRSP{RoomId: req.GetRoomId(), Accepted: false, Message: "end tick is smaller than start tick"}
+	}
+	if len(req.GetPlayers()) == 0 {
+		return &pb.S2SBattleSettleRSP{RoomId: req.GetRoomId(), Accepted: false, Message: "players is empty"}
+	}
+	for _, player := range req.GetPlayers() {
+		if player == nil || player.GetPlayerId() <= 0 {
+			return &pb.S2SBattleSettleRSP{RoomId: req.GetRoomId(), Accepted: false, Message: "player settle data invalid"}
+		}
+	}
+
+	key := fmt.Sprintf("%s:%s", req.GetRoomId(), req.GetBattleId())
+	h.mu.Lock()
+	defer h.mu.Unlock()
+	if h.processed == nil {
+		h.processed = make(map[string]*pb.S2SBattleSettleRSP)
+	}
+	if cached, ok := h.processed[key]; ok {
+		return &pb.S2SBattleSettleRSP{RoomId: cached.GetRoomId(), Accepted: cached.GetAccepted(), Message: "duplicate settle accepted"}
+	}
+	rsp := &pb.S2SBattleSettleRSP{RoomId: req.GetRoomId(), Accepted: true, Message: "ok"}
+	h.processed[key] = rsp
+	return rsp
 }
 
 func CreateRoom(roomID string, playerIDs []int64, towerDeck []int32, combatType int32, levelID int32) (*pbrpc.S2SBattleCreateRoomRSP, error) {

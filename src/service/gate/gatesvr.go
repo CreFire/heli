@@ -257,6 +257,7 @@ func (g *GateSvr) ServerRouteHandler(msgque netmgr.IMsgQue, data *msg.Message) b
 	return true
 }
 
+// handler gate的handler
 func (g *GateSvr) ClientRouteHandler(msgque netmgr.IMsgQue, data *msg.Message) bool {
 	// 处理客户端发送到 Gate 的消息，根据 msgId 进行路由到逻辑服或公共服。
 	msgId := pb.MSG_ID(data.Head.MsgId)
@@ -301,6 +302,7 @@ func (g *GateSvr) ClientRouteHandler(msgque netmgr.IMsgQue, data *msg.Message) b
 	return false
 }
 
+// gate的handler
 func (g *GateSvr) ClientDisconnectHandler(gamerId, sessId int64) {
 	// 客户端断开时清理 Gate 会话缓存，并可能延迟执行真正的登出处理。
 	xlog.Debugf("gamer disconnect [gamerId:%d] [sessId:%d]", gamerId, sessId)

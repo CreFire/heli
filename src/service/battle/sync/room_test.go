@@ -10,6 +10,7 @@ func TestBuildTowerCreatesLevelOneTowerAndEmitsSnapshotDelta(t *testing.T) {
 		RerollCostMana:   3,
 		TowerMaxLevel:    5,
 		DefaultTowerDeck: []int32{101},
+		MonsterWaves:     []MonsterWaveConfig{},
 		BuildGridsByPlayer: map[int64][]int32{
 			1: {1001},
 		},
@@ -52,6 +53,7 @@ func TestBuildTowerRejectsGridOutsideOwnBuildArea(t *testing.T) {
 		BuildCostGold:    20,
 		TowerMaxLevel:    5,
 		DefaultTowerDeck: []int32{101},
+		MonsterWaves:     []MonsterWaveConfig{},
 		BuildGridsByPlayer: map[int64][]int32{
 			1: {1001},
 		},
@@ -78,6 +80,7 @@ func TestRerollOwnTowerKeepsLevelAndCostsMana(t *testing.T) {
 		RerollCostMana:     4,
 		TowerMaxLevel:      5,
 		DefaultTowerDeck:   []int32{101, 202},
+		MonsterWaves:       []MonsterWaveConfig{},
 		BuildGridsByPlayer: map[int64][]int32{1: {1001}},
 		RandomTowerTypes:   []int32{101, 202},
 	})
@@ -110,6 +113,7 @@ func TestRerollRejectsOtherPlayersTower(t *testing.T) {
 		RerollCostMana:     4,
 		TowerMaxLevel:      5,
 		DefaultTowerDeck:   []int32{101},
+		MonsterWaves:       []MonsterWaveConfig{},
 		BuildGridsByPlayer: map[int64][]int32{1: {1001}, 2: {2001}},
 	})
 	_ = room.AddPlayer(1, []int32{101})
@@ -131,6 +135,7 @@ func TestMergeConsumesMaterialAndCreatesRandomHigherLevelAtMainGrid(t *testing.T
 		BuildCostGold:      10,
 		TowerMaxLevel:      5,
 		DefaultTowerDeck:   []int32{101, 202},
+		MonsterWaves:       []MonsterWaveConfig{},
 		BuildGridsByPlayer: map[int64][]int32{1: {1001, 1002}},
 		RandomTowerTypes:   []int32{101, 101, 202},
 	})
@@ -165,6 +170,7 @@ func TestMinerProducesManaOnTick(t *testing.T) {
 		MinerProduceInterval: 3,
 		TowerMaxLevel:        5,
 		DefaultTowerDeck:     []int32{101},
+		MonsterWaves:         []MonsterWaveConfig{},
 	})
 	_ = room.AddPlayer(1, []int32{101})
 
@@ -187,3 +193,116 @@ func TestMinerProducesManaOnTick(t *testing.T) {
 		t.Fatalf("unexpected miner deltas: %+v", deltas)
 	}
 }
+
+func TestAdvanceToTickSpawnsAndMovesMonsters(t *testing.T) {
+	room := NewRoom(RoomConfig{
+		DefaultTowerDeck: []int32{101},
+		MonsterWaves: []MonsterWaveConfig{{
+			StartTick:    1,
+			RouteID:      1,
+			MonsterType:  1001,
+			MonsterCount: 2,
+			SpawnGapTick: 3,
+			Speed:        25,
+			HP:           10,
+			PathLength:   100,
+		}},
+	})
+	_ = room.AddPlayer(1, []int32{101})
+	room.Start()
+	room.AdvanceToTick(2)
+
+	snapshot := room.Snapshot()
+	if snapshot.ServerTick != 2 {
+		t.Fatalf("server tick = %d, want 2", snapshot.ServerTick)
+	}
+	if snapshot.State != RoomStateRunning {
+		t.Fatalf("state = %s, want RUNNING", snapshot.State)
+	}
+	if len(snapshot.Monsters) != 1 {
+		t.Fatalf("monster count = %d, want 1", len(snapshot.Monsters))
+	}
+	for _, monster := range snapshot.Monsters {
+		if monster.Status != MonsterAlive {
+			t.Fatalf("monster status = %s, want ALIVE", monster.Status)
+		}
+		if monster.Progress <= 0 {
+			t.Fatalf("monster progress = %d, want > 0", monster.Progress)
+		}
+	}
+}
+
+func TestRoomFinishWinAfterAllWavesProcessed(t *testing.T) {
+	room := NewRoom(RoomConfig{
+		DefaultTowerDeck: []int32{101},
+		MonsterWaves: []MonsterWaveConfig{{
+			StartTick:    1,
+			RouteID:      1,
+			MonsterType:  1001,
+			MonsterCount: 1,
+			SpawnGapTick: 1,
+			Speed:        100,
+			HP:           10,
+			PathLength:   100,
+		}},
+		BaseHP:        5,
+		MonsterDamage: 0,
+	})
+	_ = room.AddPlayer(1, []int32{101})
+	room.Start()
+	room.AdvanceToTick(2)
+
+	snapshot := room.Snapshot()
+	if snapshot.State != RoomStateClosed {
+		t.Fatalf("room state = %s, want CLOSED", snapshot.State)
+	}
+	if snapshot.FinishReason != FinishWin {
+		t.Fatalf("finish reason = %s, want WIN", snapshot.FinishReason)
+	}
+	if snapshot.EndTick == 0 {
+		t.Fatalf("end tick should be set")
+	}
+}
+
+func TestRoomFinishLoseWhenBaseHPDepleted(t *testing.T) {
+	room := NewRoom(RoomConfig{
+		DefaultTowerDeck: []int32{101},
+		MonsterWaves: []MonsterWaveConfig{{
+			StartTick:    1,
+			RouteID:      1,
+			MonsterType:  1001,
+			MonsterCount: 1,
+			SpawnGapTick: 1,
+			Speed:        100,
+			HP:           10,
+			PathLength:   100,
+		}},
+		BaseHP:        1,
+		MonsterDamage: 1,
+	})
+	_ = room.AddPlayer(1, []int32{101})
+	room.Start()
+	room.AdvanceToTick(1)
+
+	snapshot := room.Snapshot()
+	if snapshot.State != RoomStateClosed {
+		t.Fatalf("room state = %s, want CLOSED", snapshot.State)
+	}
+	if snapshot.FinishReason != FinishLose {
+		t.Fatalf("finish reason = %s, want LOSE", snapshot.FinishReason)
+	}
+	if snapshot.BaseHP != 0 {
+		t.Fatalf("base hp = %d, want 0", snapshot.BaseHP)
+	}
+}
+
+func TestMarkSettledOnlyOnce(t *testing.T) {
+	room := NewRoom(RoomConfig{DefaultTowerDeck: []int32{101}, MonsterWaves: []MonsterWaveConfig{}})
+	if room.MarkSettled() != true {
+		t.Fatalf("first mark settled should succeed")
+	}
+	if room.MarkSettled() != false {
+		t.Fatalf("second mark settled should fail")
+	}
+}
+

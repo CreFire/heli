@@ -9,7 +9,7 @@
             "program": "${workspaceFolder}/src/service/auth",
             "cwd": "${workspaceFolder}",
             "args": [
-                "-f",
+                "--f",
                 "${workspaceFolder}/conf/auth.yaml"
             ],
             "console": "integratedTerminal"
@@ -22,7 +22,7 @@
             "program": "${workspaceFolder}/src/service/gate",
             "cwd": "${workspaceFolder}",
             "args": [
-                "-f",
+                "--f",
                 "${workspaceFolder}/conf/gate.yaml"
             ],
             "console": "integratedTerminal"
@@ -35,7 +35,7 @@
             "program": "${workspaceFolder}/src/service/logic",
             "cwd": "${workspaceFolder}",
             "args": [
-                "-f",
+                "--f",
                 "${workspaceFolder}/conf/logic.yaml"
             ],
             "console": "integratedTerminal"

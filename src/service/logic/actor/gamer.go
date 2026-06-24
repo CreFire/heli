@@ -13,6 +13,8 @@ import (
 	"game/src/service/logic/gamedata"
 	"game/src/service/logic/iface"
 	matchmodule "game/src/service/logic/module/matchbiz"
+	shopmodule "game/src/service/logic/module/shopbiz"
+	taskmodule "game/src/service/logic/module/taskbiz"
 	"math/rand"
 	"sync/atomic"
 	"time"
@@ -127,7 +129,6 @@ func (r *Gamer) Logger() iface.ILogger {
 	return r
 }
 
-// Business modules are intentionally absent in the framework-only project.
 func (r *Gamer) Task() iface.ITaskModule         { return r.taskModule }
 func (r *Gamer) Item() iface.IItemModule         { return r.itemModule }
 func (r *Gamer) Hero() iface.IHeroModule         { return r.heroModule }
@@ -244,24 +245,18 @@ func (r *Gamer) bindModules() {
 		return
 	}
 	r.matchModule = matchmodule.NewMatchModule(r, r.Model)
-	// if r.Model.GamerMods[persist.GamerBaseModIndex] != nil || r.Model.GamerMods[persist.GamerMainModIndex] != nil {
-	// 	r.playerModule = playermodule.NewPlayerModule(r, r.Model)
-	// }
+	r.taskModule = taskmodule.NewTaskModule(r, r.Model)
+	r.shopModule = shopmodule.NewShopModule(r, r.Model)
 	if mod := r.Model.GamerMods[persist.GamerHeroModIndex]; mod != nil {
 		if v, ok := mod.(iface.IHeroModule); ok {
 			r.heroModule = v
 		}
 	}
-	// if r.Model.GamerMods[persist.GamerPackModIndex] != nil {
-	// 	r.itemModule = itemmodule.NewItemModule(r, r.Model)
-	// }
-
 	if mod := r.Model.GamerMods[persist.GamerPackModIndex]; mod != nil {
 		if v, ok := mod.(iface.IPackModule); ok {
 			r.packModule = v
 		}
 	}
-
 	if mod := r.Model.GamerMods[persist.GamerFunctionModIndex]; mod != nil {
 		if v, ok := mod.(iface.IFunctionModule); ok {
 			r.functionModule = v

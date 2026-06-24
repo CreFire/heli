@@ -1,4 +1,4 @@
-package main
+package battleapp
 
 import (
 	"testing"
@@ -17,6 +17,9 @@ func TestBattleAddrAndTokenHelpers(t *testing.T) {
 	}
 	if room == nil || room.room == nil {
 		t.Fatalf("room not created")
+	}
+	if room.roomSnapshot().State != battlesync.RoomStateCreated {
+		t.Fatalf("room state = %s, want CREATED", room.roomSnapshot().State)
 	}
 
 	token := battleSvr.buildBattleToken(room.id, room.playerIDs)
@@ -40,5 +43,24 @@ func TestVerifyBattleToken(t *testing.T) {
 	}
 	if err := battleSvr.verifyBattleToken(room, 1001, "room-1", "bad-token"); err == nil {
 		t.Fatalf("expected invalid token error")
+	}
+}
+
+func TestBattleRoomAdvanceStopsAfterFinish(t *testing.T) {
+	mgr := newRoomManager()
+	room, err := mgr.createRoom("room-finish", []int64{1001}, []int32{101}, "battle:room-finish:1001")
+	if err != nil {
+		t.Fatalf("create room err: %v", err)
+	}
+	room.withRoom(func(syncRoom *battlesync.Room) {
+		syncRoom.Abort()
+	})
+	before := room.roomSnapshot().ServerTick
+	after := room.advanceLoopTick()
+	if after.ServerTick != before {
+		t.Fatalf("closed room should not advance, before=%d after=%d", before, after.ServerTick)
+	}
+	if after.State != battlesync.RoomStateClosed {
+		t.Fatalf("state = %s, want CLOSED", after.State)
 	}
 }

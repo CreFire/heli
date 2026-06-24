@@ -3,11 +3,12 @@ package main
 import (
 	"game/deps/server"
 	"game/deps/xlog"
+	"game/src/service/battle/battleapp"
 	"time"
 )
 
 func main() {
-	if err := server.MS.Init(battleSvr); err != nil {
+	if err := server.MS.Init(battleapp.App()); err != nil {
 		xlog.Errorf("server init error: %v", err)
 		panic("server init error")
 	}

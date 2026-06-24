@@ -8,7 +8,9 @@ import (
 	itemmodule "game/src/service/logic/module/item"
 	matchmodule "game/src/service/logic/module/match"
 	playermodule "game/src/service/logic/module/player"
+	shopmodule "game/src/service/logic/module/shop"
 	systemmodule "game/src/service/logic/module/system"
+	taskmodule "game/src/service/logic/module/task"
 )
 
 type IModuleHandler interface {
@@ -20,6 +22,8 @@ type ModuleMgr struct {
 	match  *matchmodule.Handler
 	item   *itemmodule.Handler
 	player *playermodule.Handler
+	shop   *shopmodule.Handler
+	task   *taskmodule.Handler
 	system *systemmodule.SystemHandler
 }
 
@@ -29,6 +33,8 @@ func NewModuleMgr() *ModuleMgr {
 		match:  matchmodule.NewHandler(),
 		item:   itemmodule.NewHandler(),
 		player: playermodule.NewHandler(),
+		shop:   shopmodule.NewHandler(),
+		task:   taskmodule.NewHandler(),
 		system: &systemmodule.SystemHandler{},
 	}
 }
@@ -51,6 +57,16 @@ func (m *ModuleMgr) OnStart(rpc *rpcmgr.RpcMgr, r *router.Router) error {
 	}
 	if m.player != nil {
 		if err := m.player.RegisterHandler(rpc, r); err != nil {
+			return err
+		}
+	}
+	if m.shop != nil {
+		if err := m.shop.RegisterHandler(rpc, r); err != nil {
+			return err
+		}
+	}
+	if m.task != nil {
+		if err := m.task.RegisterHandler(rpc, r); err != nil {
 			return err
 		}
 	}
