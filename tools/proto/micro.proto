@@ -157,6 +157,9 @@ enum MSG_ID {
   TASK_REWARD_RSP               = 155;
   TASK_REFRESH_REQ              = 156;
   TASK_REFRESH_RSP              = 157;
+  PACK_INFO_NTF                 = 158;
+  TASK_INFO_NTF                 = 159;
+  TASK_CHANGE_RSP               = 160;
 
   LOGIC_END                     = 199;
 

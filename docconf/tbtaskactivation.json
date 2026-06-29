@@ -1,0 +1,50 @@
+[
+  {
+    "id": 100001,
+    "Type": 1,
+    "Sort": 1,
+    "ActivationCondition": 50,
+    "ActivationReward": [
+      10010002,
+      100
+    ],
+    "ResetType": 1
+  },
+  {
+    "id": 100002,
+    "Type": 1,
+    "Sort": 2,
+    "ActivationCondition": 100,
+    "ActivationReward": [
+      10010002,
+      100
+    ],
+    "ResetType": 1
+  },
+  {
+    "id": 200001,
+    "Type": 2,
+    "Sort": 1,
+    "ActivationCondition": 50,
+    "ActivationReward": [
+      10010001,
+      1000,
+      10010002,
+      200
+    ],
+    "ResetType": 2
+  },
+  {
+    "id": 200002,
+    "Type": 2,
+    "Sort": 2,
+    "ActivationCondition": 100,
+    "ActivationReward": [
+      10010001,
+      1000,
+      10010002,
+      200
+    ],
+    "ResetType": 2
+  }
+]

@@ -7,57 +7,60 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-package GameConfig;
+package docpb;
 
 type JsonLoader func(string) ([]map[string]interface{}, error)
 
 type Tables struct {
-    TbConstant *ConfigTbConstant
-    TbItem *ItemTbItem
-    TbHeroAttr *Hero_attrTbHeroAttr
-    TbGetFrom *Get_fromTbGetFrom
-    TbRoleModel *Role_modelTbRoleModel
-    TbHeroLvSpend *Hero_lv_spendTbHeroLvSpend
-    TbHeroOrder *Hero_orderTbHeroOrder
-    TbHeroStarExt *Hero_star_extTbHeroStarExt
-    TbCard *CardTbCard
-    TbMonster *MonsterTbMonster
-    TbBattle *BattleTbBattle
-    TbLevelCoeff *Level_coeffTbLevelCoeff
-    TbAuto *AutoTbAuto
-    TbEquipment *EquipmentTbEquipment
-    TbEquipmentLv *Equipment_lvTbEquipmentLv
-    TbEquipmentColor *Equipment_colorTbEquipmentColor
-    TbGuaJiDengJi *Gua_ji_deng_jiTbGuaJiDengJi
-    TbGuaJiJinBi *Gua_ji_jin_biTbGuaJiJinBi
-    TbGuaJiShiChang *Gua_ji_shi_changTbGuaJiShiChang
-    TbGuaJiWuPin *Gua_ji_wu_pinTbGuaJiWuPin
-    TbWeekZhaoMu *Week_zhao_muTbWeekZhaoMu
-    TbBox *BoxTbBox
-    TbBoxStage *Box_stageTbBoxStage
-    TbVip *VipTbVip
-    TbVipBenefit *Vip_benefitTbVipBenefit
-    TbLiBao *Li_baoTbLiBao
-    TbDailyDeal *Daily_dealTbDailyDeal
-    TbGoldShop *Gold_shopTbGoldShop
-    TbGoldBuy *Gold_buyTbGoldBuy
-    TbQianDao *Qian_daoTbQianDao
-    TbQiRi *Qi_riTbQiRi
-    TbDailyTask *Daily_taskTbDailyTask
-    TbMailLang *Mail_langTbMailLang
-    TbModule *ModuleTbModule
-    TbLordConf *Lord_confTbLordConf
-    TbLordLvConf *Lord_lv_confTbLordLvConf
-    TbLordOrderConf *Lord_order_confTbLordOrderConf
-    TbLordAttrConf *Lord_attr_confTbLordAttrConf
-    TbBookConf *Book_confTbBookConf
-    TbHeroBaseEquip *Hero_base_equipTbHeroBaseEquip
-    TbBuff *BuffTbBuff
-    TbHeroSkill *Hero_skillTbHeroSkill
-    TbCfgActivity *ConfigTbCfgActivity
-    TbBuffEffect *Buff_effectTbBuffEffect
-    TbFormula *Buff_formulaTbFormula
-    TbCfgKanbanMaid *ConfigTbCfgKanbanMaid
+    TBChapter *TBChapter
+    TBTreasureChestPoints *TBTreasureChestPoints
+    TbAttributeDisplay *TbAttributeDisplay
+    TbAttributeExpression *TbAttributeExpression
+    TbAttributeRetrieval *TbAttributeRetrieval
+    TbAudio *TbAudio
+    TbBall *TbBall
+    TbBlessing *TbBlessing
+    TbChapterDifficult *TbChapterDifficult
+    TbChapterInfo *TbChapterInfo
+    TbChapterLevel *TbChapterLevel
+    TbErrorCode *TbErrorCode
+    TbFunction *TbFunction
+    TbGlobal *TbGlobal
+    TbHeroLevel *TbHeroLevel
+    TbItem *TbItem
+    TbJump *TbJump
+    TbLottery *TbLottery
+    TbLucky *TbLucky
+    TbMail *TbMail
+    TbMall *TbMall
+    TbMonster *TbMonster
+    TbMonsterRageEffect *TbMonsterRageEffect
+    TbMonsterShape *TbMonsterShape
+    TbPlayerDecor *TbPlayerDecor
+    TbReward *TbReward
+    TbRole *TbRole
+    TbSign *TbSign
+    TbSignIn *TbSignIn
+    TbTalent *TbTalent
+    TbTalentAttrCard *TbTalentAttrCard
+    TbTask *TbTask
+    TbTaskActivation *TbTaskActivation
+    TbWeapon *TbWeapon
+    TbBlessingEffect *SkillTbBlessingEffect
+    TbBuffTrigger *SkillTbBuffTrigger
+    TbCameraShake *SkillTbCameraShake
+    TbSkill *SkillTbSkill
+    TbSkillAreaDotDamageEffect *SkillTbSkillAreaDotDamageEffect
+    TbSkillBuffEffect *SkillTbSkillBuffEffect
+    TbSkillBullet *SkillTbSkillBullet
+    TbSkillDamageEffect *SkillTbSkillDamageEffect
+    TbSkillFindTarget *SkillTbSkillFindTarget
+    TbSkillSpecialEffect *SkillTbSkillSpecialEffect
+    TbSkillSummonEffect *SkillTbSkillSummonEffect
+    TbSkillTrigger *SkillTbSkillTrigger
+    TbSkillTriggerCondition *SkillTbSkillTriggerCondition
+    TbSkillVFXSFX *SkillTbSkillVFXSFX
+    TbSkillWarning *SkillTbSkillWarning
 }
 
 func NewTables(loader JsonLoader) (*Tables, error) {
@@ -65,280 +68,298 @@ func NewTables(loader JsonLoader) (*Tables, error) {
     var buf []map[string]interface{}
 
     tables := &Tables{}
-    if buf, err = loader("config_tbconstant") ; err != nil {
+    if buf, err = loader("tbchapter") ; err != nil {
         return nil, err
     }
-    if tables.TbConstant, err = NewConfigTbConstant(buf) ; err != nil {
+    if tables.TBChapter, err = NewTBChapter(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("item_tbitem") ; err != nil {
+    if buf, err = loader("tbtreasurechestpoints") ; err != nil {
         return nil, err
     }
-    if tables.TbItem, err = NewItemTbItem(buf) ; err != nil {
+    if tables.TBTreasureChestPoints, err = NewTBTreasureChestPoints(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("hero_attr_tbheroattr") ; err != nil {
+    if buf, err = loader("tbattributedisplay") ; err != nil {
         return nil, err
     }
-    if tables.TbHeroAttr, err = NewHero_attrTbHeroAttr(buf) ; err != nil {
+    if tables.TbAttributeDisplay, err = NewTbAttributeDisplay(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("get_from_tbgetfrom") ; err != nil {
+    if buf, err = loader("tbattributeexpression") ; err != nil {
         return nil, err
     }
-    if tables.TbGetFrom, err = NewGet_fromTbGetFrom(buf) ; err != nil {
+    if tables.TbAttributeExpression, err = NewTbAttributeExpression(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("role_model_tbrolemodel") ; err != nil {
+    if buf, err = loader("tbattributeretrieval") ; err != nil {
         return nil, err
     }
-    if tables.TbRoleModel, err = NewRole_modelTbRoleModel(buf) ; err != nil {
+    if tables.TbAttributeRetrieval, err = NewTbAttributeRetrieval(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("hero_lv_spend_tbherolvspend") ; err != nil {
+    if buf, err = loader("tbaudio") ; err != nil {
         return nil, err
     }
-    if tables.TbHeroLvSpend, err = NewHero_lv_spendTbHeroLvSpend(buf) ; err != nil {
+    if tables.TbAudio, err = NewTbAudio(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("hero_order_tbheroorder") ; err != nil {
+    if buf, err = loader("tbball") ; err != nil {
         return nil, err
     }
-    if tables.TbHeroOrder, err = NewHero_orderTbHeroOrder(buf) ; err != nil {
+    if tables.TbBall, err = NewTbBall(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("hero_star_ext_tbherostarext") ; err != nil {
+    if buf, err = loader("tbblessing") ; err != nil {
         return nil, err
     }
-    if tables.TbHeroStarExt, err = NewHero_star_extTbHeroStarExt(buf) ; err != nil {
+    if tables.TbBlessing, err = NewTbBlessing(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("card_tbcard") ; err != nil {
+    if buf, err = loader("tbchapterdifficult") ; err != nil {
         return nil, err
     }
-    if tables.TbCard, err = NewCardTbCard(buf) ; err != nil {
+    if tables.TbChapterDifficult, err = NewTbChapterDifficult(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("monster_tbmonster") ; err != nil {
+    if buf, err = loader("tbchapterinfo") ; err != nil {
         return nil, err
     }
-    if tables.TbMonster, err = NewMonsterTbMonster(buf) ; err != nil {
+    if tables.TbChapterInfo, err = NewTbChapterInfo(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("battle_tbbattle") ; err != nil {
+    if buf, err = loader("tbchapterlevel") ; err != nil {
         return nil, err
     }
-    if tables.TbBattle, err = NewBattleTbBattle(buf) ; err != nil {
+    if tables.TbChapterLevel, err = NewTbChapterLevel(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("level_coeff_tblevelcoeff") ; err != nil {
+    if buf, err = loader("tberrorcode") ; err != nil {
         return nil, err
     }
-    if tables.TbLevelCoeff, err = NewLevel_coeffTbLevelCoeff(buf) ; err != nil {
+    if tables.TbErrorCode, err = NewTbErrorCode(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("auto_tbauto") ; err != nil {
+    if buf, err = loader("tbfunction") ; err != nil {
         return nil, err
     }
-    if tables.TbAuto, err = NewAutoTbAuto(buf) ; err != nil {
+    if tables.TbFunction, err = NewTbFunction(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("equipment_tbequipment") ; err != nil {
+    if buf, err = loader("tbglobal") ; err != nil {
         return nil, err
     }
-    if tables.TbEquipment, err = NewEquipmentTbEquipment(buf) ; err != nil {
+    if tables.TbGlobal, err = NewTbGlobal(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("equipment_lv_tbequipmentlv") ; err != nil {
+    if buf, err = loader("tbherolevel") ; err != nil {
         return nil, err
     }
-    if tables.TbEquipmentLv, err = NewEquipment_lvTbEquipmentLv(buf) ; err != nil {
+    if tables.TbHeroLevel, err = NewTbHeroLevel(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("equipment_color_tbequipmentcolor") ; err != nil {
+    if buf, err = loader("tbitem") ; err != nil {
         return nil, err
     }
-    if tables.TbEquipmentColor, err = NewEquipment_colorTbEquipmentColor(buf) ; err != nil {
+    if tables.TbItem, err = NewTbItem(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("gua_ji_deng_ji_tbguajidengji") ; err != nil {
+    if buf, err = loader("tbjump") ; err != nil {
         return nil, err
     }
-    if tables.TbGuaJiDengJi, err = NewGua_ji_deng_jiTbGuaJiDengJi(buf) ; err != nil {
+    if tables.TbJump, err = NewTbJump(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("gua_ji_jin_bi_tbguajijinbi") ; err != nil {
+    if buf, err = loader("tblottery") ; err != nil {
         return nil, err
     }
-    if tables.TbGuaJiJinBi, err = NewGua_ji_jin_biTbGuaJiJinBi(buf) ; err != nil {
+    if tables.TbLottery, err = NewTbLottery(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("gua_ji_shi_chang_tbguajishichang") ; err != nil {
+    if buf, err = loader("tblucky") ; err != nil {
         return nil, err
     }
-    if tables.TbGuaJiShiChang, err = NewGua_ji_shi_changTbGuaJiShiChang(buf) ; err != nil {
+    if tables.TbLucky, err = NewTbLucky(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("gua_ji_wu_pin_tbguajiwupin") ; err != nil {
+    if buf, err = loader("tbmail") ; err != nil {
         return nil, err
     }
-    if tables.TbGuaJiWuPin, err = NewGua_ji_wu_pinTbGuaJiWuPin(buf) ; err != nil {
+    if tables.TbMail, err = NewTbMail(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("week_zhao_mu_tbweekzhaomu") ; err != nil {
+    if buf, err = loader("tbmall") ; err != nil {
         return nil, err
     }
-    if tables.TbWeekZhaoMu, err = NewWeek_zhao_muTbWeekZhaoMu(buf) ; err != nil {
+    if tables.TbMall, err = NewTbMall(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("box_tbbox") ; err != nil {
+    if buf, err = loader("tbmonster") ; err != nil {
         return nil, err
     }
-    if tables.TbBox, err = NewBoxTbBox(buf) ; err != nil {
+    if tables.TbMonster, err = NewTbMonster(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("box_stage_tbboxstage") ; err != nil {
+    if buf, err = loader("tbmonsterrageeffect") ; err != nil {
         return nil, err
     }
-    if tables.TbBoxStage, err = NewBox_stageTbBoxStage(buf) ; err != nil {
+    if tables.TbMonsterRageEffect, err = NewTbMonsterRageEffect(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("vip_tbvip") ; err != nil {
+    if buf, err = loader("tbmonstershape") ; err != nil {
         return nil, err
     }
-    if tables.TbVip, err = NewVipTbVip(buf) ; err != nil {
+    if tables.TbMonsterShape, err = NewTbMonsterShape(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("vip_benefit_tbvipbenefit") ; err != nil {
+    if buf, err = loader("tbplayerdecor") ; err != nil {
         return nil, err
     }
-    if tables.TbVipBenefit, err = NewVip_benefitTbVipBenefit(buf) ; err != nil {
+    if tables.TbPlayerDecor, err = NewTbPlayerDecor(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("li_bao_tblibao") ; err != nil {
+    if buf, err = loader("tbreward") ; err != nil {
         return nil, err
     }
-    if tables.TbLiBao, err = NewLi_baoTbLiBao(buf) ; err != nil {
+    if tables.TbReward, err = NewTbReward(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("daily_deal_tbdailydeal") ; err != nil {
+    if buf, err = loader("tbrole") ; err != nil {
         return nil, err
     }
-    if tables.TbDailyDeal, err = NewDaily_dealTbDailyDeal(buf) ; err != nil {
+    if tables.TbRole, err = NewTbRole(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("gold_shop_tbgoldshop") ; err != nil {
+    if buf, err = loader("tbsign") ; err != nil {
         return nil, err
     }
-    if tables.TbGoldShop, err = NewGold_shopTbGoldShop(buf) ; err != nil {
+    if tables.TbSign, err = NewTbSign(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("gold_buy_tbgoldbuy") ; err != nil {
+    if buf, err = loader("tbsignin") ; err != nil {
         return nil, err
     }
-    if tables.TbGoldBuy, err = NewGold_buyTbGoldBuy(buf) ; err != nil {
+    if tables.TbSignIn, err = NewTbSignIn(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("qian_dao_tbqiandao") ; err != nil {
+    if buf, err = loader("tbtalent") ; err != nil {
         return nil, err
     }
-    if tables.TbQianDao, err = NewQian_daoTbQianDao(buf) ; err != nil {
+    if tables.TbTalent, err = NewTbTalent(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("qi_ri_tbqiri") ; err != nil {
+    if buf, err = loader("tbtalentattrcard") ; err != nil {
         return nil, err
     }
-    if tables.TbQiRi, err = NewQi_riTbQiRi(buf) ; err != nil {
+    if tables.TbTalentAttrCard, err = NewTbTalentAttrCard(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("daily_task_tbdailytask") ; err != nil {
+    if buf, err = loader("tbtask") ; err != nil {
         return nil, err
     }
-    if tables.TbDailyTask, err = NewDaily_taskTbDailyTask(buf) ; err != nil {
+    if tables.TbTask, err = NewTbTask(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("mail_lang_tbmaillang") ; err != nil {
+    if buf, err = loader("tbtaskactivation") ; err != nil {
         return nil, err
     }
-    if tables.TbMailLang, err = NewMail_langTbMailLang(buf) ; err != nil {
+    if tables.TbTaskActivation, err = NewTbTaskActivation(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("module_tbmodule") ; err != nil {
+    if buf, err = loader("tbweapon") ; err != nil {
         return nil, err
     }
-    if tables.TbModule, err = NewModuleTbModule(buf) ; err != nil {
+    if tables.TbWeapon, err = NewTbWeapon(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("lord_conf_tblordconf") ; err != nil {
+    if buf, err = loader("skill_tbblessingeffect") ; err != nil {
         return nil, err
     }
-    if tables.TbLordConf, err = NewLord_confTbLordConf(buf) ; err != nil {
+    if tables.TbBlessingEffect, err = NewSkillTbBlessingEffect(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("lord_lv_conf_tblordlvconf") ; err != nil {
+    if buf, err = loader("skill_tbbufftrigger") ; err != nil {
         return nil, err
     }
-    if tables.TbLordLvConf, err = NewLord_lv_confTbLordLvConf(buf) ; err != nil {
+    if tables.TbBuffTrigger, err = NewSkillTbBuffTrigger(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("lord_order_conf_tblordorderconf") ; err != nil {
+    if buf, err = loader("skill_tbcamerashake") ; err != nil {
         return nil, err
     }
-    if tables.TbLordOrderConf, err = NewLord_order_confTbLordOrderConf(buf) ; err != nil {
+    if tables.TbCameraShake, err = NewSkillTbCameraShake(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("lord_attr_conf_tblordattrconf") ; err != nil {
+    if buf, err = loader("skill_tbskill") ; err != nil {
         return nil, err
     }
-    if tables.TbLordAttrConf, err = NewLord_attr_confTbLordAttrConf(buf) ; err != nil {
+    if tables.TbSkill, err = NewSkillTbSkill(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("book_conf_tbbookconf") ; err != nil {
+    if buf, err = loader("skill_tbskillareadotdamageeffect") ; err != nil {
         return nil, err
     }
-    if tables.TbBookConf, err = NewBook_confTbBookConf(buf) ; err != nil {
+    if tables.TbSkillAreaDotDamageEffect, err = NewSkillTbSkillAreaDotDamageEffect(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("hero_base_equip_tbherobaseequip") ; err != nil {
+    if buf, err = loader("skill_tbskillbuffeffect") ; err != nil {
         return nil, err
     }
-    if tables.TbHeroBaseEquip, err = NewHero_base_equipTbHeroBaseEquip(buf) ; err != nil {
+    if tables.TbSkillBuffEffect, err = NewSkillTbSkillBuffEffect(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("buff_tbbuff") ; err != nil {
+    if buf, err = loader("skill_tbskillbullet") ; err != nil {
         return nil, err
     }
-    if tables.TbBuff, err = NewBuffTbBuff(buf) ; err != nil {
+    if tables.TbSkillBullet, err = NewSkillTbSkillBullet(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("hero_skill_tbheroskill") ; err != nil {
+    if buf, err = loader("skill_tbskilldamageeffect") ; err != nil {
         return nil, err
     }
-    if tables.TbHeroSkill, err = NewHero_skillTbHeroSkill(buf) ; err != nil {
+    if tables.TbSkillDamageEffect, err = NewSkillTbSkillDamageEffect(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("config_tbcfgactivity") ; err != nil {
+    if buf, err = loader("skill_tbskillfindtarget") ; err != nil {
         return nil, err
     }
-    if tables.TbCfgActivity, err = NewConfigTbCfgActivity(buf) ; err != nil {
+    if tables.TbSkillFindTarget, err = NewSkillTbSkillFindTarget(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("buff_effect_tbbuffeffect") ; err != nil {
+    if buf, err = loader("skill_tbskillspecialeffect") ; err != nil {
         return nil, err
     }
-    if tables.TbBuffEffect, err = NewBuff_effectTbBuffEffect(buf) ; err != nil {
+    if tables.TbSkillSpecialEffect, err = NewSkillTbSkillSpecialEffect(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("buff_formula_tbformula") ; err != nil {
+    if buf, err = loader("skill_tbskillsummoneffect") ; err != nil {
         return nil, err
     }
-    if tables.TbFormula, err = NewBuff_formulaTbFormula(buf) ; err != nil {
+    if tables.TbSkillSummonEffect, err = NewSkillTbSkillSummonEffect(buf) ; err != nil {
         return nil, err
     }
-    if buf, err = loader("config_tbcfgkanbanmaid") ; err != nil {
+    if buf, err = loader("skill_tbskilltrigger") ; err != nil {
         return nil, err
     }
-    if tables.TbCfgKanbanMaid, err = NewConfigTbCfgKanbanMaid(buf) ; err != nil {
+    if tables.TbSkillTrigger, err = NewSkillTbSkillTrigger(buf) ; err != nil {
+        return nil, err
+    }
+    if buf, err = loader("skill_tbskilltriggercondition") ; err != nil {
+        return nil, err
+    }
+    if tables.TbSkillTriggerCondition, err = NewSkillTbSkillTriggerCondition(buf) ; err != nil {
+        return nil, err
+    }
+    if buf, err = loader("skill_tbskillvfxsfx") ; err != nil {
+        return nil, err
+    }
+    if tables.TbSkillVFXSFX, err = NewSkillTbSkillVFXSFX(buf) ; err != nil {
+        return nil, err
+    }
+    if buf, err = loader("skill_tbskillwarning") ; err != nil {
+        return nil, err
+    }
+    if tables.TbSkillWarning, err = NewSkillTbSkillWarning(buf) ; err != nil {
         return nil, err
     }
     return tables, nil

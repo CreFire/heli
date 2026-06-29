@@ -218,6 +218,10 @@ func (r *Robot) smokeModuleDone(module string) bool {
 	switch strings.ToUpper(strings.TrimSpace(module)) {
 	case "LOGIN":
 		return r.smokeSuccess("LOGIN", "main")
+	case "ITEM":
+		return r.smokeSuccess("ITEM", "pack")
+	case "TASK":
+		return r.smokeSuccess("TASK", "list")
 	}
 	return false
 }

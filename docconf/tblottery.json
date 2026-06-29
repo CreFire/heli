@@ -1,0 +1,86 @@
+[
+  {
+    "ID": 10011,
+    "SingleDrawItem": {
+      "Id": 10010001,
+      "Num": 1
+    },
+    "TenDrawItem": {
+      "Id": 10010001,
+      "Num": 10
+    },
+    "SingleDrawRes": {
+      "Id": 10010002,
+      "Num": 40
+    },
+    "TenDrawRes": {
+      "Id": 10010002,
+      "Num": 99
+    },
+    "RewardId": 9100003,
+    "Adtimes": 1
+  },
+  {
+    "ID": 10012,
+    "SingleDrawItem": {
+      "Id": 10010002,
+      "Num": 1
+    },
+    "TenDrawItem": {
+      "Id": 10010002,
+      "Num": 10
+    },
+    "SingleDrawRes": {
+      "Id": 10010001,
+      "Num": 1
+    },
+    "TenDrawRes": {
+      "Id": 10010001,
+      "Num": 10
+    },
+    "RewardId": 9100017,
+    "Adtimes": 0
+  },
+  {
+    "ID": 10013,
+    "SingleDrawItem": {
+      "Id": 10010002,
+      "Num": 1
+    },
+    "TenDrawItem": {
+      "Id": 10010002,
+      "Num": 10
+    },
+    "SingleDrawRes": {
+      "Id": 10010001,
+      "Num": 1
+    },
+    "TenDrawRes": {
+      "Id": 10010001,
+      "Num": 10
+    },
+    "RewardId": 9100019,
+    "Adtimes": 1
+  },
+  {
+    "ID": 10014,
+    "SingleDrawItem": {
+      "Id": 10010001,
+      "Num": 1
+    },
+    "TenDrawItem": {
+      "Id": 10010001,
+      "Num": 10
+    },
+    "SingleDrawRes": {
+      "Id": 10010002,
+      "Num": 40
+    },
+    "TenDrawRes": {
+      "Id": 10010002,
+      "Num": 400
+    },
+    "RewardId": 9100021,
+    "Adtimes": 0
+  }
+]

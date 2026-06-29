@@ -1,0 +1,35 @@
+[
+  {
+    "Start": 0,
+    "ActivityResetTime": 0,
+    "MallCashItemId": 0,
+    "RandomShopRefreshCost": [
+      10010002,
+      30
+    ],
+    "StaminaItemId": 10010003,
+    "StaminaMaxNum": 30,
+    "StaminaRecover": [
+      600,
+      1
+    ],
+    "TreasureChestFree": [
+      3600,
+      10030004,
+      1,
+      5
+    ],
+    "DefaultLineup": [
+      1000,
+      1010,
+      1030,
+      1070,
+      1090,
+      1050
+    ],
+    "RandomShopFixedGoodsId": 200010010,
+    "RandomShopRefreshCount": 3,
+    "RefreshBlessingCount": 1,
+    "GetAllBlessingCount": 1
+  }
+]

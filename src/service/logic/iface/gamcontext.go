@@ -44,7 +44,3 @@ type IGamerContext interface {
 	Function() IFunctionModule
 	Match() IMatchModule
 }
-
-type IHeroModule interface {
-	SendHeroInfo() bool
-}

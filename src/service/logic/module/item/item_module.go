@@ -44,7 +44,7 @@ func (s *ItemModule) SendPackInfo() {
 }
 
 func (s *ItemModule) LegacyLoadBag() map[string]interface{} {
-	items := make(map[string]int64, len(GetPackModel(s.model).PackMap()))
+	items := make(map[int32]int64, len(GetPackModel(s.model).PackMap()))
 	for id, item := range GetPackModel(s.model).PackMap() {
 		if item != nil {
 			items[id] = item.Num
@@ -60,7 +60,7 @@ func (s *ItemModule) AddItems(items []*pb.Item, reason *common.Reason) ([]*pb.It
 	result := newItemChangeResult(len(items))
 	pack := GetPackModel(s.model)
 	for _, item := range configdoc.ItemMerge(items) {
-		if item == nil || item.ConfId == "" || item.Num <= 0 {
+		if item == nil || item.ConfId <= 0 || item.Num <= 0 {
 			return nil, errorpb.ERROR_REQUEST_PARAMS
 		}
 		change, code := pack.AddItem(item.ConfId, item.Num)
@@ -94,30 +94,26 @@ func (s *ItemModule) DelAllItem() errorpb.ERROR {
 		s.ctx.Logger().Error("model is nil in DelAllItem,")
 		return errorpb.ERROR_FAILED
 	}
-	// 获取背包模型
 	packModel := GetPackModel(s.model)
 	if packModel == nil {
 		s.ctx.Logger().Error("pack model is nil in DelAllItem,")
 		return errorpb.ERROR_FAILED
 	}
 
-	// 获取当前背包数据
 	data := packModel.Data()
 	if data == nil || data.ItemMap == nil {
 		s.ctx.Logger().Debug("no items to delete,")
 		return errorpb.ERROR_SUCCESS
 	}
 
-	// 构建要删除的道具列表
 	var itemsToDelete []*pb.Item
 	itemsToDelete = make([]*pb.Item, 0, len(data.ItemMap))
 
 	for confId, item := range data.ItemMap {
-		if confId == "" || item.Num <= 0 {
+		if confId <= 0 || item.Num <= 0 {
 			continue
 		}
 
-		// 检查道具配置
 		conf := s.ctx.Doc().TbItem.Get(confId)
 		if conf == nil {
 			s.ctx.Logger().Warn("item config not found, skipping deletion, confId=%v", confId)
@@ -130,13 +126,11 @@ func (s *ItemModule) DelAllItem() errorpb.ERROR {
 		})
 	}
 
-	// 如果没有需要删除的道具
 	if len(itemsToDelete) == 0 {
 		s.ctx.Logger().Debug("no valid items to delete,")
 		return errorpb.ERROR_SUCCESS
 	}
 
-	// 执行删除操作
 	reason := &common.Reason{
 		Str: "del_all_items",
 	}
@@ -193,7 +187,7 @@ func (s *ItemModule) CheckEnough(consume []*pb.Item) errorpb.ERROR {
 	return s.CheckEnoughMap(itemMap)
 }
 
-func (s *ItemModule) CheckEnoughMap(consume map[string]*pb.Item) errorpb.ERROR {
+func (s *ItemModule) CheckEnoughMap(consume map[int32]*pb.Item) errorpb.ERROR {
 	for _, item := range consume {
 		if item.Num > s.GetItemCount(item) {
 			return errorpb.ERROR_ITEM_NOT_ENOUGH
@@ -214,15 +208,14 @@ func (s *ItemModule) GetItemCount(item *pb.Item) int64 {
 	return GetPackModel(s.model).GetCount(item.ConfId)
 }
 
-// changeItemResult
 type changeItemResult struct {
-	ntfItems map[string]*pb.Item
+	ntfItems map[int32]*pb.Item
 	retItems []*pb.Item
 }
 
 func newItemChangeResult(size int) *changeItemResult {
 	return &changeItemResult{
-		ntfItems: make(map[string]*pb.Item, size),
+		ntfItems: make(map[int32]*pb.Item, size),
 		retItems: make([]*pb.Item, 0, size),
 	}
 }

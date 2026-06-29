@@ -88,13 +88,13 @@ message PlayerBase {
 }
 
 message Item {
-  int64  instId  = 1; //@gotags: bson:"iid"
-  string confId  = 2; //@gotags: bson:"cid"
-  int32  type    = 3; //@gotags: bson:"t"
-  int64  num     = 4; //@gotags: bson:"n"
-  int64  expires = 5; //@gotags: bson:"exp"
-  int64  ctime   = 6; //@gotags: bson:"ct"
-  int64  change  = 7; //@gotags: bson:"chg"
+  int64 instId  = 1; //@gotags: bson:"iid"
+  int32 confId  = 2; //@gotags: bson:"cid"
+  int32 type    = 3; //@gotags: bson:"t"
+  int64 num     = 4; //@gotags: bson:"n"
+  int64 expires = 5; //@gotags: bson:"exp"
+  int64 ctime   = 6; //@gotags: bson:"ct"
+  int64 change  = 7; //@gotags: bson:"chg"
 }
 
 message RpcForward {

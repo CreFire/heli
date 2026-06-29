@@ -7,8 +7,8 @@ option go_package = "game/src/proto/pb";
 import "common.proto";
 
 message GamerPackData {
-  map<string, Item> item_map = 1; //@gotags: bson:"it"
-  map<string, Item> currency_map = 2; //@gotags: bson:"cu"
+  map<int32, Item> item_map = 1; //@gotags: bson:"it"
+  map<int32, Item> currency_map = 2; //@gotags: bson:"cu"
 }
 
 message GamerBaseData {

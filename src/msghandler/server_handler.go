@@ -116,7 +116,7 @@ func (h *ServerNetEventHandler) OnProcessMsg(msgque netmgr.IMsgQue, mes *msg.Mes
 		}
 		return true
 	}
-
+	// 根据id区分消息
 	if common.CheckRouter(mes.Head.MsgId) == pb.SER_TYPE_ID_S2S {
 		return h.handleS2SMessage(msgque, mes)
 	}
@@ -125,7 +125,7 @@ func (h *ServerNetEventHandler) OnProcessMsg(msgque netmgr.IMsgQue, mes *msg.Mes
 		xlog.Errorf("[%v]message handler not found, message dropped", mes.Head.MsgId)
 		return true
 	}
-
+	// cs消息
 	return h.route(msgque, mes)
 }
 
@@ -218,7 +218,7 @@ func rspServerHello(msgque netmgr.IMsgQue, req *msg.Message) {
 	}
 }
 
-func reqSyncGmTime(msgque netmgr.IMsgQue, data *msg.Message) {
+func reqSyncGmTime(_ netmgr.IMsgQue, data *msg.Message) {
 	req, _ := data.Message().(*pb.S2SSyncGmTimeREQ)
 	gmTime := req.GmTime
 	xtime.SetGmAdd(gmTime)

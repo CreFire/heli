@@ -21,8 +21,8 @@ func loadTables(confDir string) (*DocPbConfig, *DocExtendConfig, error) {
 	tables, err := cfg.NewTables(func(fileName string) ([]map[string]any, error) {
 		//假设配置文件存储在 "config/" 目录下
 		filePath := filepath.Join(confDir, fileName+".json")
-		// pwd, _ := os.Getwd()
-		// xlog.Infof("docpb config pwd:%v path: %v", pwd, filePath)
+		pwd, _ := os.Getwd()
+		xlog.Infof("docpb config pwd:%v path: %v", pwd, filePath)
 		// 读取文件内容
 		data, err := os.ReadFile(filePath)
 		if err != nil {
@@ -43,6 +43,11 @@ func loadTables(confDir string) (*DocPbConfig, *DocExtendConfig, error) {
 
 	pbConf := &DocPbConfig{
 		Tables: tables,
+	}
+	if battle, err := loadBattleTables(confDir); err != nil {
+		xlog.Warnf("load battle tables failed: %v", err)
+	} else {
+		pbConf.Battle = battle
 	}
 	if ver, err := loadDocVersion(confDir); err != nil {
 		xlog.Warnf("load doc version failed: %v", err)

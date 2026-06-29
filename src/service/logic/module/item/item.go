@@ -28,11 +28,11 @@ func NewGamerItemPack(modIndex int, data *persist.GamerData, doc *base.ExcelConf
 	}
 }
 
-func (m *GamerPack) PackMap() map[string]*pb.Item {
+func (m *GamerPack) PackMap() map[int32]*pb.Item {
 	return m.Data().ItemMap
 }
 
-func (m *GamerPack) GetCount(itemId string) int64 {
+func (m *GamerPack) GetCount(itemId int32) int64 {
 	curItem := m.Data().ItemMap[itemId]
 	if curItem == nil {
 		return 0
@@ -40,7 +40,7 @@ func (m *GamerPack) GetCount(itemId string) int64 {
 	return curItem.Num
 }
 
-func (m *GamerPack) AddItem(itemId string, num int64) (*pb.Item, errorpb.ERROR) {
+func (m *GamerPack) AddItem(itemId int32, num int64) (*pb.Item, errorpb.ERROR) {
 	if num <= 0 {
 		xlog.Warnf("add item invalid num. id %d num %v", itemId, num)
 		return nil, errorpb.ERROR_REQUEST_PARAMS
@@ -52,17 +52,17 @@ func (m *GamerPack) AddItem(itemId string, num int64) (*pb.Item, errorpb.ERROR) 
 	}
 	old := item.Num
 	item.Num += num
-	m.AddUpdateOp("it."+itemId, item)
+	m.AddUpdateOp(itemStoreKey(itemId, item.Type), item)
 	change := configdoc.CloneItem(item)
 	change.Change = item.Num - old
 
 	return change, errorpb.ERROR_SUCCESS
 }
 func validItem(it *pb.Item) bool {
-	return it != nil && it.ConfId != "" && it.Num > 0
+	return it != nil && it.ConfId > 0 && it.Num > 0
 }
 
-func itemStoreKey(itemId string, itemType int32) string {
+func itemStoreKey(itemId int32, itemType int32) string {
 	if itemType == int32(pb.ITEM_TYPE_TYPE_CURRENCY) {
 		return currencyMapKey(itemId)
 	}
@@ -76,8 +76,8 @@ func cloneItem(it *pb.Item) *pb.Item {
 	return proto.Clone(it).(*pb.Item)
 }
 
-func itemMapKey(confId string) string     { return fmt.Sprintf("it.%s", confId) }
-func currencyMapKey(confId string) string { return fmt.Sprintf("cu.%s", confId) }
+func itemMapKey(confId int32) string     { return fmt.Sprintf("it.%d", confId) }
+func currencyMapKey(confId int32) string { return fmt.Sprintf("cu.%d", confId) }
 
 func (m *GamerPack) isCurrency(it *pb.Item) bool {
 	return it != nil && it.Type == int32(pb.ITEM_TYPE_TYPE_CURRENCY)
@@ -95,12 +95,12 @@ func (m *GamerPack) CheckEnough(items []*pb.Item) errorpb.ERROR {
 	return errorpb.ERROR_SUCCESS
 }
 
-func (m *GamerPack) CheckEnoughMap(consume map[string]*pb.Item) errorpb.ERROR {
+func (m *GamerPack) CheckEnoughMap(consume map[int32]*pb.Item) errorpb.ERROR {
 	for confId, it := range consume {
 		if it == nil {
 			return errorpb.ERROR_REQUEST_PARAMS
 		}
-		if it.ConfId != "" {
+		if it.ConfId > 0 {
 			it = cloneItem(it)
 			it.ConfId = confId
 		}
@@ -115,7 +115,7 @@ func (m *GamerPack) CheckEnoughMap(consume map[string]*pb.Item) errorpb.ERROR {
 }
 
 func (m *GamerPack) GetItemCount(item *pb.Item) int64 {
-	if item == nil || item.ConfId == "" {
+	if item == nil || item.ConfId <= 0 {
 		return 0
 	}
 
@@ -145,12 +145,12 @@ func (m *GamerPack) SubItems(items []*pb.Item) ([]*pb.Item, errorpb.ERROR) {
 	return changed, errorpb.ERROR_SUCCESS
 }
 
-func (m *GamerPack) SubItem(itemId string, num int64) (*pb.Item, errorpb.ERROR) {
+func (m *GamerPack) SubItem(itemId int32, num int64) (*pb.Item, errorpb.ERROR) {
 	if num <= 0 {
 		xlog.Warnf("sub item invalid num. id %d num %v", itemId, num)
 		return nil, errorpb.ERROR_REQUEST_PARAMS
 	}
-	if itemId == "" {
+	if itemId <= 0 {
 		return nil, errorpb.ERROR_REQUEST_PARAMS
 	}
 	item := m.Data().ItemMap[itemId]

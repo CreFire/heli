@@ -223,7 +223,7 @@ func resolveRobotGateConnectAddr(rsp *pb.AuthUseRoleRSP) (string, options.Transp
 func robotGateTransportAndPath() (options.Transport, string) {
 	cfg := robotServerCfg()
 	if cfg == nil || cfg.Net == nil {
-		return options.TransportTCP, options.DefaultWSPath
+		return options.TransportWebSocket, options.DefaultWSPath
 	}
 	transport := strings.ToLower(strings.TrimSpace(cfg.Net.Transport))
 	path := strings.TrimSpace(cfg.Net.WSPath)
@@ -232,6 +232,8 @@ func robotGateTransportAndPath() (options.Transport, string) {
 	}
 	switch transport {
 	case "ws", string(options.TransportWebSocket):
+		return options.TransportWebSocket, path
+	case "", string(options.TransportTCP):
 		return options.TransportWebSocket, path
 	default:
 		return options.TransportTCP, path
@@ -297,6 +299,8 @@ func (s *StateLogin) onUpdate(robot *Robot) {
 
 func (s *StateLogin) register(robot *Robot) {
 	robot.msgHandler.Register(pb.MSG_ID_LOGIN_BY_SESSION_REQ, pb.MSG_ID_LOGIN_BY_SESSION_RSP, &pb.LoginBySessionREQ{}, &pb.LoginBySessionRSP{}, reqLogin)
+	robot.msgHandler.RegisterNtf(pb.MSG_ID_PACK_INFO_NTF, &pb.PackInfoNTF{}, reqPackInfo)
+	robot.msgHandler.RegisterNtf(pb.MSG_ID_TASK_INFO_NTF, &pb.TaskInfoNTF{}, reqTaskInfo)
 }
 
 func reqLogin(robot *Robot, message *msg.Message) {
@@ -316,4 +320,37 @@ func reqLogin(robot *Robot, message *msg.Message) {
 	RobotSvr.robotMgr.addRobot(robot.msgque.SessId(), robot.gid, robot)
 	robot.SetState(STATE_GM)
 	return
+}
+
+func reqPackInfo(robot *Robot, message *msg.Message) {
+	if robot == nil || message == nil {
+		return
+	}
+	recv, _ := message.Message().(*pb.PackInfoNTF)
+	if recv == nil {
+		robot.recordSmokeResult("ITEM", "pack", false, "pack_info_nil")
+		return
+	}
+	count := len(recv.Items)
+	robot.packLoaded = true
+	robot.recordSmokeResult("ITEM", "pack", true, fmt.Sprintf("all=%v item_count=%d", recv.All, count))
+	xlog.Infof("robot[%s] loaded pack info item_count=%d all=%v", robot.name, count, recv.All)
+}
+
+func reqTaskInfo(robot *Robot, message *msg.Message) {
+	if robot == nil || message == nil {
+		return
+	}
+	recv, _ := message.Message().(*pb.TaskInfoNTF)
+	if recv == nil {
+		robot.recordSmokeResult("TASK", "list", false, "task_info_nil")
+		return
+	}
+	taskCount := len(recv.Tasks)
+	if taskCount == 0 && len(recv.TasksMap) > 0 {
+		taskCount = len(recv.TasksMap)
+	}
+	robot.taskLoaded = true
+	robot.recordSmokeResult("TASK", "list", true, fmt.Sprintf("isAll=%v task_count=%d completed=%d", recv.IsAll, taskCount, len(recv.Completed)))
+	xlog.Infof("robot[%s] loaded task info task_count=%d isAll=%v", robot.name, taskCount, recv.IsAll)
 }

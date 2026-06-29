@@ -40,6 +40,16 @@ message HeartRSP {
   int64 SvrTs = 2;
 }
 
+message SayHelloREQ {
+  int32  id   = 1;
+  string type = 2;
+}
+
+message SayHelloRSP {
+  int32  id   = 1;
+  string type = 2;
+}
+
 message C2SMatchJoin {
   int32 level_id    = 1;
   int32 combat_type = 2;
@@ -114,7 +124,7 @@ message MainGmRSP {
 
 message PackInfoNTF {
   bool              all   = 1;
-  map<string, Item> items = 2;
+  map<int32, Item> items = 2;
 }
 
 message PackChangeRSP {

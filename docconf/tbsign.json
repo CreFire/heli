@@ -1,0 +1,121 @@
+[
+  {
+    "ID": 1001,
+    "Type": 1,
+    "BasicReward": [
+      10010002,
+      2000
+    ],
+    "PremiumReward": [
+      10010002,
+      2000
+    ],
+    "MakeupType": 1,
+    "MakeupCost": [
+      10010002,
+      10
+    ]
+  },
+  {
+    "ID": 1002,
+    "Type": 1,
+    "BasicReward": [
+      10010001,
+      1000
+    ],
+    "PremiumReward": [
+      10010001,
+      2000
+    ],
+    "MakeupType": 1,
+    "MakeupCost": [
+      10010002,
+      10
+    ]
+  },
+  {
+    "ID": 1003,
+    "Type": 1,
+    "BasicReward": [
+      10010001,
+      1000
+    ],
+    "PremiumReward": [
+      10010001,
+      2000
+    ],
+    "MakeupType": 1,
+    "MakeupCost": [
+      10010002,
+      10
+    ]
+  },
+  {
+    "ID": 1004,
+    "Type": 1,
+    "BasicReward": [
+      10010001,
+      1000
+    ],
+    "PremiumReward": [
+      10010001,
+      2000
+    ],
+    "MakeupType": 1,
+    "MakeupCost": [
+      10010002,
+      10
+    ]
+  },
+  {
+    "ID": 1005,
+    "Type": 1,
+    "BasicReward": [
+      10010001,
+      1000
+    ],
+    "PremiumReward": [
+      10010001,
+      2000
+    ],
+    "MakeupType": 1,
+    "MakeupCost": [
+      10010002,
+      10
+    ]
+  },
+  {
+    "ID": 1006,
+    "Type": 1,
+    "BasicReward": [
+      10010001,
+      1000
+    ],
+    "PremiumReward": [
+      10010001,
+      2000
+    ],
+    "MakeupType": 1,
+    "MakeupCost": [
+      10010002,
+      10
+    ]
+  },
+  {
+    "ID": 1007,
+    "Type": 1,
+    "BasicReward": [
+      10010002,
+      2000
+    ],
+    "PremiumReward": [
+      10010002,
+      2000
+    ],
+    "MakeupType": 1,
+    "MakeupCost": [
+      10010002,
+      10
+    ]
+  }
+]

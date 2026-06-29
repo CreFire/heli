@@ -23,7 +23,7 @@ type TWeightSelector[T comparable] struct {
 func MapToWeightList[K comparable](m map[K]int32) []*TWeight[K] {
 	var result []*TWeight[K]
 	for itemId, weight := range m {
-		result = append(result, NewTWeight[K](weight, itemId))
+		result = append(result, NewTWeight(weight, itemId))
 	}
 	return result
 }

@@ -22,7 +22,7 @@ type IItemModule interface {
 	AddItems(items []*pb.Item, reason *common.Reason) ([]*pb.Item, errorpb.ERROR)
 	SubItems(items []*pb.Item, reason *common.Reason) ([]*pb.Item, errorpb.ERROR)
 	CheckEnough(items []*pb.Item) errorpb.ERROR
-	CheckEnoughMap(consume map[string]*pb.Item) errorpb.ERROR
+	CheckEnoughMap(consume map[int32]*pb.Item) errorpb.ERROR
 	GetItemCount(item *pb.Item) int64
 	UseItem(item *pb.Item) []*pb.Item
 	DelAllItem() errorpb.ERROR
@@ -86,4 +86,8 @@ type IPackModule interface {
 
 type IMatchModule interface {
 	Join(playerID int64, req *pb.C2SMatchJoin) (errorpb.ERROR, proto.Message)
+}
+
+type IHeroModule interface {
+	SendHeroInfo() bool
 }

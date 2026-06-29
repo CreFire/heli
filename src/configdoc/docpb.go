@@ -10,32 +10,22 @@ type DocPbConfig struct {
 	*cfg.Tables
 	ExcelVersion int32
 	Changed      *cfg.Tables
+	Battle       *BattleDoc // 战斗配置(非 Luban pipeline)
 }
 
-func BuildItem(confId string, num int64) *pb.Item {
+func BuildItem(confId int32, num int64) *pb.Item {
 	return &pb.Item{
 		ConfId: confId,
 		Num:    num,
 	}
 }
-func BuildItemByItemData(itemDatas ...*cfg.ItemItemData) []*pb.Item {
+func BuildItemByItemData(itemDatas ...*pb.Item) []*pb.Item {
 	res := make([]*pb.Item, 0, len(itemDatas))
 	for _, data := range itemDatas {
-		if data == nil || data.Value == 0 {
+		if data == nil || data.ConfId == 0 {
 			continue
 		}
-		res = append(res, BuildItem(data.ItemId, int64(data.Value)))
-	}
-	return res
-}
-
-func BuildItemByItemkv(datas ...*cfg.Itemkv) []*pb.Item {
-	res := make([]*pb.Item, 0, len(datas))
-	for _, data := range datas {
-		if data == nil || data.Value == 0 {
-			continue
-		}
-		res = append(res, BuildItem(string(data.Id), int64(data.Value)))
+		res = append(res, BuildItem(data.ConfId, data.Num))
 	}
 	return res
 }

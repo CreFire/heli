@@ -1,0 +1,104 @@
+[
+  {
+    "WeaponId": 10110001,
+    "WeaponGroupId": 1011,
+    "WeaponLevel": 1,
+    "IsDefault": 1,
+    "WeaponQuality": 3,
+    "UpgradeCost": [
+      10060001,
+      50
+    ],
+    "NextLevel": 10110002,
+    "AttributeID": [],
+    "AttributeDes": [],
+    "AttributeNum": [],
+    "InitialSkill": [],
+    "RelatedSkill": []
+  },
+  {
+    "WeaponId": 10110002,
+    "WeaponGroupId": 1011,
+    "WeaponLevel": 2,
+    "IsDefault": 1,
+    "WeaponQuality": 3,
+    "UpgradeCost": [
+      10060001,
+      50
+    ],
+    "NextLevel": 10110003,
+    "AttributeID": [],
+    "AttributeDes": [],
+    "AttributeNum": [],
+    "InitialSkill": [],
+    "RelatedSkill": []
+  },
+  {
+    "WeaponId": 10110003,
+    "WeaponGroupId": 1011,
+    "WeaponLevel": 3,
+    "IsDefault": 1,
+    "WeaponQuality": 3,
+    "UpgradeCost": [
+      10060001,
+      50
+    ],
+    "NextLevel": 10110004,
+    "AttributeID": [],
+    "AttributeDes": [],
+    "AttributeNum": [],
+    "InitialSkill": [],
+    "RelatedSkill": []
+  },
+  {
+    "WeaponId": 10110004,
+    "WeaponGroupId": 1011,
+    "WeaponLevel": 4,
+    "IsDefault": 1,
+    "WeaponQuality": 3,
+    "UpgradeCost": [
+      10060001,
+      50
+    ],
+    "NextLevel": 10110005,
+    "AttributeID": [],
+    "AttributeDes": [],
+    "AttributeNum": [],
+    "InitialSkill": [],
+    "RelatedSkill": []
+  },
+  {
+    "WeaponId": 10110005,
+    "WeaponGroupId": 1011,
+    "WeaponLevel": 5,
+    "IsDefault": 1,
+    "WeaponQuality": 3,
+    "UpgradeCost": [
+      10060001,
+      50
+    ],
+    "NextLevel": 10110006,
+    "AttributeID": [],
+    "AttributeDes": [],
+    "AttributeNum": [],
+    "InitialSkill": [],
+    "RelatedSkill": []
+  },
+  {
+    "WeaponId": 10110006,
+    "WeaponGroupId": 1011,
+    "WeaponLevel": 6,
+    "IsDefault": 1,
+    "WeaponQuality": 3,
+    "UpgradeCost": [
+      10060001,
+      50
+    ],
+    "NextLevel": 0,
+    "AttributeID": [],
+    "AttributeDes": [],
+    "AttributeNum": [],
+    "InitialSkill": [],
+    "RelatedSkill": []
+  }
+]

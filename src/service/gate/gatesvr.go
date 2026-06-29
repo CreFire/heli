@@ -79,7 +79,7 @@ func (g *GateSvr) OnStart() error {
 	if _, err := server.MS.TimerMgr.AddSimpleTimer("report_server_info", 3, true, g.ReportServerInfo); err != nil {
 		return err
 	}
-	if _, err := server.MS.TimerMgr.AddSimpleTimer("print_status", 20, true, g.printStatus); err != nil {
+	if _, err := server.MS.TimerMgr.AddSimpleTimer("print_status", 200, true, g.printStatus); err != nil {
 		return err
 	}
 	if _, err := server.MS.TimerMgr.AddSimpleTimer("server-ping", 60, true, g.PingServer); err != nil {
@@ -205,7 +205,6 @@ func (g *GateSvr) PingServer(name string, now int64, value any) {
 	ins := server.MS.SvrMgr.List(common.InnerServerTypeLogic, func(si *servicemgr.ServiceInstance) bool {
 		return true
 	})
-	ins = append(ins)
 
 	for _, v := range ins {
 		if v.NetState() == servicemgr.NetUnValid {

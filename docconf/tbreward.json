@@ -1,0 +1,1037 @@
+[
+  {
+    "RewardId": 9100001,
+    "RewardType": 1,
+    "AbsoluteItem": {
+      "ItemList": [
+        {
+          "Id": 10010002,
+          "Num": 1,
+          "Weight": 0
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100002,
+    "RewardType": 1,
+    "AbsoluteItem": {
+      "ItemList": [
+        {
+          "Id": 10020001,
+          "Num": 1,
+          "Weight": 0
+        },
+        {
+          "Id": 10020002,
+          "Num": 1,
+          "Weight": 0
+        },
+        {
+          "Id": 10020003,
+          "Num": 1,
+          "Weight": 0
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100003,
+    "RewardType": 1,
+    "AbsoluteItem": {
+      "ItemList": [
+        {
+          "Id": 10030001,
+          "Num": 1,
+          "Weight": 0
+        },
+        {
+          "Id": 10030002,
+          "Num": 1,
+          "Weight": 0
+        },
+        {
+          "Id": 10030003,
+          "Num": 1,
+          "Weight": 0
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100004,
+    "RewardType": 1,
+    "AbsoluteItem": {
+      "ItemList": [
+        {
+          "Id": 10030004,
+          "Num": 1,
+          "Weight": 0
+        },
+        {
+          "Id": 10030005,
+          "Num": 1,
+          "Weight": 0
+        },
+        {
+          "Id": 10030006,
+          "Num": 1,
+          "Weight": 0
+        },
+        {
+          "Id": 10030007,
+          "Num": 1,
+          "Weight": 0
+        },
+        {
+          "Id": 10030008,
+          "Num": 1,
+          "Weight": 0
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100005,
+    "RewardType": 1,
+    "AbsoluteItem": {
+      "ItemList": [
+        {
+          "Id": 10040001,
+          "Num": 1,
+          "Weight": 0
+        },
+        {
+          "Id": 10040002,
+          "Num": 1,
+          "Weight": 0
+        },
+        {
+          "Id": 10040003,
+          "Num": 1,
+          "Weight": 0
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100006,
+    "RewardType": 1,
+    "AbsoluteItem": {
+      "ItemList": [
+        {
+          "Id": 10060001,
+          "Num": 1,
+          "Weight": 0
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100007,
+    "RewardType": 2,
+    "OptionItem": {
+      "ItemList": [
+        {
+          "Id": 10010001,
+          "Num": 1000,
+          "Weight": 0
+        },
+        {
+          "Id": 10010002,
+          "Num": 50,
+          "Weight": 0
+        },
+        {
+          "Id": 10010003,
+          "Num": 3,
+          "Weight": 0
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100008,
+    "RewardType": 2,
+    "OptionItem": {
+      "ItemList": [
+        {
+          "Id": 10020001,
+          "Num": 1,
+          "Weight": 0
+        },
+        {
+          "Id": 10020002,
+          "Num": 1,
+          "Weight": 0
+        },
+        {
+          "Id": 10020003,
+          "Num": 1,
+          "Weight": 0
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100009,
+    "RewardType": 2,
+    "OptionItem": {
+      "ItemList": [
+        {
+          "Id": 10030001,
+          "Num": 1,
+          "Weight": 0
+        },
+        {
+          "Id": 10030002,
+          "Num": 1,
+          "Weight": 0
+        },
+        {
+          "Id": 10030003,
+          "Num": 1,
+          "Weight": 0
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100010,
+    "RewardType": 2,
+    "OptionItem": {
+      "ItemList": [
+        {
+          "Id": 10030004,
+          "Num": 1,
+          "Weight": 0
+        },
+        {
+          "Id": 10030005,
+          "Num": 1,
+          "Weight": 0
+        },
+        {
+          "Id": 10030006,
+          "Num": 1,
+          "Weight": 0
+        },
+        {
+          "Id": 10030007,
+          "Num": 1,
+          "Weight": 0
+        },
+        {
+          "Id": 10030008,
+          "Num": 1,
+          "Weight": 0
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100011,
+    "RewardType": 2,
+    "OptionItem": {
+      "ItemList": [
+        {
+          "Id": 10040001,
+          "Num": 1,
+          "Weight": 0
+        },
+        {
+          "Id": 10040002,
+          "Num": 1,
+          "Weight": 0
+        },
+        {
+          "Id": 10040003,
+          "Num": 1,
+          "Weight": 0
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100012,
+    "RewardType": 2,
+    "OptionItem": {
+      "ItemList": [
+        {
+          "Id": 10060001,
+          "Num": 1,
+          "Weight": 0
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100013,
+    "RewardType": 3,
+    "ProbilityItem": {
+      "ItemList": [
+        {
+          "Id": 10010001,
+          "Num": 1000,
+          "Weight": 2500
+        },
+        {
+          "Id": 10010002,
+          "Num": 50,
+          "Weight": 2500
+        },
+        {
+          "Id": 10010003,
+          "Num": 3,
+          "Weight": 2500
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100014,
+    "RewardType": 3,
+    "ProbilityItem": {
+      "ItemList": [
+        {
+          "Id": 10020001,
+          "Num": 1,
+          "Weight": 2500
+        },
+        {
+          "Id": 10020002,
+          "Num": 1,
+          "Weight": 2500
+        },
+        {
+          "Id": 10020003,
+          "Num": 1,
+          "Weight": 2500
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100015,
+    "RewardType": 3,
+    "ProbilityItem": {
+      "ItemList": [
+        {
+          "Id": 10030001,
+          "Num": 1,
+          "Weight": 2500
+        },
+        {
+          "Id": 10030002,
+          "Num": 1,
+          "Weight": 2500
+        },
+        {
+          "Id": 10030003,
+          "Num": 1,
+          "Weight": 2500
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100016,
+    "RewardType": 3,
+    "ProbilityItem": {
+      "ItemList": [
+        {
+          "Id": 10030004,
+          "Num": 1,
+          "Weight": 2000
+        },
+        {
+          "Id": 10030005,
+          "Num": 1,
+          "Weight": 2000
+        },
+        {
+          "Id": 10030006,
+          "Num": 1,
+          "Weight": 2000
+        },
+        {
+          "Id": 10030007,
+          "Num": 1,
+          "Weight": 2000
+        },
+        {
+          "Id": 10030008,
+          "Num": 1,
+          "Weight": 2000
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100017,
+    "RewardType": 3,
+    "ProbilityItem": {
+      "ItemList": [
+        {
+          "Id": 10040001,
+          "Num": 1,
+          "Weight": 2500
+        },
+        {
+          "Id": 10040002,
+          "Num": 1,
+          "Weight": 2500
+        },
+        {
+          "Id": 10040003,
+          "Num": 1,
+          "Weight": 2500
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100018,
+    "RewardType": 3,
+    "ProbilityItem": {
+      "ItemList": [
+        {
+          "Id": 10060001,
+          "Num": 1,
+          "Weight": 2500
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100019,
+    "RewardType": 3,
+    "WeightItem": {
+      "PoolList": [
+        {
+          "ItemList": [
+            {
+              "Id": 10010001,
+              "Num": 1000,
+              "Weight": 25
+            },
+            {
+              "Id": 10010002,
+              "Num": 50,
+              "Weight": 25
+            },
+            {
+              "Id": 10010003,
+              "Num": 3,
+              "Weight": 25
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100020,
+    "RewardType": 3,
+    "WeightItem": {
+      "PoolList": [
+        {
+          "ItemList": [
+            {
+              "Id": 10020001,
+              "Num": 1,
+              "Weight": 25
+            },
+            {
+              "Id": 10020002,
+              "Num": 1,
+              "Weight": 25
+            },
+            {
+              "Id": 10020003,
+              "Num": 1,
+              "Weight": 25
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100021,
+    "RewardType": 3,
+    "WeightItem": {
+      "PoolList": [
+        {
+          "ItemList": [
+            {
+              "Id": 10030001,
+              "Num": 1,
+              "Weight": 25
+            },
+            {
+              "Id": 10030002,
+              "Num": 1,
+              "Weight": 25
+            },
+            {
+              "Id": 10030003,
+              "Num": 1,
+              "Weight": 25
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100022,
+    "RewardType": 3,
+    "WeightItem": {
+      "PoolList": [
+        {
+          "ItemList": [
+            {
+              "Id": 10030004,
+              "Num": 1,
+              "Weight": 25
+            },
+            {
+              "Id": 10030005,
+              "Num": 1,
+              "Weight": 25
+            },
+            {
+              "Id": 10030006,
+              "Num": 1,
+              "Weight": 25
+            },
+            {
+              "Id": 10030007,
+              "Num": 1,
+              "Weight": 25
+            },
+            {
+              "Id": 10030008,
+              "Num": 1,
+              "Weight": 25
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100023,
+    "RewardType": 3,
+    "WeightItem": {
+      "PoolList": [
+        {
+          "ItemList": [
+            {
+              "Id": 10040001,
+              "Num": 1,
+              "Weight": 25
+            },
+            {
+              "Id": 10040002,
+              "Num": 1,
+              "Weight": 25
+            },
+            {
+              "Id": 10040003,
+              "Num": 1,
+              "Weight": 25
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100024,
+    "RewardType": 3,
+    "WeightItem": {
+      "PoolList": [
+        {
+          "ItemList": [
+            {
+              "Id": 10060001,
+              "Num": 1,
+              "Weight": 25
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100025,
+    "RewardType": 1,
+    "AbsoluteReward": {
+      "ItemList": [
+        {
+          "Id": 9100001,
+          "Num": 1,
+          "Weight": 0
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100026,
+    "RewardType": 1,
+    "AbsoluteReward": {
+      "ItemList": [
+        {
+          "Id": 9100001,
+          "Num": 1,
+          "Weight": 0
+        }
+      ]
+    },
+    "WeightReward": {
+      "PoolList": [
+        {
+          "ItemList": [
+            {
+              "Id": 9100021,
+              "Num": 1,
+              "Weight": 25
+            },
+            {
+              "Id": 9100022,
+              "Num": 1,
+              "Weight": 25
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100027,
+    "RewardType": 1,
+    "AbsoluteReward": {
+      "ItemList": [
+        {
+          "Id": 9100001,
+          "Num": 1,
+          "Weight": 0
+        }
+      ]
+    },
+    "ProbilityReward": {
+      "ItemList": [
+        {
+          "Id": 9100021,
+          "Num": 1,
+          "Weight": 25
+        },
+        {
+          "Id": 9100022,
+          "Num": 1,
+          "Weight": 25
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100028,
+    "RewardType": 1,
+    "AbsoluteReward": {
+      "ItemList": [
+        {
+          "Id": 9100001,
+          "Num": 1,
+          "Weight": 0
+        }
+      ]
+    },
+    "OptionReward": {
+      "ItemList": [
+        {
+          "Id": 9100021,
+          "Num": 1,
+          "Weight": 0
+        },
+        {
+          "Id": 9100022,
+          "Num": 1,
+          "Weight": 0
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100029,
+    "RewardType": 1,
+    "AbsoluteReward": {
+      "ItemList": [
+        {
+          "Id": 9100001,
+          "Num": 1,
+          "Weight": 0
+        }
+      ]
+    },
+    "BountyItem": {
+      "Id": 10060001,
+      "Num": 1,
+      "MissNum": 1
+    }
+  },
+  {
+    "RewardId": 9100030,
+    "RewardType": 1,
+    "AbsoluteReward": {
+      "ItemList": [
+        {
+          "Id": 9100001,
+          "Num": 1,
+          "Weight": 0
+        }
+      ]
+    },
+    "BountyReward": {
+      "Id": 9100021,
+      "Num": 1,
+      "MissNum": 1
+    }
+  },
+  {
+    "RewardId": 9100031,
+    "RewardType": 1,
+    "AbsoluteItem": {
+      "ItemList": [
+        {
+          "Id": 10010001,
+          "Num": 500,
+          "Weight": 0
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100032,
+    "RewardType": 1,
+    "WeightReward": {
+      "PoolList": [
+        {
+          "ItemList": [
+            {
+              "Id": 9100019,
+              "Num": 1,
+              "Weight": 1
+            },
+            {
+              "Id": 9100020,
+              "Num": 1,
+              "Weight": 1
+            },
+            {
+              "Id": 9100021,
+              "Num": 1,
+              "Weight": 1
+            },
+            {
+              "Id": 9100022,
+              "Num": 1,
+              "Weight": 1
+            },
+            {
+              "Id": 9100023,
+              "Num": 1,
+              "Weight": 1
+            },
+            {
+              "Id": 9100024,
+              "Num": 1,
+              "Weight": 1
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100033,
+    "RewardType": 1,
+    "AbsoluteItem": {
+      "ItemList": [
+        {
+          "Id": 10010001,
+          "Num": 600,
+          "Weight": 0
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100034,
+    "RewardType": 1,
+    "AbsoluteItem": {
+      "ItemList": [
+        {
+          "Id": 10010001,
+          "Num": 700,
+          "Weight": 0
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100035,
+    "RewardType": 1,
+    "AbsoluteItem": {
+      "ItemList": [
+        {
+          "Id": 10010001,
+          "Num": 800,
+          "Weight": 0
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100036,
+    "RewardType": 1,
+    "AbsoluteItem": {
+      "ItemList": [
+        {
+          "Id": 10010001,
+          "Num": 900,
+          "Weight": 0
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100037,
+    "RewardType": 1,
+    "AbsoluteItem": {
+      "ItemList": [
+        {
+          "Id": 10010001,
+          "Num": 1000,
+          "Weight": 0
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100038,
+    "RewardType": 1,
+    "AbsoluteItem": {
+      "ItemList": [
+        {
+          "Id": 10010001,
+          "Num": 1200,
+          "Weight": 0
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100039,
+    "RewardType": 1,
+    "AbsoluteItem": {
+      "ItemList": [
+        {
+          "Id": 10010001,
+          "Num": 1400,
+          "Weight": 0
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100040,
+    "RewardType": 1,
+    "AbsoluteItem": {
+      "ItemList": [
+        {
+          "Id": 10010001,
+          "Num": 1600,
+          "Weight": 0
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100041,
+    "RewardType": 1,
+    "AbsoluteItem": {
+      "ItemList": [
+        {
+          "Id": 10010001,
+          "Num": 1800,
+          "Weight": 0
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100042,
+    "RewardType": 1,
+    "AbsoluteItem": {
+      "ItemList": [
+        {
+          "Id": 10010001,
+          "Num": 2000,
+          "Weight": 0
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100043,
+    "RewardType": 3,
+    "ProbilityItem": {
+      "ItemList": [
+        {
+          "Id": 10020004,
+          "Num": 2,
+          "Weight": 10000
+        },
+        {
+          "Id": 10010001,
+          "Num": 1000,
+          "Weight": 2500
+        },
+        {
+          "Id": 10010002,
+          "Num": 50,
+          "Weight": 2500
+        },
+        {
+          "Id": 10010003,
+          "Num": 3,
+          "Weight": 2500
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100044,
+    "RewardType": 3,
+    "ProbilityItem": {
+      "ItemList": [
+        {
+          "Id": 10020004,
+          "Num": 5,
+          "Weight": 10000
+        },
+        {
+          "Id": 10020001,
+          "Num": 1,
+          "Weight": 2500
+        },
+        {
+          "Id": 10020002,
+          "Num": 1,
+          "Weight": 2500
+        },
+        {
+          "Id": 10020003,
+          "Num": 1,
+          "Weight": 2500
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100045,
+    "RewardType": 3,
+    "ProbilityItem": {
+      "ItemList": [
+        {
+          "Id": 10020004,
+          "Num": 10,
+          "Weight": 10000
+        },
+        {
+          "Id": 10030001,
+          "Num": 1,
+          "Weight": 2500
+        },
+        {
+          "Id": 10030002,
+          "Num": 1,
+          "Weight": 2500
+        },
+        {
+          "Id": 10030003,
+          "Num": 1,
+          "Weight": 2500
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100046,
+    "RewardType": 3,
+    "ProbilityItem": {
+      "ItemList": [
+        {
+          "Id": 10020004,
+          "Num": 20,
+          "Weight": 10000
+        },
+        {
+          "Id": 10030004,
+          "Num": 1,
+          "Weight": 2000
+        },
+        {
+          "Id": 10030005,
+          "Num": 1,
+          "Weight": 2000
+        },
+        {
+          "Id": 10030006,
+          "Num": 1,
+          "Weight": 2000
+        },
+        {
+          "Id": 10030007,
+          "Num": 1,
+          "Weight": 2000
+        },
+        {
+          "Id": 10030008,
+          "Num": 1,
+          "Weight": 2000
+        }
+      ]
+    }
+  },
+  {
+    "RewardId": 9100047,
+    "RewardType": 3,
+    "ProbilityItem": {
+      "ItemList": [
+        {
+          "Id": 10020004,
+          "Num": 40,
+          "Weight": 10000
+        },
+        {
+          "Id": 10040001,
+          "Num": 1,
+          "Weight": 2500
+        },
+        {
+          "Id": 10040002,
+          "Num": 1,
+          "Weight": 2500
+        },
+        {
+          "Id": 10040003,
+          "Num": 1,
+          "Weight": 2500
+        }
+      ]
+    }
+  }
+]

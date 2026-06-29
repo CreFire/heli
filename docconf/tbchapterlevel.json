@@ -1,0 +1,3002 @@
+[
+  {
+    "Id": 9001001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9001002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9001003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9001004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9001005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9001006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9001007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9001008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9001009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9001010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9001011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9001012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9001013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9001014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9001015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9002001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9002002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9002003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9002004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9002005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9002006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9002007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9002008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9002009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9002010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9002011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9002012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9002013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9002014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9002015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9003001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9003002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9003003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9003004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9003005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9003006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9003007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9003008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9003009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9003010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9003011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9003012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9003013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9003014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9003015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9004001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9004002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9004003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9004004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9004005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9004006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9004007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9004008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9004009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9004010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9004011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9004012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9004013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9004014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9004015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9005001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9005002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9005003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9005004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9005005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9005006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9005007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9005008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9005009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9005010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9005011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9005012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9005013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9005014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9005015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9006001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9006002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9006003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9006004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9006005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9006006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9006007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9006008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9006009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9006010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9006011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9006012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9006013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9006014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9006015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9007001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9007002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9007003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9007004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9007005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9007006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9007007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9007008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9007009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9007010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9007011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9007012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9007013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9007014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9007015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9008001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9008002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9008003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9008004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9008005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9008006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9008007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9008008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9008009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9008010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9008011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9008012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9008013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9008014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9008015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9009001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9009002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9009003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9009004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9009005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9009006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9009007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9009008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9009009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9009010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9009011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9009012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9009013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9009014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9009015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9010001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9010002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9010003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9010004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9010005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9010006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9010007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9010008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9010009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9010010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9010011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9010012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9010013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9010014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9010015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9011001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9011002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9011003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9011004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9011005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9011006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9011007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9011008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9011009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9011010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9011011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9011012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9011013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9011014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9011015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9012001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9012002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9012003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9012004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9012005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9012006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9012007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9012008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9012009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9012010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9012011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9012012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9012013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9012014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9012015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9013001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9013002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9013003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9013004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9013005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9013006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9013007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9013008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9013009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9013010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9013011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9013012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9013013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9013014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9013015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9014001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9014002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9014003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9014004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9014005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9014006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9014007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9014008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9014009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9014010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9014011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9014012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9014013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9014014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9014015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9015001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9015002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9015003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9015004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9015005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9015006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9015007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9015008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9015009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9015010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9015011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9015012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9015013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9015014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9015015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9016001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9016002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9016003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9016004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9016005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9016006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9016007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9016008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9016009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9016010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9016011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9016012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9016013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9016014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9016015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9017001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9017002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9017003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9017004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9017005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9017006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9017007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9017008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9017009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9017010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9017011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9017012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9017013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9017014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9017015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9018001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9018002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9018003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9018004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9018005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9018006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9018007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9018008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9018009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9018010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9018011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9018012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9018013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9018014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9018015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9019001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9019002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9019003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9019004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9019005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9019006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9019007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9019008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9019009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9019010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9019011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9019012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9019013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9019014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9019015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9020001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9020002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9020003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9020004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9020005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9020006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9020007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9020008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9020009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9020010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9020011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9020012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9020013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9020014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9020015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9021001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9021002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9021003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9021004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9021005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9021006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9021007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9021008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9021009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9021010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9021011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9021012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9021013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9021014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9021015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9022001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9022002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9022003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9022004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9022005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9022006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9022007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9022008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9022009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9022010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9022011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9022012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9022013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9022014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9022015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9023001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9023002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9023003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9023004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9023005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9023006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9023007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9023008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9023009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9023010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9023011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9023012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9023013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9023014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9023015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9024001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9024002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9024003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9024004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9024005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9024006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9024007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9024008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9024009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9024010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9024011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9024012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9024013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9024014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9024015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9025001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9025002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9025003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9025004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9025005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9025006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9025007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9025008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9025009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9025010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9025011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9025012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9025013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9025014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9025015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9026001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9026002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9026003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9026004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9026005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9026006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9026007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9026008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9026009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9026010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9026011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9026012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9026013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9026014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9026015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9027001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9027002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9027003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9027004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9027005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9027006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9027007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9027008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9027009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9027010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9027011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9027012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9027013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9027014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9027015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9028001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9028002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9028003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9028004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9028005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9028006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9028007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9028008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9028009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9028010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9028011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9028012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9028013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9028014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9028015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9029001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9029002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9029003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9029004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9029005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9029006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9029007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9029008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9029009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9029010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9029011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9029012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9029013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9029014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9029015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9030001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9030002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9030003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9030004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9030005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9030006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9030007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9030008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9030009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9030010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9030011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9030012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9030013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9030014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9030015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9031001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9031002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9031003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9031004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9031005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9031006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9031007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9031008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9031009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9031010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9031011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9031012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9031013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9031014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9031015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9032001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9032002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9032003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9032004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9032005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9032006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9032007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9032008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9032009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9032010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9032011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9032012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9032013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9032014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9032015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9033001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9033002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9033003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9033004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9033005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9033006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9033007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9033008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9033009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9033010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9033011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9033012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9033013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9033014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9033015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9034001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9034002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9034003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9034004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9034005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9034006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9034007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9034008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9034009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9034010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9034011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9034012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9034013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9034014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9034015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9035001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9035002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9035003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9035004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9035005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9035006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9035007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9035008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9035009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9035010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9035011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9035012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9035013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9035014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9035015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9036001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9036002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9036003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9036004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9036005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9036006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9036007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9036008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9036009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9036010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9036011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9036012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9036013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9036014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9036015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9037001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9037002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9037003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9037004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9037005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9037006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9037007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9037008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9037009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9037010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9037011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9037012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9037013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9037014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9037015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9038001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9038002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9038003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9038004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9038005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9038006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9038007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9038008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9038009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9038010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9038011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9038012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9038013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9038014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9038015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9039001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9039002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9039003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9039004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9039005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9039006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9039007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9039008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9039009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9039010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9039011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9039012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9039013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9039014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9039015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9040001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9040002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9040003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9040004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9040005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9040006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9040007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9040008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9040009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9040010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9040011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9040012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9040013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9040014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9040015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9041001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9041002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9041003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9041004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9041005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9041006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9041007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9041008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9041009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9041010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9041011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9041012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9041013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9041014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9041015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9042001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9042002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9042003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9042004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9042005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9042006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9042007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9042008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9042009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9042010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9042011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9042012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9042013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9042014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9042015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9043001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9043002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9043003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9043004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9043005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9043006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9043007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9043008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9043009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9043010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9043011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9043012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9043013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9043014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9043015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9044001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9044002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9044003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9044004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9044005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9044006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9044007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9044008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9044009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9044010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9044011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9044012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9044013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9044014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9044015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9045001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9045002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9045003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9045004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9045005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9045006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9045007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9045008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9045009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9045010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9045011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9045012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9045013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9045014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9045015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9046001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9046002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9046003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9046004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9046005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9046006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9046007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9046008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9046009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9046010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9046011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9046012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9046013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9046014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9046015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9047001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9047002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9047003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9047004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9047005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9047006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9047007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9047008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9047009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9047010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9047011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9047012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9047013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9047014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9047015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9048001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9048002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9048003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9048004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9048005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9048006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9048007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9048008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9048009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9048010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9048011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9048012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9048013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9048014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9048015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9049001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9049002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9049003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9049004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9049005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9049006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9049007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9049008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9049009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9049010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9049011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9049012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9049013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9049014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9049015,
+    "LevelType": 2
+  },
+  {
+    "Id": 9050001,
+    "LevelType": 0
+  },
+  {
+    "Id": 9050002,
+    "LevelType": 0
+  },
+  {
+    "Id": 9050003,
+    "LevelType": 0
+  },
+  {
+    "Id": 9050004,
+    "LevelType": 1
+  },
+  {
+    "Id": 9050005,
+    "LevelType": 0
+  },
+  {
+    "Id": 9050006,
+    "LevelType": 0
+  },
+  {
+    "Id": 9050007,
+    "LevelType": 0
+  },
+  {
+    "Id": 9050008,
+    "LevelType": 0
+  },
+  {
+    "Id": 9050009,
+    "LevelType": 1
+  },
+  {
+    "Id": 9050010,
+    "LevelType": 0
+  },
+  {
+    "Id": 9050011,
+    "LevelType": 0
+  },
+  {
+    "Id": 9050012,
+    "LevelType": 0
+  },
+  {
+    "Id": 9050013,
+    "LevelType": 0
+  },
+  {
+    "Id": 9050014,
+    "LevelType": 0
+  },
+  {
+    "Id": 9050015,
+    "LevelType": 2
+  }
+]

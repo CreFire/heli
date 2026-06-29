@@ -3,8 +3,6 @@ package item
 import (
 	"game/deps/msg"
 	"game/deps/netmgr"
-	"game/deps/router"
-	rpcmgr "game/deps/rpc_mgr"
 	"game/deps/xlog"
 	"game/src/common"
 	"game/src/proto/errorpb"
@@ -25,16 +23,7 @@ func NewHandler() *Handler {
 	return &Handler{}
 }
 
-func (h *Handler) RegisterHandler(rpc *rpcmgr.RpcMgr, r *router.Router) error {
-	r.CSRegister(pb.MSG_ID_USE_ITEM_REQ, actor.WrapC2S(h.HandleUseItem))
-
-	rpc.RpcRegister(pb.MSG_ID_S2S_ADD_ITEM_REQ, h.rpcGamerAddItem)
-	rpc.RpcRegister(pb.MSG_ID_S2S_SUB_ITEM_REQ, h.rpcGamerSubItem)
-	rpc.RpcRegister(pb.MSG_ID_S2S_CHECK_ITEM_REQ, h.rpcGamerCheckItem)
-	return nil
-}
-
-func (h *Handler) rpcGamerAddItem(_ netmgr.IMsgQue, msg *msg.Message) *pbrpc.S2SRpcRSP {
+func (h *Handler) HandleRpcGamerAddItem(_ netmgr.IMsgQue, msg *msg.Message) *pbrpc.S2SRpcRSP {
 	req := msg.Message().(*pbrpc.S2SAddItemREQ)
 	rsp := &pbrpc.S2SRpcRSP{
 		RspType: &pbrpc.S2SRpcRSP_AddItemRsp{AddItemRsp: &pbrpc.S2SAddItemRSP{}},
@@ -80,7 +69,7 @@ func (h *Handler) rpcGamerAddItem(_ netmgr.IMsgQue, msg *msg.Message) *pbrpc.S2S
 	return rsp
 }
 
-func (h *Handler) rpcGamerSubItem(_ netmgr.IMsgQue, msg *msg.Message) *pbrpc.S2SRpcRSP {
+func (h *Handler) HandleRpcGamerSubItem(_ netmgr.IMsgQue, msg *msg.Message) *pbrpc.S2SRpcRSP {
 	req := msg.Message().(*pbrpc.S2SSubItemREQ)
 	rsp := &pbrpc.S2SRpcRSP{
 		RspType: &pbrpc.S2SRpcRSP_SubItemRsp{SubItemRsp: &pbrpc.S2SSubItemRSP{}},
@@ -117,7 +106,7 @@ func (h *Handler) rpcGamerSubItem(_ netmgr.IMsgQue, msg *msg.Message) *pbrpc.S2S
 	return rsp
 }
 
-func (h *Handler) rpcGamerCheckItem(_ netmgr.IMsgQue, msg *msg.Message) *pbrpc.S2SRpcRSP {
+func (h *Handler) HandleRpcGamerCheckItem(_ netmgr.IMsgQue, msg *msg.Message) *pbrpc.S2SRpcRSP {
 	req := msg.Message().(*pbrpc.S2SCheckItemREQ)
 	rsp := &pbrpc.S2SRpcRSP{
 		RspType: &pbrpc.S2SRpcRSP_CheckItemRsp{CheckItemRsp: &pbrpc.S2SCheckItemRSP{}},
@@ -152,7 +141,6 @@ func (h *Handler) HandleUseItem(ctx iface.IGamerContext, data *msg.Message) (cod
 		return errorpb.ERROR_REQUEST_PARAMS, nil
 	}
 	ctx.Logger().Debug("use item:%v", req.Item)
-	// todo 现在默认只能使用1后续有需求
 	req.Item.Num = 1
 
 	packInfo := ctx.Item().UseItem(req.Item)

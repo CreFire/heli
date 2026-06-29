@@ -18,7 +18,7 @@ func newGamerMainData() *pb.Gamer {
 
 func newGamerPackData() *pb.GamerPackData {
 	return &pb.GamerPackData{
-		ItemMap: make(map[string]*pb.Item, 16),
+		ItemMap: make(map[int32]*pb.Item, 16),
 	}
 }
 

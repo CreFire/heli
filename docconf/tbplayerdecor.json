@@ -1,0 +1,83 @@
+[
+  {
+    "PersonResID": 11001,
+    "Type": 1,
+    "UnlockID": 110201,
+    "IsShow": 3,
+    "Sort": 1,
+    "Timelimited": 0,
+    "ExistenceTime": 0
+  },
+  {
+    "PersonResID": 11002,
+    "Type": 1,
+    "UnlockID": 110302,
+    "IsShow": 3,
+    "Sort": 2,
+    "Timelimited": 0,
+    "ExistenceTime": 0
+  },
+  {
+    "PersonResID": 11003,
+    "Type": 1,
+    "UnlockID": 110603,
+    "IsShow": 3,
+    "Sort": 3,
+    "Timelimited": 0,
+    "ExistenceTime": 0
+  },
+  {
+    "PersonResID": 21001,
+    "Type": 2,
+    "UnlockID": 0,
+    "IsShow": 3,
+    "Sort": 1,
+    "Timelimited": 1,
+    "ExistenceTime": 604800
+  },
+  {
+    "PersonResID": 21002,
+    "Type": 2,
+    "UnlockID": 0,
+    "IsShow": 3,
+    "Sort": 2,
+    "Timelimited": 1,
+    "ExistenceTime": 2592000
+  },
+  {
+    "PersonResID": 21003,
+    "Type": 2,
+    "UnlockID": 0,
+    "IsShow": 3,
+    "Sort": 2,
+    "Timelimited": 1,
+    "ExistenceTime": 2592000
+  },
+  {
+    "PersonResID": 31001,
+    "Type": 3,
+    "UnlockID": 0,
+    "IsShow": 3,
+    "Sort": 1,
+    "Timelimited": 1,
+    "ExistenceTime": 604800
+  },
+  {
+    "PersonResID": 31002,
+    "Type": 3,
+    "UnlockID": 0,
+    "IsShow": 3,
+    "Sort": 2,
+    "Timelimited": 1,
+    "ExistenceTime": 2592000
+  },
+  {
+    "PersonResID": 31003,
+    "Type": 3,
+    "UnlockID": 0,
+    "IsShow": 3,
+    "Sort": 3,
+    "Timelimited": 0,
+    "ExistenceTime": 0
+  }
+]
