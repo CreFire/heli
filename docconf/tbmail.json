@@ -1,0 +1,208 @@
+[
+  {
+    "MailID": 101,
+    "MailType": 0,
+    "Items": [
+      10010001,
+      20
+    ],
+    "IsLimited": 0,
+    "LimitDay": 0,
+    "LimitTime": 0
+  },
+  {
+    "MailID": 102,
+    "MailType": 0,
+    "Items": [
+      10010002,
+      10
+    ],
+    "IsLimited": 0,
+    "LimitDay": 0,
+    "LimitTime": 0
+  },
+  {
+    "MailID": 103,
+    "MailType": 0,
+    "Items": [
+      10010001,
+      20,
+      10010002,
+      10
+    ],
+    "IsLimited": 0,
+    "LimitDay": 0,
+    "LimitTime": 0
+  },
+  {
+    "MailID": 1001,
+    "MailType": 0,
+    "Items": [
+      10010001,
+      20
+    ],
+    "IsLimited": 1,
+    "LimitDay": 3,
+    "LimitTime": 0
+  },
+  {
+    "MailID": 1002,
+    "MailType": 0,
+    "Items": [
+      10010002,
+      50
+    ],
+    "IsLimited": 1,
+    "LimitDay": 30,
+    "LimitTime": 0
+  },
+  {
+    "MailID": 1003,
+    "MailType": 0,
+    "Items": [
+      10010003,
+      80
+    ],
+    "IsLimited": 1,
+    "LimitDay": 25,
+    "LimitTime": 0
+  },
+  {
+    "MailID": 1004,
+    "MailType": 0,
+    "Items": [
+      10020001,
+      10
+    ],
+    "IsLimited": 1,
+    "LimitDay": 7,
+    "LimitTime": 0
+  },
+  {
+    "MailID": 1005,
+    "MailType": 0,
+    "Items": [
+      10020002,
+      20
+    ],
+    "IsLimited": 1,
+    "LimitDay": 12,
+    "LimitTime": 0
+  },
+  {
+    "MailID": 1006,
+    "MailType": 0,
+    "Items": [
+      10020003,
+      30
+    ],
+    "IsLimited": 1,
+    "LimitDay": 11,
+    "LimitTime": 0
+  },
+  {
+    "MailID": 1007,
+    "MailType": 0,
+    "Items": [],
+    "IsLimited": 1,
+    "LimitDay": 10,
+    "LimitTime": 0
+  },
+  {
+    "MailID": 1008,
+    "MailType": 1,
+    "Items": [],
+    "IsLimited": 1,
+    "LimitDay": 13,
+    "LimitTime": 0
+  },
+  {
+    "MailID": 1009,
+    "MailType": 0,
+    "Items": [
+      10010001,
+      20
+    ],
+    "IsLimited": 0,
+    "LimitDay": 0,
+    "LimitTime": 0
+  },
+  {
+    "MailID": 1010,
+    "MailType": 0,
+    "Items": [
+      10010002,
+      80
+    ],
+    "IsLimited": 0,
+    "LimitDay": 0,
+    "LimitTime": 0
+  },
+  {
+    "MailID": 1011,
+    "MailType": 0,
+    "Items": [
+      10020002,
+      60
+    ],
+    "IsLimited": 0,
+    "LimitDay": 0,
+    "LimitTime": 0
+  },
+  {
+    "MailID": 1012,
+    "MailType": 1,
+    "Items": [],
+    "IsLimited": 1,
+    "LimitDay": 9,
+    "LimitTime": 0
+  },
+  {
+    "MailID": 1013,
+    "MailType": 1,
+    "Items": [],
+    "IsLimited": 1,
+    "LimitDay": 6,
+    "LimitTime": 0
+  },
+  {
+    "MailID": 1014,
+    "MailType": 1,
+    "Items": [],
+    "IsLimited": 1,
+    "LimitDay": 8,
+    "LimitTime": 0
+  },
+  {
+    "MailID": 1015,
+    "MailType": 0,
+    "Items": [],
+    "IsLimited": 0,
+    "LimitDay": 0,
+    "LimitTime": 0
+  },
+  {
+    "MailID": 1016,
+    "MailType": 0,
+    "Items": [],
+    "IsLimited": 0,
+    "LimitDay": 0,
+    "LimitTime": 0
+  },
+  {
+    "MailID": 1017,
+    "MailType": 0,
+    "Items": [],
+    "IsLimited": 0,
+    "LimitDay": 0,
+    "LimitTime": 0
+  },
+  {
+    "MailID": 1018,
+    "MailType": 0,
+    "Items": [],
+    "IsLimited": 0,
+    "LimitDay": 0,
+    "LimitTime": 0
+  }
+]

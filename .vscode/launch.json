@@ -1,44 +1,65 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "Launch Auth",
-            "type": "go",
-            "request": "launch",
-            "mode": "auto",
-            "program": "${workspaceFolder}/src/service/auth",
-            "cwd": "${workspaceFolder}",
-            "args": [
-                "--f",
-                "${workspaceFolder}/conf/auth.yaml"
-            ],
-            "console": "integratedTerminal"
-        },
-        {
-            "name": "Launch Gate",
-            "type": "go",
-            "request": "launch",
-            "mode": "auto",
-            "program": "${workspaceFolder}/src/service/gate",
-            "cwd": "${workspaceFolder}",
-            "args": [
-                "--f",
-                "${workspaceFolder}/conf/gate.yaml"
-            ],
-            "console": "integratedTerminal"
-        },
-        {
-            "name": "Launch Logic",
-            "type": "go",
-            "request": "launch",
-            "mode": "auto",
-            "program": "${workspaceFolder}/src/service/logic",
-            "cwd": "${workspaceFolder}",
-            "args": [
-                "--f",
-                "${workspaceFolder}/conf/logic.yaml"
-            ],
-            "console": "integratedTerminal"
-        }
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Auth",
+      "type": "go",
+      "request": "launch",
+      "mode": "exec",
+      "program": "${workspaceFolder}/bin/auth/auth.exe",
+      "cwd": "${workspaceFolder}/bin/auth",
+      "args": [
+        "--f",
+        "${workspaceFolder}/conf/auth.yaml"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "openOnSessionStart",
+      "preLaunchTask": "build-auth"
+    },
+    {
+      "name": "Launch Gate",
+      "type": "go",
+      "request": "launch",
+      "mode": "exec",
+      "program": "${workspaceFolder}/bin/gate/gate.exe",
+      "cwd": "${workspaceFolder}/bin/gate",
+      "args": [
+        "--f",
+        "${workspaceFolder}/conf/gate.yaml"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "openOnSessionStart",
+      "preLaunchTask": "build-gate"
+    },
+    {
+      "name": "Launch Logic",
+      "type": "go",
+      "request": "launch",
+      "mode": "exec",
+      "program": "${workspaceFolder}/bin/logic/logic.exe",
+      "cwd": "${workspaceFolder}/bin/logic",
+      "args": [
+        "--f",
+        "${workspaceFolder}/conf/logic.yaml"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "openOnSessionStart",
+      "preLaunchTask": "build-logic"
+    },
+    {
+      "name": "Robot",
+      "type": "go",
+      "request": "launch",
+      "mode": "exec",
+      "program": "${workspaceFolder}/bin/robot/robot.exe",
+      "cwd": "${workspaceFolder}/bin/robot",
+      "args": [
+        "--f",
+        "${workspaceFolder}/conf/robot.yaml"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "openOnSessionStart",
+      "preLaunchTask": "build-robot"
+    }
+  ]
 }

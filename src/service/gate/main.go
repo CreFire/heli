@@ -21,3 +21,4 @@ func main() {
 	server.MS.WaitStop()
 	<-time.After(2 * time.Second)
 }
+

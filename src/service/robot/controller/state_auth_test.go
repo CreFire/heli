@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestResolveRobotGateConnectAddr_DefaultTCP(t *testing.T) {
+func TestResolveRobotGateConnectAddr_DefaultWebSocket(t *testing.T) {
 	cfg := &configdoc.ConfigBase{Server: &configdoc.ServerCfg{Net: &configdoc.Net{}}}
 	prev := currentRobotRuntime
 	currentRobotRuntime = &RobotRuntime{cfg: cfg}
@@ -17,8 +17,8 @@ func TestResolveRobotGateConnectAddr_DefaultTCP(t *testing.T) {
 
 	addr, transport, err := resolveRobotGateConnectAddr(&pb.AuthUseRoleRSP{Host: "127.0.0.1:10301"})
 	require.NoError(t, err)
-	require.Equal(t, "127.0.0.1:10301", addr)
-	require.Equal(t, options.TransportTCP, transport)
+	require.Equal(t, "ws://127.0.0.1:10301/ws", addr)
+	require.Equal(t, options.TransportWebSocket, transport)
 }
 
 func TestResolveRobotGateConnectAddr_WebSocketFromHost(t *testing.T) {

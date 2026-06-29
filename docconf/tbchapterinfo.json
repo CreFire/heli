@@ -1,0 +1,1080 @@
+[
+  {
+    "KeyId": 2304257,
+    "ChapterID": 9001,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [
+      9100001
+    ],
+    "StageRewards": [
+      9100031
+    ],
+    "SweepReward": [
+      9100031
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": [
+      9100001,
+      9100002,
+      9100003
+    ]
+  },
+  {
+    "KeyId": 2304258,
+    "ChapterID": 9001,
+    "DifficultLv": 2,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [
+      9100001
+    ],
+    "StageRewards": [
+      9100031
+    ],
+    "SweepReward": [
+      9100031
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": [
+      9100001,
+      9100002,
+      9100003
+    ]
+  },
+  {
+    "KeyId": 2304259,
+    "ChapterID": 9001,
+    "DifficultLv": 3,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [
+      9100001
+    ],
+    "StageRewards": [
+      9100031
+    ],
+    "SweepReward": [
+      9100031
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": [
+      9100001,
+      9100002,
+      9100003
+    ]
+  },
+  {
+    "KeyId": 2304513,
+    "ChapterID": 9002,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [
+      9100001
+    ],
+    "StageRewards": [
+      9100033
+    ],
+    "SweepReward": [
+      9100033
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": [
+      9100001,
+      9100002,
+      9100003
+    ]
+  },
+  {
+    "KeyId": 2304514,
+    "ChapterID": 9002,
+    "DifficultLv": 2,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [
+      9100001
+    ],
+    "StageRewards": [
+      9100033
+    ],
+    "SweepReward": [
+      9100033
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": [
+      9100001,
+      9100002,
+      9100003
+    ]
+  },
+  {
+    "KeyId": 2304515,
+    "ChapterID": 9002,
+    "DifficultLv": 3,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [
+      9100001
+    ],
+    "StageRewards": [
+      9100033
+    ],
+    "SweepReward": [
+      9100033
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": [
+      9100001,
+      9100002,
+      9100003
+    ]
+  },
+  {
+    "KeyId": 2304769,
+    "ChapterID": 9003,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [
+      9100001
+    ],
+    "StageRewards": [
+      9100034
+    ],
+    "SweepReward": [
+      9100034
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2305025,
+    "ChapterID": 9004,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [
+      9100001
+    ],
+    "StageRewards": [
+      9100035
+    ],
+    "SweepReward": [
+      9100035
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2305281,
+    "ChapterID": 9005,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [
+      9100001
+    ],
+    "StageRewards": [
+      9100036
+    ],
+    "SweepReward": [
+      9100036
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2305537,
+    "ChapterID": 9006,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [
+      9100001
+    ],
+    "StageRewards": [
+      9100037
+    ],
+    "SweepReward": [
+      9100037
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2305793,
+    "ChapterID": 9007,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [
+      9100001
+    ],
+    "StageRewards": [
+      9100038
+    ],
+    "SweepReward": [
+      9100038
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2306049,
+    "ChapterID": 9008,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [
+      9100001
+    ],
+    "StageRewards": [
+      9100039
+    ],
+    "SweepReward": [
+      9100039
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2306305,
+    "ChapterID": 9009,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [
+      9100001
+    ],
+    "StageRewards": [
+      9100040
+    ],
+    "SweepReward": [
+      9100040
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2306561,
+    "ChapterID": 9010,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [
+      9100001
+    ],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2306817,
+    "ChapterID": 9011,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2307073,
+    "ChapterID": 9012,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2307329,
+    "ChapterID": 9013,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2307585,
+    "ChapterID": 9014,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2307841,
+    "ChapterID": 9015,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2308097,
+    "ChapterID": 9016,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2308353,
+    "ChapterID": 9017,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2308609,
+    "ChapterID": 9018,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2308865,
+    "ChapterID": 9019,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2309121,
+    "ChapterID": 9020,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2309377,
+    "ChapterID": 9021,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2309633,
+    "ChapterID": 9022,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2309889,
+    "ChapterID": 9023,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2310145,
+    "ChapterID": 9024,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2310401,
+    "ChapterID": 9025,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2310657,
+    "ChapterID": 9026,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2310913,
+    "ChapterID": 9027,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2311169,
+    "ChapterID": 9028,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2311425,
+    "ChapterID": 9029,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2311681,
+    "ChapterID": 9030,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2311937,
+    "ChapterID": 9031,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2312193,
+    "ChapterID": 9032,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2312449,
+    "ChapterID": 9033,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2312705,
+    "ChapterID": 9034,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2312961,
+    "ChapterID": 9035,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2313217,
+    "ChapterID": 9036,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2313473,
+    "ChapterID": 9037,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2313729,
+    "ChapterID": 9038,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2313985,
+    "ChapterID": 9039,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2314241,
+    "ChapterID": 9040,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2314497,
+    "ChapterID": 9041,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2314753,
+    "ChapterID": 9042,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2315009,
+    "ChapterID": 9043,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2315265,
+    "ChapterID": 9044,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2315521,
+    "ChapterID": 9045,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2315777,
+    "ChapterID": 9046,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2316033,
+    "ChapterID": 9047,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2316289,
+    "ChapterID": 9048,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2316545,
+    "ChapterID": 9049,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  },
+  {
+    "KeyId": 2316801,
+    "ChapterID": 9050,
+    "DifficultLv": 1,
+    "RefPower": 0,
+    "Cost": {
+      "Id": 10010003,
+      "Num": 6
+    },
+    "FirstReward": [],
+    "StageRewards": [
+      9100041
+    ],
+    "SweepReward": [
+      9100041
+    ],
+    "SweepAdditionalReward": [],
+    "StarBoxRewards": []
+  }
+]

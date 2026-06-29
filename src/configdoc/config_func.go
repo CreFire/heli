@@ -4,7 +4,7 @@ import (
 	"game/src/proto/pb"
 )
 
-func BuildItemsByConfId(confId string, num int64) []*pb.Item {
+func BuildItemsByConfId(confId int32, num int64) []*pb.Item {
 	items := make([]*pb.Item, 0, 1)
 	item := &pb.Item{ConfId: confId, Num: num}
 	items = append(items, item)
@@ -23,12 +23,12 @@ func CloneItem(item *pb.Item) *pb.Item {
 	}
 }
 
-func MergeItemToMap(itemMap map[string]*pb.Item, confId string, num int64) map[string]*pb.Item {
+func MergeItemToMap(itemMap map[int32]*pb.Item, confId int32, num int64) map[int32]*pb.Item {
 	if num <= 0 {
 		return itemMap
 	}
 	if itemMap == nil {
-		itemMap = make(map[string]*pb.Item, 1)
+		itemMap = make(map[int32]*pb.Item, 1)
 	}
 	if item := itemMap[confId]; item != nil {
 		item.Num += num
@@ -38,12 +38,12 @@ func MergeItemToMap(itemMap map[string]*pb.Item, confId string, num int64) map[s
 	return itemMap
 }
 
-func ItemMerge(items []*pb.Item) map[string]*pb.Item {
+func ItemMerge(items []*pb.Item) map[int32]*pb.Item {
 	if len(items) == 0 {
-		return map[string]*pb.Item{}
+		return map[int32]*pb.Item{}
 	}
 
-	itemMap := make(map[string]*pb.Item, len(items))
+	itemMap := make(map[int32]*pb.Item, len(items))
 	for _, item := range items {
 		if i, ok := itemMap[item.ConfId]; ok {
 			i.Num += item.Num
@@ -54,7 +54,7 @@ func ItemMerge(items []*pb.Item) map[string]*pb.Item {
 	return itemMap
 }
 
-func ItemMapToSlice(itemMap map[string]*pb.Item) []*pb.Item {
+func ItemMapToSlice(itemMap map[int32]*pb.Item) []*pb.Item {
 	if len(itemMap) == 0 {
 		return nil
 	}

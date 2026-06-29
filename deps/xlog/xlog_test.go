@@ -224,7 +224,7 @@ func TestStdLogger(t *testing.T) {
 		t.Errorf("StdLogger did not have correct level. Got: %s", output)
 	}
 
-	test_log := NewMyLogger("./logs/test.log", "DEBUG", 1)
+	test_log := NewMyLogger(filepath.Join(filepath.Dir(defaultResolvedFilePath()), "test.log"), "DEBUG", 1)
 	test_log.Debugf("test debug log message")
 	test_log.Infof("test info log message")
 	test_log.Warnf("test warn log message")
@@ -320,7 +320,7 @@ func TestNewMyLoggerStdOutOnlyDoesNotCreateFileWriter(t *testing.T) {
 }
 
 func TestRotateDailyWriter(t *testing.T) {
-	dir := "./logs"
+	dir := filepath.Dir(defaultResolvedFilePath())
 
 	logPath := filepath.Join(dir, "testlog")
 	opts := Options{
@@ -470,7 +470,7 @@ func TestMyLogger_Close(t *testing.T) {
 }
 
 func TestRotateWriterSize(t *testing.T) {
-	dir := "./logs"
+	dir := filepath.Dir(defaultResolvedFilePath())
 	logPath := filepath.Join(dir, "rotate.log")
 	opts := Options{
 		FilePath:      logPath,

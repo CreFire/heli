@@ -255,8 +255,8 @@ func reqGamerLoginReconnect(msgque netmgr.IMsgQue, data *msg.Message) (errCode e
 		kickSessionWithErrCode(gid, msgque.SessId(), errorpb.ERROR_KICK_DATA_EXCEPTION, "reconnect_logic_reject")
 		return
 	}
-	msgque.GetAgent().AddCltUser(gid)
-	msgque.GetAgent().AddCltRoute(common.InnerServerTypeLogic, god.LogicSvrId)
+	msgque.GetAgent().AddCltUser(gid)                                          // 添加玩家
+	msgque.GetAgent().AddCltRoute(common.InnerServerTypeLogic, god.LogicSvrId) // 添加逻辑服
 
 	if !gateuser.UserMgr.ReplaceSess(gid, oldSessId, msgque.SessId()) {
 		kickSessionWithErrCode(gid, msgque.SessId(), errorpb.ERROR_LOGIN_DATA_EXCEPTION, "reconnect_replace_session_failed")

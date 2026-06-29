@@ -43,6 +43,9 @@ type Robot struct {
 	cleanupRequested   bool
 
 	smokeModules []string
+
+	packLoaded bool
+	taskLoaded bool
 }
 
 func (r *Robot) RegisterStates() {
@@ -201,6 +204,10 @@ func canonicalRobotModuleName(module string, allowStress bool) string {
 	switch raw {
 	case "login":
 		return STATE_LOGIN
+	case "item", "bag", "pack":
+		return "ITEM"
+	case "task", "tasks":
+		return "TASK"
 	}
 	return raw
 }

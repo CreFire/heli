@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-package GameConfig;
+package docpb;
 
 
 import "errors"

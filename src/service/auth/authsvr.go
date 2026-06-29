@@ -74,7 +74,7 @@ func (a *AuthSvr) OnStart() error {
 	if _, err := server.MS.TimerMgr.AddSimpleTimer("report_server_info", 3, true, a.ReportServerInfo); err != nil {
 		return err
 	}
-	if _, err := server.MS.TimerMgr.AddSimpleTimer("print_status", 20, true, a.printStatus); err != nil {
+	if _, err := server.MS.TimerMgr.AddSimpleTimer("print_status", 200, true, a.printStatus); err != nil {
 		return err
 	}
 	controller.Start()

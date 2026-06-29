@@ -31,3 +31,24 @@ func TestLogicMatchMessageIDsCompile(t *testing.T) {
 		}
 	}
 }
+
+func TestLogicSayHelloProtocolCarriesEchoPayload(t *testing.T) {
+	req := &pb.SayHelloREQ{Id: 7, Type: "logic"}
+	if req.GetId() != 7 || req.GetType() != "logic" {
+		t.Fatalf("unexpected say hello req: %+v", req)
+	}
+
+	rsp := &pb.SayHelloRSP{Id: req.GetId(), Type: req.GetType()}
+	if rsp.GetId() != 7 || rsp.GetType() != "logic" {
+		t.Fatalf("unexpected say hello rsp: %+v", rsp)
+	}
+}
+
+func TestLogicSayHelloMessageIDsCompile(t *testing.T) {
+	ids := []pb.MSG_ID{pb.MSG_ID_SAY_HELLO_REQ, pb.MSG_ID_SAY_HELLO_RSP}
+	for _, id := range ids {
+		if id == pb.MSG_ID_NONE {
+			t.Fatalf("say hello msg id should not be NONE")
+		}
+	}
+}

@@ -3,8 +3,6 @@ package system
 import (
 	"game/deps/msg"
 	"game/deps/netmgr"
-	"game/deps/router"
-	rpcmgr "game/deps/rpc_mgr"
 	"game/deps/server"
 	servicemgr "game/deps/service_mgr"
 	"game/deps/xlog"
@@ -32,17 +30,7 @@ func notifySwitchServerNTFIfGray(send func(proto.Message), status servicemgr.Ser
 	send(&pb.SwitchServerNTF{})
 }
 
-func (m *SystemHandler) RegisterHandler(rpc *rpcmgr.RpcMgr, r *router.Router) error {
-	r.SSRegister(pb.MSG_ID_GATE_2_LOGIC_KICK_SESSION_REQ, m.reqKickSession)
-
-	r.CSRegister(pb.MSG_ID_HEART_REQ, actor.WrapC2S(m.reqHeart))
-	r.CSRegister(pb.MSG_ID_STRESS_REQ, actor.WrapC2S(m.reqStress))
-
-	rpc.RpcRegister(pb.MSG_ID_S2S_SWITCH_SERVER_REQ, m.rpcSwitchServer)
-	rpc.RpcRegister(pb.MSG_ID_S2S_USER_LOGIN_REQ, m.rpcGamerLogin)
-	return nil
-}
-func (m *SystemHandler) rpcGamerLogin(msgque netmgr.IMsgQue, req *msg.Message) *pbrpc.S2SRpcRSP {
+func (m *SystemHandler) HandleRpcGamerLogin(msgque netmgr.IMsgQue, req *msg.Message) *pbrpc.S2SRpcRSP {
 	msg := req.Message().(*pbrpc.S2SUserLoginREQ)
 	rpcRsp := &pbrpc.S2SRpcRSP{
 		RspType: &pbrpc.S2SRpcRSP_UserLoginRsp{UserLoginRsp: &pbrpc.S2SUserLoginRSP{}},
@@ -109,7 +97,7 @@ func (m *SystemHandler) rpcGamerLogin(msgque netmgr.IMsgQue, req *msg.Message) *
 	rpcRsp.GetUserLoginRsp().Gid = gamer.GamerId
 	return rpcRsp
 }
-func (m *SystemHandler) rpcSwitchServer(msgque netmgr.IMsgQue, msg *msg.Message) *pbrpc.S2SRpcRSP {
+func (m *SystemHandler) HandleRpcSwitchServer(msgque netmgr.IMsgQue, msg *msg.Message) *pbrpc.S2SRpcRSP {
 	req := msg.Message().(*pbrpc.S2SSwitchServerREQ)
 	rsp := &pbrpc.S2SRpcRSP{
 		RspType: &pbrpc.S2SRpcRSP_SwitchServerRsp{SwitchServerRsp: &pbrpc.S2SSwitchServerRSP{}},
@@ -143,19 +131,19 @@ func (m *SystemHandler) rpcSwitchServer(msgque netmgr.IMsgQue, msg *msg.Message)
 	return nil
 }
 
-func (m *SystemHandler) reqKickSession(_ netmgr.IMsgQue, msg *msg.Message) {
-	_ = server.MS.PostAsyncTask(uint64(msg.Head.Gid), "reqKickSession", func() {
+func (m *SystemHandler) HandleSsKickSession(_ netmgr.IMsgQue, msg *msg.Message) {
+	_ = server.MS.PostAsyncTask(uint64(msg.Head.Gid), "HandleSsKickSession", func() {
 		gamer := actor.GamerMgr.GetGamerByGid(msg.Head.Gid)
 		if gamer == nil {
 			return
 		}
 		if !gamer.OfflineIfSessionMatch(msg.PlayerSessId(), "gate kick", false) {
-			xlog.Debugf("reqKickSession: user session changed gid:%v", msg.Head.Gid)
+			xlog.Debugf("HandleSsKickSession: user session changed gid:%v", msg.Head.Gid)
 		}
 	})
 }
 
-func (m *SystemHandler) reqHeart(ctx iface.IGamerContext, data *msg.Message) (code errorpb.ERROR, rsp proto.Message) {
+func (m *SystemHandler) HandleHeart(ctx iface.IGamerContext, data *msg.Message) (code errorpb.ERROR, rsp proto.Message) {
 	req := data.Message().(*pb.HeartREQ)
 	rsp = &pb.HeartRSP{CltTs: req.CltTs, SvrTs: xtime.NowUnixMs()}
 	gamer, ok := ctx.(*actor.Gamer)
@@ -168,9 +156,18 @@ func (m *SystemHandler) reqHeart(ctx iface.IGamerContext, data *msg.Message) (co
 	return errorpb.ERROR_SUCCESS, rsp
 }
 
-func (m *SystemHandler) reqStress(ctx iface.IGamerContext, data *msg.Message) (errorpb.ERROR, proto.Message) {
+func (m *SystemHandler) HandleStress(ctx iface.IGamerContext, data *msg.Message) (errorpb.ERROR, proto.Message) {
 	req := data.Message().(*pb.StressREQ)
 	rsp := &pb.StressRSP{Val: req.Val}
+	return errorpb.ERROR_SUCCESS, rsp
+}
+
+func (m *SystemHandler) HandleSayHello(ctx iface.IGamerContext, data *msg.Message) (errorpb.ERROR, proto.Message) {
+	req, ok := data.Message().(*pb.SayHelloREQ)
+	if !ok || req == nil {
+		return errorpb.ERROR_REQUEST_PARAMS, nil
+	}
+	rsp := &pb.SayHelloRSP{Id: req.Id, Type: req.Type}
 	return errorpb.ERROR_SUCCESS, rsp
 }
 
@@ -197,3 +194,4 @@ func (m *SystemHandler) checkLoginOnline(playerSession, gid int64, msgque netmgr
 	actor.GamerMgr.AddGamer(playerSession, gid, newGamer)
 	return newGamer
 }
+

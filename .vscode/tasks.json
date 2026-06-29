@@ -1,0 +1,33 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build-auth",
+      "type": "shell",
+      "command": "go build -o ${workspaceFolder}\\bin\\auth\\auth.exe ${workspaceFolder}\\src\\service\\auth",
+      "group": "build",
+      "problemMatcher": ["$go"]
+    },
+    {
+      "label": "build-gate",
+      "type": "shell",
+      "command": "go build -o ${workspaceFolder}\\bin\\gate\\gate.exe ${workspaceFolder}\\src\\service\\gate",
+      "group": "build",
+      "problemMatcher": ["$go"]
+    },
+    {
+      "label": "build-logic",
+      "type": "shell",
+      "command": "go build -o ${workspaceFolder}\\bin\\logic\\logic.exe ${workspaceFolder}\\src\\service\\logic",
+      "group": "build",
+      "problemMatcher": ["$go"]
+    },
+    {
+      "label": "build-robot",
+      "type": "shell",
+      "command": "go build -o ${workspaceFolder}\\bin\\robot\\robot.exe ${workspaceFolder}\\src\\service\\robot",
+      "group": "build",
+      "problemMatcher": ["$go"]
+    }
+  ]
+}

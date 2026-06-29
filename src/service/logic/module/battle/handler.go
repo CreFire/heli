@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"game/deps/msg"
 	"game/deps/netmgr"
-	"game/deps/router"
-	rpcmgr "game/deps/rpc_mgr"
 	"game/deps/server"
 	"game/deps/xlog"
 	"game/src/common"
@@ -24,12 +22,7 @@ func NewHandler() *Handler {
 	return &Handler{processed: make(map[string]*pb.S2SBattleSettleRSP)}
 }
 
-func (h *Handler) RegisterHandler(rpc *rpcmgr.RpcMgr, r *router.Router) error {
-	rpc.RpcRegister(pb.MSG_ID_S2S_BATTLE_SETTLE_REQ, h.rpcBattleSettle)
-	return nil
-}
-
-func (h *Handler) rpcBattleSettle(_ netmgr.IMsgQue, reqMsg *msg.Message) *pbrpc.S2SRpcRSP {
+func (h *Handler) HandleRpcBattleSettle(_ netmgr.IMsgQue, reqMsg *msg.Message) *pbrpc.S2SRpcRSP {
 	req, ok := reqMsg.Message().(*pb.S2SBattleSettleREQ)
 	if !ok || req == nil {
 		return &pbrpc.S2SRpcRSP{Error: &errorpb.RpcError{ErrCode: errorpb.ERROR_REQUEST_PARAMS, ErrDesc: "invalid battle settle req"}}

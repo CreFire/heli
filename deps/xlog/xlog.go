@@ -73,6 +73,25 @@ const (
 	layoutHourly         = "2006-01-02-15"
 )
 
+func defaultResolvedFilePath() string {
+	wd, err := os.Getwd()
+	if err != nil {
+		return filepath.Clean(defaultFilePath)
+	}
+	cleanWd := filepath.Clean(wd)
+	parts := strings.Split(cleanWd, string(os.PathSeparator))
+	for i := len(parts) - 1; i >= 0; i-- {
+		if strings.EqualFold(parts[i], "server") {
+			root := strings.Join(parts[:i+1], string(os.PathSeparator))
+			if root == "" {
+				root = string(os.PathSeparator)
+			}
+			return filepath.Join(root, "bin", "logs", "log")
+		}
+	}
+	return filepath.Clean(defaultFilePath)
+}
+
 type Options struct {
 	FilePath      string
 	Level         string // debug, info, warn, error
@@ -87,7 +106,7 @@ type Options struct {
 
 func init() {
 	if DefaultLogger == nil {
-		InitDefaultLogger("./logs/log", "debug")
+		InitDefaultLogger(defaultResolvedFilePath(), "debug")
 	}
 }
 
@@ -362,7 +381,7 @@ func ensureLogDir(path string) {
 func (o *Options) normalize() {
 	o.FilePath = strings.TrimSpace(o.FilePath)
 	if o.FilePath == "" {
-		o.FilePath = defaultFilePath
+		o.FilePath = defaultResolvedFilePath()
 	} else {
 		o.FilePath = filepath.Clean(o.FilePath)
 	}

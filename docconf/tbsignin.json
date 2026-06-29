@@ -1,0 +1,54 @@
+[
+  {
+    "FuncID": 1,
+    "UnlockID": 0
+  },
+  {
+    "FuncID": 100,
+    "UnlockID": 0
+  },
+  {
+    "FuncID": 101,
+    "UnlockID": 0
+  },
+  {
+    "FuncID": 102,
+    "UnlockID": 1
+  },
+  {
+    "FuncID": 104,
+    "UnlockID": 0
+  },
+  {
+    "FuncID": 200,
+    "UnlockID": 0
+  },
+  {
+    "FuncID": 300,
+    "UnlockID": 0
+  },
+  {
+    "FuncID": 400,
+    "UnlockID": 0
+  },
+  {
+    "FuncID": 500,
+    "UnlockID": 1
+  },
+  {
+    "FuncID": 600,
+    "UnlockID": 0
+  },
+  {
+    "FuncID": 700,
+    "UnlockID": 0
+  },
+  {
+    "FuncID": 800,
+    "UnlockID": 0
+  },
+  {
+    "FuncID": 900,
+    "UnlockID": 0
+  }
+]

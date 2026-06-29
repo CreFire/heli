@@ -8,7 +8,7 @@ redisDsn:
 etcdDsn:
   "etcd://127.0.0.1:1003"
 gameDataPath:
-  "../docconf"
+  "../../docconf"
   # "./docconf"
 gateExtAddr:
   ip: "127.0.0.1"

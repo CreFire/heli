@@ -1,37 +1,31 @@
 from pathlib import Path
-import subprocess
-import sys
 
-ROOT = Path(__file__).resolve().parent
-WORKSPACE = ROOT.parent
-EXCEL_DIR = Path(r'E:\work\heli\config\Excel')
-LUBAN_DIR = ROOT / 'Luban'
-CONF = EXCEL_DIR / 'luban.conf'
-OUTPUT_DIR = WORKSPACE / 'src' / 'proto' / 'docpb'
+from excel_common import ExportExcel
 
-
-def main() -> int:
-    if not CONF.exists():
-        print(f'未找到配置文件: {CONF}', file=sys.stderr)
-        return 1
-    if not LUBAN_DIR.exists():
-        print(f'未找到 Luban 工具目录: {LUBAN_DIR}', file=sys.stderr)
-        return 1
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-
-    cmd = [
-        str(LUBAN_DIR / 'Luban.exe'),
-        '-v',
-        '-j', 'cfg',
-        '-d', str(EXCEL_DIR),
-        '-c', str(CONF),
-        '-t', 'server',
-        '-o', str(OUTPUT_DIR),
-    ]
-    print('执行命令:')
-    print(' '.join(f'\"{x}\"' if ' ' in x else x for x in cmd))
-    return subprocess.call(cmd, cwd=str(ROOT))
+FILE = __file__
+TOOLS_DIR = Path(__file__).resolve().parent
+WORKSPACE = str(TOOLS_DIR.parent)
+EXCEL_ROOT = Path(r"E:\work\heli\config\Excel")
+LUBAN_DLL = "tools/Luban/Luban.dll"
+CONF_ROOT = str(EXCEL_ROOT)
+OUTPUT_DATA_DIR = "docconf"
+OUTPUT_CODE_DIR = "src/proto/docpb"
+TARGET = "server"
+DATA_TARGET = "json"
+CODE_TARGET = "go-json"
+OTHER_PARAM = f"-x inputDataDir={EXCEL_ROOT}/Datas -x lubanGoModule=docpb"
 
 
-if __name__ == '__main__':
-    raise SystemExit(main())
+if __name__ == "__main__":
+    ExportExcel(
+        file=FILE,
+        workspace=WORKSPACE,
+        luban_dll=LUBAN_DLL,
+        conf_root=CONF_ROOT,
+        output_data_dir=OUTPUT_DATA_DIR,
+        output_code_dir=OUTPUT_CODE_DIR,
+        target=TARGET,
+        data_target=DATA_TARGET,
+        code_target=CODE_TARGET,
+        other_param=OTHER_PARAM,
+    ).run()

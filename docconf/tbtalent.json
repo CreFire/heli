@@ -1,0 +1,689 @@
+[
+  {
+    "Id": 10001,
+    "Grade": 1,
+    "Type": 1,
+    "Cost": [
+      10010001,
+      200
+    ],
+    "CardAttrIDs": [
+      1
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      10
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10002,
+    "Grade": 2,
+    "Type": 1,
+    "Cost": [
+      10010001,
+      200
+    ],
+    "CardAttrIDs": [
+      2
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      300
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10003,
+    "Grade": 3,
+    "Type": 1,
+    "Cost": [
+      10010001,
+      200
+    ],
+    "CardAttrIDs": [
+      4
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      1000
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10004,
+    "Grade": 4,
+    "Type": 1,
+    "Cost": [
+      10010001,
+      200
+    ],
+    "CardAttrIDs": [
+      1
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      10
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10005,
+    "Grade": 5,
+    "Type": 1,
+    "Cost": [
+      10010001,
+      200
+    ],
+    "CardAttrIDs": [
+      2
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      300
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10006,
+    "Grade": 5,
+    "Type": 2,
+    "Cost": [
+      10010002,
+      1
+    ],
+    "CardAttrIDs": [
+      9001
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      1
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10007,
+    "Grade": 6,
+    "Type": 1,
+    "Cost": [
+      10010001,
+      300
+    ],
+    "CardAttrIDs": [
+      4
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      1000
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10008,
+    "Grade": 7,
+    "Type": 1,
+    "Cost": [
+      10010001,
+      300
+    ],
+    "CardAttrIDs": [
+      1
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      15
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10009,
+    "Grade": 8,
+    "Type": 1,
+    "Cost": [
+      10010001,
+      300
+    ],
+    "CardAttrIDs": [
+      2
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      300
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10010,
+    "Grade": 9,
+    "Type": 1,
+    "Cost": [
+      10010001,
+      300
+    ],
+    "CardAttrIDs": [
+      4
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      1000
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10011,
+    "Grade": 10,
+    "Type": 1,
+    "Cost": [
+      10010001,
+      300
+    ],
+    "CardAttrIDs": [
+      1
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      15
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10012,
+    "Grade": 10,
+    "Type": 2,
+    "Cost": [
+      10010002,
+      1
+    ],
+    "CardAttrIDs": [
+      9002
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      1
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10013,
+    "Grade": 11,
+    "Type": 1,
+    "Cost": [
+      10010001,
+      400
+    ],
+    "CardAttrIDs": [
+      2
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      300
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10014,
+    "Grade": 12,
+    "Type": 1,
+    "Cost": [
+      10010001,
+      400
+    ],
+    "CardAttrIDs": [
+      4
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      1000
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10015,
+    "Grade": 13,
+    "Type": 1,
+    "Cost": [
+      10010001,
+      400
+    ],
+    "CardAttrIDs": [
+      1
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      15
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10016,
+    "Grade": 14,
+    "Type": 1,
+    "Cost": [
+      10010001,
+      400
+    ],
+    "CardAttrIDs": [
+      2
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      300
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10017,
+    "Grade": 15,
+    "Type": 1,
+    "Cost": [
+      10010001,
+      400
+    ],
+    "CardAttrIDs": [
+      4
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      1000
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10018,
+    "Grade": 15,
+    "Type": 2,
+    "Cost": [
+      10010002,
+      1
+    ],
+    "CardAttrIDs": [
+      9003
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      1
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10019,
+    "Grade": 16,
+    "Type": 1,
+    "Cost": [
+      10010001,
+      500
+    ],
+    "CardAttrIDs": [
+      1
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      20
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10020,
+    "Grade": 17,
+    "Type": 1,
+    "Cost": [
+      10010001,
+      500
+    ],
+    "CardAttrIDs": [
+      2
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      300
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10021,
+    "Grade": 18,
+    "Type": 1,
+    "Cost": [
+      10010001,
+      500
+    ],
+    "CardAttrIDs": [
+      4
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      1000
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10022,
+    "Grade": 19,
+    "Type": 1,
+    "Cost": [
+      10010001,
+      500
+    ],
+    "CardAttrIDs": [
+      1
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      20
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10023,
+    "Grade": 20,
+    "Type": 1,
+    "Cost": [
+      10010001,
+      500
+    ],
+    "CardAttrIDs": [
+      2
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      300
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10024,
+    "Grade": 20,
+    "Type": 2,
+    "Cost": [
+      10010002,
+      2
+    ],
+    "CardAttrIDs": [
+      9004
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      1
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10025,
+    "Grade": 21,
+    "Type": 1,
+    "Cost": [
+      10010001,
+      800
+    ],
+    "CardAttrIDs": [
+      4
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      1000
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10026,
+    "Grade": 22,
+    "Type": 1,
+    "Cost": [
+      10010001,
+      800
+    ],
+    "CardAttrIDs": [
+      1
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      20
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10027,
+    "Grade": 23,
+    "Type": 1,
+    "Cost": [
+      10010001,
+      800
+    ],
+    "CardAttrIDs": [
+      2
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      300
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10028,
+    "Grade": 24,
+    "Type": 1,
+    "Cost": [
+      10010001,
+      800
+    ],
+    "CardAttrIDs": [
+      4
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      1000
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10029,
+    "Grade": 25,
+    "Type": 1,
+    "Cost": [
+      10010001,
+      800
+    ],
+    "CardAttrIDs": [
+      1
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      25
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10030,
+    "Grade": 25,
+    "Type": 2,
+    "Cost": [
+      10010002,
+      2
+    ],
+    "CardAttrIDs": [
+      9002,
+      9003
+    ],
+    "CardAttrTypes": [
+      1,
+      1
+    ],
+    "CardAttrVals": [
+      1,
+      1
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10031,
+    "Grade": 26,
+    "Type": 1,
+    "Cost": [
+      10010001,
+      1000
+    ],
+    "CardAttrIDs": [
+      2
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      300
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10032,
+    "Grade": 27,
+    "Type": 1,
+    "Cost": [
+      10010001,
+      1000
+    ],
+    "CardAttrIDs": [
+      4
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      1000
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10033,
+    "Grade": 28,
+    "Type": 1,
+    "Cost": [
+      10010001,
+      1000
+    ],
+    "CardAttrIDs": [
+      1
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      25
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10034,
+    "Grade": 29,
+    "Type": 1,
+    "Cost": [
+      10010001,
+      1000
+    ],
+    "CardAttrIDs": [
+      2
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      300
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10035,
+    "Grade": 30,
+    "Type": 1,
+    "Cost": [
+      10010001,
+      1000
+    ],
+    "CardAttrIDs": [
+      4
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      1000
+    ],
+    "NextNode": 0
+  },
+  {
+    "Id": 10036,
+    "Grade": 30,
+    "Type": 2,
+    "Cost": [
+      10010002,
+      3
+    ],
+    "CardAttrIDs": [
+      9005
+    ],
+    "CardAttrTypes": [
+      1
+    ],
+    "CardAttrVals": [
+      10000
+    ],
+    "NextNode": 0
+  }
+]

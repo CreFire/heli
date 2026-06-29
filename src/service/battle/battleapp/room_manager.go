@@ -41,6 +41,8 @@ func newRoomManager() *roomManager {
 	}
 }
 
+// createRoom 创建 battle 内存房间，并注入当前 P0 写死的玩法配置。
+// 当前不从配置表读取，优先保证联机闭环跑通。
 func (m *roomManager) createRoom(roomID string, playerIDs []int64, towerDeck []int32, battleToken string) (*battleRoom, error) {
 	if roomID == "" {
 		return nil, fmt.Errorf("room id is empty")
@@ -106,6 +108,7 @@ func (m *roomManager) roomCount() int {
 	return len(m.rooms)
 }
 
+// hasPlayer 用于 battle token / join 归属校验。
 func (r *battleRoom) hasPlayer(playerID int64) bool {
 	for _, id := range r.playerIDs {
 		if id == playerID {
@@ -128,6 +131,7 @@ func (r *battleRoom) bindPlayerSession(playerID, sessID int64) {
 	r.joinedSess[playerID] = sessID
 }
 
+// matchPlayerSession 保证 battle op 只能由已 join 的同一会话继续提交。
 func (r *battleRoom) matchPlayerSession(playerID, sessID int64) bool {
 	if r == nil {
 		return false
@@ -138,6 +142,7 @@ func (r *battleRoom) matchPlayerSession(playerID, sessID int64) bool {
 	return ok && bound == sessID
 }
 
+// snapshotJoinedSessions 返回已 join 玩家会话快照，避免广播期间长时间持锁。
 func (r *battleRoom) snapshotJoinedSessions() map[int64]int64 {
 	if r == nil {
 		return nil
@@ -151,6 +156,8 @@ func (r *battleRoom) snapshotJoinedSessions() map[int64]int64 {
 	return ret
 }
 
+// withRoom 是 battleRoom 对 sync.Room 的串行访问封装。
+// 当前 battle 房间对局内状态的所有读写都通过这里进入，避免并发改写。
 func (r *battleRoom) withRoom(fn func(room *battlesync.Room)) {
 	if r == nil || r.room == nil || fn == nil {
 		return
@@ -168,6 +175,8 @@ func (r *battleRoom) roomSnapshot() battlesync.Snapshot {
 	return snapshot
 }
 
+// flushRoomDeltas 会取出并清空当前累计的增量事件。
+// battle 广播逻辑依赖它来实现“广播后不重复发送”。
 func (r *battleRoom) flushRoomDeltas() []battlesync.Delta {
 	var deltas []battlesync.Delta
 	r.withRoom(func(room *battlesync.Room) {
@@ -193,6 +202,8 @@ func (r *battleRoom) state() battlesync.RoomState {
 	return r.roomSnapshot().State
 }
 
+// markSettled 透传到底层 sync.Room 的 settle 标记。
+// 用它和 loop.settleOnce 组合，保证结算链路不会重复触发。
 func (r *battleRoom) markSettled() bool {
 	if r == nil || r.room == nil {
 		return false
@@ -219,6 +230,8 @@ func (r *battleRoom) buildSettlement() battlesync.Settlement {
 	return settlement
 }
 
+// markSettleAck 记录最近一次 settle 请求的回包结果。
+// 当前主要用于日志观察、测试断言和联调排障。
 func (r *battleRoom) markSettleAck(acked bool, message string) {
 	if r == nil {
 		return

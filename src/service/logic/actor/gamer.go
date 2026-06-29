@@ -13,8 +13,8 @@ import (
 	"game/src/service/logic/gamedata"
 	"game/src/service/logic/iface"
 	matchmodule "game/src/service/logic/module/matchbiz"
-	shopmodule "game/src/service/logic/module/shopbiz"
-	taskmodule "game/src/service/logic/module/taskbiz"
+	shopmodule "game/src/service/logic/module/shop"
+	taskmodule "game/src/service/logic/module/task"
 	"math/rand"
 	"sync/atomic"
 	"time"
@@ -183,7 +183,18 @@ func (r *Gamer) AddMsgTask(_ pb.MSG_ID, f func()) error {
 }
 func (r *Gamer) LoginFirst(now int64) {}
 func (r *Gamer) OnLogin(now int64, dayFirstLogin bool, changeDevice bool) {
-
+	if r == nil {
+		return
+	}
+	if r.Player() != nil {
+		r.SendMsg(&pb.PlayerInfoNTF{Base: r.Player().GetPlayerBase()})
+	}
+	if r.Item() != nil {
+		r.Item().SendPackInfo()
+	}
+	if r.Task() != nil {
+		r.Task().SendTaskInfo()
+	}
 }
 func (r *Gamer) LoginAfter(reconnect bool, changeDevice bool) bool { return true }
 func (r *Gamer) Save(stopSave bool) {
@@ -195,7 +206,7 @@ func (r *Gamer) Offline(reason string, force bool) { r.offline(reason, force, 0,
 func (r *Gamer) OfflineIfSessionMatch(playerSessId int64, reason string, force bool) bool {
 	return r.offline(reason, force, playerSessId, true)
 }
-func (r *Gamer) offline(reason string, force bool, playerSessId int64, needMatch bool) bool {
+func (r *Gamer) offline(reason string, _ bool, playerSessId int64, needMatch bool) bool {
 	s := r.sessState.Load()
 	if s == nil {
 		return false
@@ -247,6 +258,11 @@ func (r *Gamer) bindModules() {
 	r.matchModule = matchmodule.NewMatchModule(r, r.Model)
 	r.taskModule = taskmodule.NewTaskModule(r, r.Model)
 	r.shopModule = shopmodule.NewShopModule(r, r.Model)
+	if mod := r.Model.GamerMods[persist.GamerHeroModIndex]; mod != nil {
+		if v, ok := mod.(iface.IHeroModule); ok {
+			r.heroModule = v
+		}
+	}
 	if mod := r.Model.GamerMods[persist.GamerHeroModIndex]; mod != nil {
 		if v, ok := mod.(iface.IHeroModule); ok {
 			r.heroModule = v

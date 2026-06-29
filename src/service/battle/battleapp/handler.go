@@ -24,6 +24,8 @@ func RegisterBattleHandlers() error {
 	return nil
 }
 
+// rpcCreateBattleRoom 是 logic -> battle 的建房入口。
+// logic 负责匹配和组房，battle 负责把房间真正落到内存并启动战斗推进。
 func rpcCreateBattleRoom(_ netmgr.IMsgQue, reqMsg *msg.Message) *pbrpc.S2SRpcRSP {
 	// logic 在匹配/开局阶段调用 battle 创房。
 	// 当前为 P0 最小闭环：battle 负责生成 battle_token、创建内存房间并启动 tick loop。
@@ -47,6 +49,8 @@ func rpcCreateBattleRoom(_ netmgr.IMsgQue, reqMsg *msg.Message) *pbrpc.S2SRpcRSP
 	return rsp
 }
 
+// reqBattleJoin 处理客户端战斗服直连后的入场请求。
+// 成功后 battle 会返回完整 snapshot，客户端应以此作为局内初始状态。
 func reqBattleJoin(msgque netmgr.IMsgQue, reqMsg *msg.Message) (errorpb.ERROR, proto.Message) {
 	// join 是客户端直连 battle 后的第一步。
 	// P0 目标：校验 room_id / token / player 归属，并把完整 snapshot 返回给客户端做局内初始化。
@@ -69,6 +73,8 @@ func reqBattleJoin(msgque netmgr.IMsgQue, reqMsg *msg.Message) (errorpb.ERROR, p
 	return errorpb.ERROR_SUCCESS, rsp
 }
 
+// reqBattleOp 处理客户端局内操作请求。
+// 当前 P0 约束为“先 rsp，再广播 delta”，避免客户端在失败时误消费状态更新。
 func reqBattleOp(msgque netmgr.IMsgQue, reqMsg *msg.Message) (errorpb.ERROR, proto.Message) {
 	// op 走 battle 权威执行：
 	// - 先做最小 session 归属校验

@@ -1,0 +1,230 @@
+[
+  {
+    "TaskID": 101001,
+    "AddUpGroup": 0,
+    "TaskSorting": 0,
+    "TaskType": 1,
+    "ConditionType": 1,
+    "Key": [
+      1
+    ],
+    "RewardItem": [
+      10010001,
+      500
+    ],
+    "TaskActivation": 50,
+    "ActivationType": [
+      1
+    ],
+    "TaskUnlock": 0,
+    "JumpID": 1,
+    "TaskAddUpGroupKey": 0,
+    "TaskResetType": 1
+  },
+  {
+    "TaskID": 101002,
+    "AddUpGroup": 1,
+    "TaskSorting": 0,
+    "TaskType": 1,
+    "ConditionType": 2,
+    "Key": [
+      10010003,
+      10
+    ],
+    "RewardItem": [
+      10010002,
+      20
+    ],
+    "TaskActivation": 100,
+    "ActivationType": [
+      1
+    ],
+    "TaskUnlock": 0,
+    "JumpID": 1,
+    "TaskAddUpGroupKey": 0,
+    "TaskResetType": 1
+  },
+  {
+    "TaskID": 101003,
+    "AddUpGroup": 1,
+    "TaskSorting": 0,
+    "TaskType": 1,
+    "ConditionType": 2,
+    "Key": [
+      10010003,
+      20
+    ],
+    "RewardItem": [
+      10010002,
+      20
+    ],
+    "TaskActivation": 100,
+    "ActivationType": [
+      1
+    ],
+    "TaskUnlock": 0,
+    "JumpID": 1,
+    "TaskAddUpGroupKey": 0,
+    "TaskResetType": 1
+  },
+  {
+    "TaskID": 101004,
+    "AddUpGroup": 2,
+    "TaskSorting": 0,
+    "TaskType": 1,
+    "ConditionType": 2,
+    "Key": [
+      10010001,
+      10
+    ],
+    "RewardItem": [
+      10010002,
+      20
+    ],
+    "TaskActivation": 100,
+    "ActivationType": [
+      1
+    ],
+    "TaskUnlock": 0,
+    "JumpID": 102,
+    "TaskAddUpGroupKey": 0,
+    "TaskResetType": 1
+  },
+  {
+    "TaskID": 101005,
+    "AddUpGroup": 2,
+    "TaskSorting": 0,
+    "TaskType": 1,
+    "ConditionType": 2,
+    "Key": [
+      10010001,
+      20
+    ],
+    "RewardItem": [
+      10010002,
+      20
+    ],
+    "TaskActivation": 100,
+    "ActivationType": [
+      1
+    ],
+    "TaskUnlock": 0,
+    "JumpID": 102,
+    "TaskAddUpGroupKey": 0,
+    "TaskResetType": 1
+  },
+  {
+    "TaskID": 201001,
+    "AddUpGroup": 0,
+    "TaskSorting": 0,
+    "TaskType": 2,
+    "ConditionType": 1,
+    "Key": [
+      1
+    ],
+    "RewardItem": [
+      10010001,
+      500
+    ],
+    "TaskActivation": 50,
+    "ActivationType": [
+      2
+    ],
+    "TaskUnlock": 0,
+    "JumpID": 1,
+    "TaskAddUpGroupKey": 0,
+    "TaskResetType": 2
+  },
+  {
+    "TaskID": 201002,
+    "AddUpGroup": 1,
+    "TaskSorting": 0,
+    "TaskType": 2,
+    "ConditionType": 2,
+    "Key": [
+      10010003,
+      10
+    ],
+    "RewardItem": [
+      10010002,
+      20
+    ],
+    "TaskActivation": 100,
+    "ActivationType": [
+      2
+    ],
+    "TaskUnlock": 0,
+    "JumpID": 1,
+    "TaskAddUpGroupKey": 0,
+    "TaskResetType": 2
+  },
+  {
+    "TaskID": 201003,
+    "AddUpGroup": 1,
+    "TaskSorting": 0,
+    "TaskType": 2,
+    "ConditionType": 2,
+    "Key": [
+      10010003,
+      20
+    ],
+    "RewardItem": [
+      10010002,
+      20
+    ],
+    "TaskActivation": 100,
+    "ActivationType": [
+      2
+    ],
+    "TaskUnlock": 0,
+    "JumpID": 1,
+    "TaskAddUpGroupKey": 0,
+    "TaskResetType": 2
+  },
+  {
+    "TaskID": 201004,
+    "AddUpGroup": 2,
+    "TaskSorting": 0,
+    "TaskType": 2,
+    "ConditionType": 2,
+    "Key": [
+      10010001,
+      10
+    ],
+    "RewardItem": [
+      10010002,
+      20
+    ],
+    "TaskActivation": 100,
+    "ActivationType": [
+      2
+    ],
+    "TaskUnlock": 0,
+    "JumpID": 102,
+    "TaskAddUpGroupKey": 0,
+    "TaskResetType": 2
+  },
+  {
+    "TaskID": 201005,
+    "AddUpGroup": 2,
+    "TaskSorting": 0,
+    "TaskType": 2,
+    "ConditionType": 2,
+    "Key": [
+      10010001,
+      20
+    ],
+    "RewardItem": [
+      10010002,
+      20
+    ],
+    "TaskActivation": 100,
+    "ActivationType": [
+      2
+    ],
+    "TaskUnlock": 0,
+    "JumpID": 102,
+    "TaskAddUpGroupKey": 0,
+    "TaskResetType": 2
+  }
+]

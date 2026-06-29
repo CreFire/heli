@@ -1,0 +1,843 @@
+[
+  {
+    "ShopItemId": 200010001,
+    "GroupId": 1,
+    "BuyType": 2,
+    "LimitType": 0,
+    "LimitNum": 0,
+    "Weight": 0,
+    "UnlockConditions": [],
+    "ItemId": [
+      10010002,
+      60
+    ],
+    "ItemAdd": [
+      10010002,
+      60
+    ],
+    "ItemdAdd2": [],
+    "Sort": 1,
+    "MoneyNum": 0.99,
+    "FirstPurchase": 0,
+    "IsShow": 1,
+    "VipPoint": 60,
+    "ProductIdIos": "com.oopscroco.180diamonds",
+    "ProductIdGP": ""
+  },
+  {
+    "ShopItemId": 200010002,
+    "GroupId": 1,
+    "BuyType": 2,
+    "LimitType": 0,
+    "LimitNum": 0,
+    "Weight": 0,
+    "UnlockConditions": [],
+    "ItemId": [
+      10010002,
+      300
+    ],
+    "ItemAdd": [
+      10010002,
+      300
+    ],
+    "ItemdAdd2": [
+      1,
+      10010002,
+      30
+    ],
+    "Sort": 2,
+    "MoneyNum": 4.99,
+    "FirstPurchase": 0,
+    "IsShow": 3,
+    "VipPoint": 680,
+    "ProductIdIos": "com.oopscroco.180diamonds",
+    "ProductIdGP": ""
+  },
+  {
+    "ShopItemId": 200010003,
+    "GroupId": 1,
+    "BuyType": 2,
+    "LimitType": 0,
+    "LimitNum": 0,
+    "Weight": 0,
+    "UnlockConditions": [],
+    "ItemId": [
+      10010002,
+      680
+    ],
+    "ItemAdd": [
+      10010002,
+      680
+    ],
+    "ItemdAdd2": [
+      1,
+      10010002,
+      60
+    ],
+    "Sort": 3,
+    "MoneyNum": 9.99,
+    "FirstPurchase": 0,
+    "IsShow": 4,
+    "VipPoint": 880,
+    "ProductIdIos": "com.oopscroco.180diamonds",
+    "ProductIdGP": ""
+  },
+  {
+    "ShopItemId": 200010004,
+    "GroupId": 1,
+    "BuyType": 2,
+    "LimitType": 0,
+    "LimitNum": 0,
+    "Weight": 0,
+    "UnlockConditions": [],
+    "ItemId": [
+      10010002,
+      1280
+    ],
+    "ItemAdd": [
+      10010002,
+      1280
+    ],
+    "ItemdAdd2": [
+      -1,
+      10010002,
+      100
+    ],
+    "Sort": 4,
+    "MoneyNum": 19.99,
+    "FirstPurchase": 0,
+    "IsShow": 4,
+    "VipPoint": 1680,
+    "ProductIdIos": "com.oopscroco.180diamonds",
+    "ProductIdGP": ""
+  },
+  {
+    "ShopItemId": 200010005,
+    "GroupId": 1,
+    "BuyType": 2,
+    "LimitType": 0,
+    "LimitNum": 0,
+    "Weight": 0,
+    "UnlockConditions": [],
+    "ItemId": [
+      10010002,
+      3280
+    ],
+    "ItemAdd": [
+      10010002,
+      3280
+    ],
+    "ItemdAdd2": [
+      -1,
+      10010002,
+      300
+    ],
+    "Sort": 5,
+    "MoneyNum": 49.99,
+    "FirstPurchase": 0,
+    "IsShow": 4,
+    "VipPoint": 3680,
+    "ProductIdIos": "com.oopscroco.180diamonds",
+    "ProductIdGP": ""
+  },
+  {
+    "ShopItemId": 200010006,
+    "GroupId": 1,
+    "BuyType": 2,
+    "LimitType": 0,
+    "LimitNum": 0,
+    "Weight": 0,
+    "UnlockConditions": [],
+    "ItemId": [
+      10010002,
+      6480
+    ],
+    "ItemAdd": [
+      10010002,
+      6480
+    ],
+    "ItemdAdd2": [
+      -1,
+      10010002,
+      600
+    ],
+    "Sort": 6,
+    "MoneyNum": 99.99,
+    "FirstPurchase": 0,
+    "IsShow": 4,
+    "VipPoint": 6680,
+    "ProductIdIos": "com.oopscroco.180diamonds",
+    "ProductIdGP": ""
+  },
+  {
+    "ShopItemId": 200010007,
+    "GroupId": 2,
+    "BuyType": 1,
+    "LimitType": 1,
+    "LimitNum": 1,
+    "Weight": 0,
+    "UnlockConditions": [],
+    "ItemId": [
+      10010001,
+      2000
+    ],
+    "ItemAdd": [],
+    "ItemdAdd2": [],
+    "Sort": 1,
+    "MoneyNum": 0,
+    "FirstPurchase": 0,
+    "IsShow": 4,
+    "VipPoint": 0,
+    "ProductIdIos": "",
+    "ProductIdGP": ""
+  },
+  {
+    "ShopItemId": 200010008,
+    "GroupId": 2,
+    "BuyType": 4,
+    "LimitType": 2,
+    "LimitNum": 1,
+    "Weight": 0,
+    "UnlockConditions": [],
+    "ItemId": [
+      10010001,
+      10000
+    ],
+    "ItemAdd": [],
+    "ItemdAdd2": [],
+    "Sort": 2,
+    "MoneyNum": 0,
+    "FirstPurchase": 0,
+    "IsShow": 4,
+    "VipPoint": 0,
+    "ProductIdIos": "",
+    "ProductIdGP": ""
+  },
+  {
+    "ShopItemId": 200010009,
+    "GroupId": 2,
+    "BuyType": 3,
+    "LimitType": 3,
+    "LimitNum": 999,
+    "Weight": 0,
+    "UnlockConditions": [],
+    "ItemId": [
+      10010001,
+      30000
+    ],
+    "ItemAdd": [],
+    "ItemdAdd2": [],
+    "Sort": 3,
+    "MoneyNum": 0,
+    "CostNum": {
+      "Id": 10010002,
+      "Num": 900
+    },
+    "ActualCost": {
+      "Id": 10010002,
+      "Num": 900
+    },
+    "FirstPurchase": 0,
+    "IsShow": 4,
+    "VipPoint": 0,
+    "ProductIdIos": "",
+    "ProductIdGP": ""
+  },
+  {
+    "ShopItemId": 200010010,
+    "GroupId": 3,
+    "BuyType": 1,
+    "LimitType": 1,
+    "LimitNum": 1,
+    "Weight": 100,
+    "UnlockConditions": [],
+    "ItemId": [
+      10010002,
+      100
+    ],
+    "ItemAdd": [],
+    "ItemdAdd2": [],
+    "Sort": 1,
+    "MoneyNum": 0,
+    "FirstPurchase": 0,
+    "IsShow": 4,
+    "VipPoint": 0,
+    "ProductIdIos": "",
+    "ProductIdGP": ""
+  },
+  {
+    "ShopItemId": 200010011,
+    "GroupId": 3,
+    "BuyType": 3,
+    "LimitType": 1,
+    "LimitNum": 1,
+    "Weight": 200,
+    "UnlockConditions": [],
+    "ItemId": [
+      10010002,
+      10
+    ],
+    "ItemAdd": [],
+    "ItemdAdd2": [],
+    "Sort": 2,
+    "MoneyNum": 0,
+    "CostNum": {
+      "Id": 10010001,
+      "Num": 200
+    },
+    "ActualCost": {
+      "Id": 10010001,
+      "Num": 100
+    },
+    "FirstPurchase": 0,
+    "IsShow": 4,
+    "VipPoint": 0,
+    "ProductIdIos": "",
+    "ProductIdGP": ""
+  },
+  {
+    "ShopItemId": 200010012,
+    "GroupId": 3,
+    "BuyType": 3,
+    "LimitType": 1,
+    "LimitNum": 1,
+    "Weight": 500,
+    "UnlockConditions": [],
+    "ItemId": [
+      10010001,
+      10
+    ],
+    "ItemAdd": [],
+    "ItemdAdd2": [],
+    "Sort": 3,
+    "MoneyNum": 0,
+    "CostNum": {
+      "Id": 10010002,
+      "Num": 10
+    },
+    "ActualCost": {
+      "Id": 10010002,
+      "Num": 8
+    },
+    "FirstPurchase": 1,
+    "IsShow": 4,
+    "VipPoint": 0,
+    "ProductIdIos": "",
+    "ProductIdGP": ""
+  },
+  {
+    "ShopItemId": 200010013,
+    "GroupId": 3,
+    "BuyType": 3,
+    "LimitType": 1,
+    "LimitNum": 1,
+    "Weight": 100,
+    "UnlockConditions": [],
+    "ItemId": [
+      10010003,
+      10
+    ],
+    "ItemAdd": [],
+    "ItemdAdd2": [],
+    "Sort": 4,
+    "MoneyNum": 0,
+    "CostNum": {
+      "Id": 10010001,
+      "Num": 200
+    },
+    "ActualCost": {
+      "Id": 10010001,
+      "Num": 200
+    },
+    "FirstPurchase": 0,
+    "IsShow": 4,
+    "VipPoint": 0,
+    "ProductIdIos": "",
+    "ProductIdGP": ""
+  },
+  {
+    "ShopItemId": 200010014,
+    "GroupId": 3,
+    "BuyType": 3,
+    "LimitType": 1,
+    "LimitNum": 1,
+    "Weight": 200,
+    "UnlockConditions": [],
+    "ItemId": [
+      10010002,
+      20
+    ],
+    "ItemAdd": [],
+    "ItemdAdd2": [],
+    "Sort": 5,
+    "MoneyNum": 0,
+    "CostNum": {
+      "Id": 10010002,
+      "Num": 100
+    },
+    "ActualCost": {
+      "Id": 10010002,
+      "Num": 100
+    },
+    "FirstPurchase": 0,
+    "IsShow": 4,
+    "VipPoint": 0,
+    "ProductIdIos": "",
+    "ProductIdGP": ""
+  },
+  {
+    "ShopItemId": 200010015,
+    "GroupId": 3,
+    "BuyType": 3,
+    "LimitType": 1,
+    "LimitNum": 1,
+    "Weight": 500,
+    "UnlockConditions": [],
+    "ItemId": [
+      10010001,
+      20
+    ],
+    "ItemAdd": [],
+    "ItemdAdd2": [],
+    "Sort": 6,
+    "MoneyNum": 0,
+    "CostNum": {
+      "Id": 10010001,
+      "Num": 2000
+    },
+    "ActualCost": {
+      "Id": 10010001,
+      "Num": 2000
+    },
+    "FirstPurchase": 0,
+    "IsShow": 4,
+    "VipPoint": 0,
+    "ProductIdIos": "",
+    "ProductIdGP": ""
+  },
+  {
+    "ShopItemId": 200010016,
+    "GroupId": 3,
+    "BuyType": 3,
+    "LimitType": 1,
+    "LimitNum": 1,
+    "Weight": 100,
+    "UnlockConditions": [],
+    "ItemId": [
+      10010003,
+      20
+    ],
+    "ItemAdd": [],
+    "ItemdAdd2": [],
+    "Sort": 7,
+    "MoneyNum": 0,
+    "CostNum": {
+      "Id": 10010002,
+      "Num": 10
+    },
+    "ActualCost": {
+      "Id": 10010002,
+      "Num": 10
+    },
+    "FirstPurchase": 0,
+    "IsShow": 4,
+    "VipPoint": 0,
+    "ProductIdIos": "",
+    "ProductIdGP": ""
+  },
+  {
+    "ShopItemId": 200010017,
+    "GroupId": 3,
+    "BuyType": 3,
+    "LimitType": 1,
+    "LimitNum": 1,
+    "Weight": 200,
+    "UnlockConditions": [],
+    "ItemId": [
+      10010002,
+      20000
+    ],
+    "ItemAdd": [],
+    "ItemdAdd2": [],
+    "Sort": 8,
+    "MoneyNum": 0,
+    "CostNum": {
+      "Id": 10010001,
+      "Num": 200
+    },
+    "ActualCost": {
+      "Id": 10010001,
+      "Num": 200
+    },
+    "FirstPurchase": 0,
+    "IsShow": 4,
+    "VipPoint": 0,
+    "ProductIdIos": "",
+    "ProductIdGP": ""
+  },
+  {
+    "ShopItemId": 200010018,
+    "GroupId": 3,
+    "BuyType": 3,
+    "LimitType": 1,
+    "LimitNum": 1,
+    "Weight": 500,
+    "UnlockConditions": [],
+    "ItemId": [
+      10010001,
+      20000
+    ],
+    "ItemAdd": [],
+    "ItemdAdd2": [],
+    "Sort": 9,
+    "MoneyNum": 0,
+    "CostNum": {
+      "Id": 10010002,
+      "Num": 10
+    },
+    "ActualCost": {
+      "Id": 10010002,
+      "Num": 5
+    },
+    "FirstPurchase": 2,
+    "IsShow": 4,
+    "VipPoint": 0,
+    "ProductIdIos": "",
+    "ProductIdGP": ""
+  },
+  {
+    "ShopItemId": 200010019,
+    "GroupId": 3,
+    "BuyType": 3,
+    "LimitType": 1,
+    "LimitNum": 1,
+    "Weight": 100,
+    "UnlockConditions": [],
+    "ItemId": [
+      10010003,
+      20000
+    ],
+    "ItemAdd": [],
+    "ItemdAdd2": [],
+    "Sort": 10,
+    "MoneyNum": 0,
+    "CostNum": {
+      "Id": 10010001,
+      "Num": 200
+    },
+    "ActualCost": {
+      "Id": 10010001,
+      "Num": 200
+    },
+    "FirstPurchase": 0,
+    "IsShow": 4,
+    "VipPoint": 0,
+    "ProductIdIos": "",
+    "ProductIdGP": ""
+  },
+  {
+    "ShopItemId": 200010020,
+    "GroupId": 3,
+    "BuyType": 3,
+    "LimitType": 1,
+    "LimitNum": 1,
+    "Weight": 200,
+    "UnlockConditions": [],
+    "ItemId": [
+      10010002,
+      50000
+    ],
+    "ItemAdd": [],
+    "ItemdAdd2": [],
+    "Sort": 11,
+    "MoneyNum": 0,
+    "CostNum": {
+      "Id": 10010002,
+      "Num": 20
+    },
+    "ActualCost": {
+      "Id": 10010002,
+      "Num": 20
+    },
+    "FirstPurchase": 0,
+    "IsShow": 4,
+    "VipPoint": 0,
+    "ProductIdIos": "",
+    "ProductIdGP": ""
+  },
+  {
+    "ShopItemId": 200010021,
+    "GroupId": 3,
+    "BuyType": 3,
+    "LimitType": 1,
+    "LimitNum": 1,
+    "Weight": 500,
+    "UnlockConditions": [],
+    "ItemId": [
+      10010001,
+      50000
+    ],
+    "ItemAdd": [],
+    "ItemdAdd2": [],
+    "Sort": 12,
+    "MoneyNum": 0,
+    "CostNum": {
+      "Id": 10010001,
+      "Num": 100
+    },
+    "ActualCost": {
+      "Id": 10010001,
+      "Num": 80
+    },
+    "FirstPurchase": 1,
+    "IsShow": 4,
+    "VipPoint": 0,
+    "ProductIdIos": "",
+    "ProductIdGP": ""
+  },
+  {
+    "ShopItemId": 200010022,
+    "GroupId": 3,
+    "BuyType": 3,
+    "LimitType": 1,
+    "LimitNum": 1,
+    "Weight": 300,
+    "UnlockConditions": [],
+    "ItemId": [
+      10010003,
+      50000
+    ],
+    "ItemAdd": [],
+    "ItemdAdd2": [],
+    "Sort": 13,
+    "MoneyNum": 0,
+    "CostNum": {
+      "Id": 10010002,
+      "Num": 10
+    },
+    "ActualCost": {
+      "Id": 10010002,
+      "Num": 10
+    },
+    "FirstPurchase": 0,
+    "IsShow": 4,
+    "VipPoint": 0,
+    "ProductIdIos": "",
+    "ProductIdGP": ""
+  },
+  {
+    "ShopItemId": 200010023,
+    "GroupId": 4,
+    "BuyType": 3,
+    "LimitType": 4,
+    "LimitNum": 1,
+    "Weight": 0,
+    "UnlockConditions": [
+      {
+        "Conditions": [
+          {
+            "Type": 1,
+            "Value": 5
+          }
+        ]
+      }
+    ],
+    "ItemId": [
+      10010001,
+      10,
+      10010002,
+      20,
+      10010003,
+      30
+    ],
+    "ItemAdd": [],
+    "ItemdAdd2": [],
+    "Sort": 1,
+    "MoneyNum": 0,
+    "CostNum": {
+      "Id": 10010002,
+      "Num": 100
+    },
+    "ActualCost": {
+      "Id": 10010002,
+      "Num": 100
+    },
+    "FirstPurchase": 0,
+    "IsShow": 2,
+    "VipPoint": 0,
+    "ProductIdIos": "",
+    "ProductIdGP": ""
+  },
+  {
+    "ShopItemId": 200010024,
+    "GroupId": 4,
+    "BuyType": 3,
+    "LimitType": 4,
+    "LimitNum": 1,
+    "Weight": 0,
+    "UnlockConditions": [
+      {
+        "Conditions": [
+          {
+            "Type": 1,
+            "Value": 8
+          }
+        ]
+      }
+    ],
+    "ItemId": [
+      10010001,
+      100,
+      10010002,
+      200,
+      10010003,
+      300
+    ],
+    "ItemAdd": [],
+    "ItemdAdd2": [],
+    "Sort": 2,
+    "MoneyNum": 0,
+    "CostNum": {
+      "Id": 10010002,
+      "Num": 200
+    },
+    "ActualCost": {
+      "Id": 10010002,
+      "Num": 200
+    },
+    "FirstPurchase": 0,
+    "IsShow": 2,
+    "VipPoint": 0,
+    "ProductIdIos": "",
+    "ProductIdGP": ""
+  },
+  {
+    "ShopItemId": 200010025,
+    "GroupId": 4,
+    "BuyType": 3,
+    "LimitType": 4,
+    "LimitNum": 1,
+    "Weight": 0,
+    "UnlockConditions": [
+      {
+        "Conditions": [
+          {
+            "Type": 1,
+            "Value": 10
+          }
+        ]
+      }
+    ],
+    "ItemId": [
+      10010001,
+      100,
+      10010002,
+      200,
+      10010003,
+      300
+    ],
+    "ItemAdd": [],
+    "ItemdAdd2": [],
+    "Sort": 3,
+    "MoneyNum": 0,
+    "CostNum": {
+      "Id": 10010002,
+      "Num": 300
+    },
+    "ActualCost": {
+      "Id": 10010002,
+      "Num": 300
+    },
+    "FirstPurchase": 0,
+    "IsShow": 2,
+    "VipPoint": 0,
+    "ProductIdIos": "",
+    "ProductIdGP": ""
+  },
+  {
+    "ShopItemId": 200010026,
+    "GroupId": 4,
+    "BuyType": 3,
+    "LimitType": 4,
+    "LimitNum": 1,
+    "Weight": 0,
+    "UnlockConditions": [
+      {
+        "Conditions": [
+          {
+            "Type": 1,
+            "Value": 15
+          }
+        ]
+      }
+    ],
+    "ItemId": [
+      10010001,
+      10,
+      10010002,
+      20,
+      10010003,
+      30
+    ],
+    "ItemAdd": [],
+    "ItemdAdd2": [],
+    "Sort": 4,
+    "MoneyNum": 0,
+    "CostNum": {
+      "Id": 10010002,
+      "Num": 400
+    },
+    "ActualCost": {
+      "Id": 10010002,
+      "Num": 400
+    },
+    "FirstPurchase": 0,
+    "IsShow": 2,
+    "VipPoint": 0,
+    "ProductIdIos": "",
+    "ProductIdGP": ""
+  },
+  {
+    "ShopItemId": 200010027,
+    "GroupId": 4,
+    "BuyType": 3,
+    "LimitType": 4,
+    "LimitNum": 1,
+    "Weight": 0,
+    "UnlockConditions": [
+      {
+        "Conditions": [
+          {
+            "Type": 1,
+            "Value": 20
+          }
+        ]
+      }
+    ],
+    "ItemId": [
+      10010001,
+      10,
+      10010002,
+      20,
+      10010003,
+      30
+    ],
+    "ItemAdd": [],
+    "ItemdAdd2": [],
+    "Sort": 5,
+    "MoneyNum": 0,
+    "CostNum": {
+      "Id": 10010002,
+      "Num": 500
+    },
+    "ActualCost": {
+      "Id": 10010002,
+      "Num": 500
+    },
+    "FirstPurchase": 0,
+    "IsShow": 2,
+    "VipPoint": 0,
+    "ProductIdIos": "",
+    "ProductIdGP": ""
+  }
+]

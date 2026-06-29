@@ -768,13 +768,13 @@ type Item struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	InstId  int64  `protobuf:"varint,1,opt,name=instId,proto3" json:"instId,omitempty" bson:"iid"`   //@gotags: bson:"iid"
-	ConfId  string `protobuf:"bytes,2,opt,name=confId,proto3" json:"confId,omitempty" bson:"cid"`    //@gotags: bson:"cid"
-	Type    int32  `protobuf:"varint,3,opt,name=type,proto3" json:"type,omitempty" bson:"t"`         //@gotags: bson:"t"
-	Num     int64  `protobuf:"varint,4,opt,name=num,proto3" json:"num,omitempty" bson:"n"`           //@gotags: bson:"n"
-	Expires int64  `protobuf:"varint,5,opt,name=expires,proto3" json:"expires,omitempty" bson:"exp"` //@gotags: bson:"exp"
-	Ctime   int64  `protobuf:"varint,6,opt,name=ctime,proto3" json:"ctime,omitempty" bson:"ct"`      //@gotags: bson:"ct"
-	Change  int64  `protobuf:"varint,7,opt,name=change,proto3" json:"change,omitempty" bson:"chg"`   //@gotags: bson:"chg"
+	InstId  int64 `protobuf:"varint,1,opt,name=instId,proto3" json:"instId,omitempty" bson:"iid"`   //@gotags: bson:"iid"
+	ConfId  int32 `protobuf:"varint,2,opt,name=confId,proto3" json:"confId,omitempty" bson:"cid"`   //@gotags: bson:"cid"
+	Type    int32 `protobuf:"varint,3,opt,name=type,proto3" json:"type,omitempty" bson:"t"`         //@gotags: bson:"t"
+	Num     int64 `protobuf:"varint,4,opt,name=num,proto3" json:"num,omitempty" bson:"n"`           //@gotags: bson:"n"
+	Expires int64 `protobuf:"varint,5,opt,name=expires,proto3" json:"expires,omitempty" bson:"exp"` //@gotags: bson:"exp"
+	Ctime   int64 `protobuf:"varint,6,opt,name=ctime,proto3" json:"ctime,omitempty" bson:"ct"`      //@gotags: bson:"ct"
+	Change  int64 `protobuf:"varint,7,opt,name=change,proto3" json:"change,omitempty" bson:"chg"`   //@gotags: bson:"chg"
 }
 
 func (x *Item) Reset() {
@@ -814,11 +814,11 @@ func (x *Item) GetInstId() int64 {
 	return 0
 }
 
-func (x *Item) GetConfId() string {
+func (x *Item) GetConfId() int32 {
 	if x != nil {
 		return x.ConfId
 	}
-	return ""
+	return 0
 }
 
 func (x *Item) GetType() int32 {
@@ -1265,7 +1265,7 @@ var file_common_proto_rawDesc = []byte{
 	0x20, 0x01, 0x28, 0x05, 0x52, 0x04, 0x69, 0x63, 0x6f, 0x6e, 0x22, 0xa4, 0x01, 0x0a, 0x04, 0x49,
 	0x74, 0x65, 0x6d, 0x12, 0x16, 0x0a, 0x06, 0x69, 0x6e, 0x73, 0x74, 0x49, 0x64, 0x18, 0x01, 0x20,
 	0x01, 0x28, 0x03, 0x52, 0x06, 0x69, 0x6e, 0x73, 0x74, 0x49, 0x64, 0x12, 0x16, 0x0a, 0x06, 0x63,
-	0x6f, 0x6e, 0x66, 0x49, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x63, 0x6f, 0x6e,
+	0x6f, 0x6e, 0x66, 0x49, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x06, 0x63, 0x6f, 0x6e,
 	0x66, 0x49, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x74, 0x79, 0x70, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28,
 	0x05, 0x52, 0x04, 0x74, 0x79, 0x70, 0x65, 0x12, 0x10, 0x0a, 0x03, 0x6e, 0x75, 0x6d, 0x18, 0x04,
 	0x20, 0x01, 0x28, 0x03, 0x52, 0x03, 0x6e, 0x75, 0x6d, 0x12, 0x18, 0x0a, 0x07, 0x65, 0x78, 0x70,

@@ -22,7 +22,7 @@ func TestDataPersisterAddUpdateOpAllowsMapNestedPath(t *testing.T) {
 	persister := NewDataPersister(&pb.GamerPackData{}, "pack", nil, 1)
 	persister.SetLoaded()
 
-	item := &pb.Item{ConfId: "1", Num: 2}
+	item := &pb.Item{ConfId: 1, Num: 2}
 	persister.AddUpdateOp("cu.1", item)
 
 	docs := persister.SaveDocs()

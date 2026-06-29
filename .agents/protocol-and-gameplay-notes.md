@@ -23,6 +23,40 @@
 - `tools\proto\micro.proto`：基础消息 ID 和服务间消息范围。
 - `tools\proto\error.proto`：错误码。
 
+## Logic 任务模块现状
+
+- 当前任务逻辑目录：`src/service/logic/module/task/`
+- 原 `taskbiz` 已并回 `task` 模块，不再作为独立目录维护。
+- 当前任务模块已从旧 `TbDailyTask` 切到新版 `TbTask`。
+
+### 当前已落地规则
+
+- 奖励字段 `RewardItem []int32` 按 `ItemId, Num` 成对解析。
+- `TaskResetType` 规则：
+  - `0`：不重置
+  - `1`：每日刷新
+  - `2`：每周刷新
+- `TaskUnlock` 当前按最小前置任务规则处理：
+  - `<= 0` 直接开放
+  - `> 0` 需前置任务达到 `TASK_OVER`
+
+### 当前未落地规则
+
+以下新版配置语义当前仍未完整接入：
+
+- `ConditionType`
+- `Key`
+- `TaskActivation`
+- 完整任务事件驱动进度更新
+- 完整完成条件判定
+
+因此当前任务能力应理解为：
+
+- 已完成新表接线与结构迁移
+- 已完成奖励发放解析
+- 已完成日/周刷新
+- 未完成完整玩法闭环
+
 ## 最近已落地的 battle/sync 玩法能力
 
 - 局内初始资源：每个玩家拥有初始金币和初始魔力。
@@ -47,11 +81,13 @@
 ## 当前已知测试事实
 
 - `go test ./src/service/battle/sync` 已通过。
-- `go test ./src/service/logic/module/match ./src/service/logic/module ./src/service/logic/... ./src/service/battle ./src/service/battle/sync` 已通过。
+- `go test ./src/service/logic/module/task/...` 已通过。
+- `go test ./src/service/logic/actor/...` 已通过。
 - `go test ./...` 仍不能宣称全量通过；本次未做全仓联机闭环验证。
 
 ## 后续候选需求池
 
+- task 新配置的进度驱动与完成判定补齐。
 - battle sync 接入真实服务连接/房间管理。
 - battle 直连鉴权与准入 token 校验。
 - battle 客户端进房 handler。

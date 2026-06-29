@@ -1,0 +1,522 @@
+[
+  {
+    "id": 0,
+    "name": "FIXED_SUCCESS",
+    "Desc": "成功"
+  },
+  {
+    "id": 1,
+    "name": "FIXED_FAILED",
+    "Desc": "失败"
+  },
+  {
+    "id": 2,
+    "name": "FIXED_DB_NO_DATA",
+    "Desc": "数据库读取信息失败"
+  },
+  {
+    "id": 3,
+    "name": "FIXED_PW_ERR",
+    "Desc": "密码不对"
+  },
+  {
+    "id": 4,
+    "name": "FIXED_RELOGIN",
+    "Desc": "重复登陆"
+  },
+  {
+    "id": 5,
+    "name": "FIXED_INIT_ERROR",
+    "Desc": "新建玩家数据失败"
+  },
+  {
+    "id": 6,
+    "name": "FIXED_RENAME",
+    "Desc": "重名"
+  },
+  {
+    "id": 7,
+    "name": "FIXED_DB_ERR_UNKNOWN",
+    "Desc": "数据库未知原因错误"
+  },
+  {
+    "id": 8,
+    "name": "FIXED_NO_CHANGE",
+    "Desc": "数据没有改变"
+  },
+  {
+    "id": 9,
+    "name": "FIXED_NO_MONEY",
+    "Desc": "钱不够"
+  },
+  {
+    "id": 10,
+    "name": "FIXED_SHUTDOWN_EXIT",
+    "Desc": "服务器关机玩家下线"
+  },
+  {
+    "id": 39,
+    "name": "FIXED_USER_NOT_EXIT",
+    "Desc": "目标用户不存在"
+  },
+  {
+    "id": 40,
+    "name": "FIXED_USER_OFFLINE",
+    "Desc": "目标用户不在线"
+  },
+  {
+    "id": 74,
+    "name": "FIXED_CLIENT_VER_ERR",
+    "Desc": "客户端版本过低"
+  },
+  {
+    "id": 601,
+    "name": "USUAL_ERR",
+    "Desc": "错误"
+  },
+  {
+    "id": 602,
+    "name": "USUAL_BIRTH_ERR",
+    "Desc": "角色出生时间错误"
+  },
+  {
+    "id": 603,
+    "name": "USUAL_CITY_ERR",
+    "Desc": "角色城市错误"
+  },
+  {
+    "id": 604,
+    "name": "USUAL_SEX_ERR",
+    "Desc": "角色性别错误"
+  },
+  {
+    "id": 605,
+    "name": "USUAL_NICKNAME_LENGTH_ERR",
+    "Desc": "角色昵称长度错误"
+  },
+  {
+    "id": 606,
+    "name": "USUAL_NICKNAME_SAME_ERR",
+    "Desc": "角色昵称重名错误"
+  },
+  {
+    "id": 607,
+    "name": "USUAL_CREATE_ERR",
+    "Desc": "角色重复创建"
+  },
+  {
+    "id": 608,
+    "name": "USUAL_ROLE_NOT_ERR",
+    "Desc": "角色未创建"
+  },
+  {
+    "id": 609,
+    "name": "USUAL_NICKNAME_NO_CHANGE",
+    "Desc": "角色昵称未修改"
+  },
+  {
+    "id": 610,
+    "name": "USUAL_PHONE_ERR",
+    "Desc": "角色手机号错误"
+  },
+  {
+    "id": 611,
+    "name": "USUAL_TYP_ERR",
+    "Desc": "typ参数错误"
+  },
+  {
+    "id": 612,
+    "name": "USUAL_REP_INSUFFICIENT_CAP",
+    "Desc": "仓库容量不够"
+  },
+  {
+    "id": 613,
+    "name": "USUAL_KEY_ERR",
+    "Desc": "错误的key"
+  },
+  {
+    "id": 614,
+    "name": "USUAL_USER_NOT_EXIT",
+    "Desc": "目标用户不存在"
+  },
+  {
+    "id": 615,
+    "name": "USUAL_FRIEND_TO_MAX_NUM",
+    "Desc": "达到好友数量上限"
+  },
+  {
+    "id": 616,
+    "name": "USUAL_BE_FRIEND",
+    "Desc": "已经是好友"
+  },
+  {
+    "id": 617,
+    "name": "USUAL_REPEAT_APPEND",
+    "Desc": "重复申请好友"
+  },
+  {
+    "id": 618,
+    "name": "USUAL_BE_DST_FRIEND",
+    "Desc": "已经是对方的好友"
+  },
+  {
+    "id": 619,
+    "name": "USUAL_DST_TO_MAX_NUM",
+    "Desc": "对方达到好友数量上限"
+  },
+  {
+    "id": 620,
+    "name": "USUAL_CLIENT_VER_LOW",
+    "Desc": "客户端版本过低"
+  },
+  {
+    "id": 621,
+    "name": "USUAL_TARGET_NOT_FIND",
+    "Desc": "操作对象未找到，参数错误"
+  },
+  {
+    "id": 622,
+    "name": "USUAL_LVL_NOT_MET",
+    "Desc": "不满足等级要求"
+  },
+  {
+    "id": 623,
+    "name": "USUAL_RECEIVED_ERR",
+    "Desc": "已领取过"
+  },
+  {
+    "id": 624,
+    "name": "USUAL_TASK_NOT_FINISHED",
+    "Desc": "任务非完成状态"
+  },
+  {
+    "id": 625,
+    "name": "USUAL_ROOM_NUM_ERROR",
+    "Desc": "房间号错误"
+  },
+  {
+    "id": 626,
+    "name": "USUAL_UNLOCKED",
+    "Desc": "已解锁"
+  },
+  {
+    "id": 627,
+    "name": "USUAL_NOT_ENOUGH_MONEY",
+    "Desc": "钱不够"
+  },
+  {
+    "id": 628,
+    "name": "USUAL_NOT_UNLOCKED",
+    "Desc": "未解锁"
+  },
+  {
+    "id": 629,
+    "name": "USUAL_REACHED_TOP_LEVEL",
+    "Desc": "已到顶级"
+  },
+  {
+    "id": 630,
+    "name": "USUAL_UPGRADING",
+    "Desc": "正在升级中"
+  },
+  {
+    "id": 631,
+    "name": "USUAL_NOT_COOLING_TIME_POINT",
+    "Desc": "未到广告的冷却时间点"
+  },
+  {
+    "id": 632,
+    "name": "USUAL_NOT_KILL_BOSS",
+    "Desc": "没杀死全部boss"
+  },
+  {
+    "id": 633,
+    "name": "USUAL_NOT_LOCAL_USER",
+    "Desc": "目标非本服玩家"
+  },
+  {
+    "id": 634,
+    "name": "USUAL_NUM_ERR",
+    "Desc": "num参数错误"
+  },
+  {
+    "id": 635,
+    "name": "USUAL_NOT_ENOUGH_AD_CNT",
+    "Desc": "看广告剩余次数不够"
+  },
+  {
+    "id": 636,
+    "name": "USUAL_TARGET_FINISHED",
+    "Desc": "目标已完成"
+  },
+  {
+    "id": 637,
+    "name": "USUAL_VALUE_EXIST",
+    "Desc": "value值已有"
+  },
+  {
+    "id": 638,
+    "name": "USUAL_ITEM_NOT_ENOUGH",
+    "Desc": "所需物品、材料不足"
+  },
+  {
+    "id": 639,
+    "name": "USUAL_AD_NOT_ENOUGH",
+    "Desc": "看广告次数不足"
+  },
+  {
+    "id": 1001,
+    "name": "WEAPON_NOT_EXIST",
+    "Desc": "武器不存在"
+  },
+  {
+    "id": 1002,
+    "name": "WEAPON_ALREADY_WORN",
+    "Desc": "武器已穿戴"
+  },
+  {
+    "id": 1101,
+    "name": "CHAPTER_ONLY_NEXT",
+    "Desc": "只能探索下一个关卡"
+  },
+  {
+    "id": 1102,
+    "name": "CHAPTER_NOT_EXIST",
+    "Desc": "关卡不存在"
+  },
+  {
+    "id": 1103,
+    "name": "CHAPTER_REWARD_NOT_EXIST",
+    "Desc": "关卡奖励不存在"
+  },
+  {
+    "id": 1104,
+    "name": "CHAPTER_BOX_NOT_AVAILABLE",
+    "Desc": "没有可领取的宝箱"
+  },
+  {
+    "id": 1105,
+    "name": "CHAPTER_NO_START_CHALLENGE",
+    "Desc": "非准备挑战关卡"
+  },
+  {
+    "id": 1106,
+    "name": "CHAPTER_NO_DOUBLE_GOT",
+    "Desc": "无双倍奖励"
+  },
+  {
+    "id": 1201,
+    "name": "STAMINA_DAILY_MAX",
+    "Desc": "当天领取完毕"
+  },
+  {
+    "id": 1202,
+    "name": "STAMINA_IN_COOLDOWN",
+    "Desc": "冷却中"
+  },
+  {
+    "id": 1203,
+    "name": "COMMUNITY_CONFIG_ERR",
+    "Desc": "配置错误"
+  },
+  {
+    "id": 1204,
+    "name": "BENEFITS_AD_TIME_TOO_SHORT",
+    "Desc": "领取失败,广告时间太短"
+  },
+  {
+    "id": 1205,
+    "name": "EXP_NOT_ENOUGH",
+    "Desc": "经验不足"
+  },
+  {
+    "id": 1206,
+    "name": "ALREADY_FULLY_UPGRADED",
+    "Desc": "已经全升级"
+  },
+  {
+    "id": 1207,
+    "name": "REBIRTH_LEVEL_NOT_FULL",
+    "Desc": "未全升级"
+  },
+  {
+    "id": 1301,
+    "name": "GEAR_ENHANCE_DOWNGRADE",
+    "Desc": "失败掉级"
+  },
+  {
+    "id": 1302,
+    "name": "GEAR_ENHANCE_FAILED",
+    "Desc": "升阶失败"
+  },
+  {
+    "id": 1303,
+    "name": "GEAR_ALREADY_WORN",
+    "Desc": "装备已穿戴"
+  },
+  {
+    "id": 1304,
+    "name": "GEAR_TYPE_MISMATCH",
+    "Desc": "装备类型不匹配"
+  },
+  {
+    "id": 1305,
+    "name": "GEAR_NOT_EXIST",
+    "Desc": "装备不存在"
+  },
+  {
+    "id": 1401,
+    "name": "GEM_POSITION_ERR",
+    "Desc": "位置错误"
+  },
+  {
+    "id": 1402,
+    "name": "GEM_NOT_EXIST",
+    "Desc": "宝石不存在"
+  },
+  {
+    "id": 1403,
+    "name": "GEM_SLOT_FULL",
+    "Desc": "孔已满"
+  },
+  {
+    "id": 1404,
+    "name": "GEM_CONFIG_NOT_EXIST",
+    "Desc": "宝石配置不存在"
+  },
+  {
+    "id": 1405,
+    "name": "GEM_DATA_ERR",
+    "Desc": "宝石数据错误"
+  },
+  {
+    "id": 1406,
+    "name": "GEM_DRILL_FAILED",
+    "Desc": "开孔失败"
+  },
+  {
+    "id": 1501,
+    "name": "ITEM_NOT_EXIST",
+    "Desc": "道具不存在"
+  },
+  {
+    "id": 1502,
+    "name": "ITEM_ACTIVE_USE_FORBIDDEN",
+    "Desc": "不可主动使用"
+  },
+  {
+    "id": 1601,
+    "name": "LOTTERY_NOT_EXIST",
+    "Desc": "没有该抽奖"
+  },
+  {
+    "id": 1701,
+    "name": "SIGN_DATA_NOT_EXIST",
+    "Desc": "没有数据"
+  },
+  {
+    "id": 1702,
+    "name": "SIGN_COUNT_EXCEEDED",
+    "Desc": "超过可以最大可以签到数"
+  },
+  {
+    "id": 1703,
+    "name": "SIGN_ALREADY_SIGNED",
+    "Desc": "已经签到"
+  },
+  {
+    "id": 1801,
+    "name": "TALENT_NOT_EXIST",
+    "Desc": "天赋不存在"
+  },
+  {
+    "id": 1802,
+    "name": "TALENT_NEXT_NODE_INVALID",
+    "Desc": "不能升级节点"
+  },
+  {
+    "id": 1901,
+    "name": "TREASURE_BOX_NOT_READY",
+    "Desc": "未能累计获取至少一个宝箱"
+  },
+  {
+    "id": 1902,
+    "name": "TREASURE_REWARD_ID_ERR",
+    "Desc": "奖励ID错误"
+  },
+  {
+    "id": 1903,
+    "name": "TREASURE_REWARD_WRONG_ORDER",
+    "Desc": "必须按顺序领取"
+  },
+  {
+    "id": 2001,
+    "name": "VIP_GIFT_NOT_EXIST",
+    "Desc": "礼包不存在"
+  },
+  {
+    "id": 2002,
+    "name": "VIP_PRIVILEGE_DATA_ERR",
+    "Desc": "特权数据错误"
+  },
+  {
+    "id": 2003,
+    "name": "VIP_GIFT_REACH_MAX",
+    "Desc": "已经领取最大数量"
+  },
+  {
+    "id": 2004,
+    "name": "VIP_BUY_TYPE_ERR",
+    "Desc": "VIP礼包类型错误"
+  },
+  {
+    "id": 2005,
+    "name": "AD_NOT_WATCHED",
+    "Desc": "未看广告"
+  },
+  {
+    "id": 2101,
+    "name": "REDEEM_CODE_NOT_EXIST",
+    "Desc": "兑换码不存在"
+  },
+  {
+    "id": 2102,
+    "name": "REDEEM_CODE_GROUP_RECEIVED",
+    "Desc": "已经领取同组礼包"
+  },
+  {
+    "id": 2103,
+    "name": "REDEEM_CODE_DEPLETED",
+    "Desc": "已经领取完"
+  },
+  {
+    "id": 2104,
+    "name": "REDEEM_CODE_EXPIRED",
+    "Desc": "已经过期"
+  },
+  {
+    "id": 2105,
+    "name": "RESET_RECORD_NOT_CONFIRMED",
+    "Desc": "未确认重置"
+  },
+  {
+    "id": 2201,
+    "name": "QUEST_NOT_EXIST",
+    "Desc": "任务不存在"
+  },
+  {
+    "id": 2202,
+    "name": "QUEST_RECEIVE_FAILED",
+    "Desc": "领取失败"
+  },
+  {
+    "id": 2301,
+    "name": "SHOP_RANDOM_SHOP_REFRESH_DATA_ERROR",
+    "Desc": "随机商店刷新数据错误"
+  },
+  {
+    "id": 2302,
+    "name": "SHOP_RANDOM_SHOP_REFRESH_COUNT_EXHAUSTED",
+    "Desc": "随机商店刷新次数已用完"
+  }
+]

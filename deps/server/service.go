@@ -87,7 +87,6 @@ func (s *Server) Init(service GameService) (err error) {
 
 	// init log based on YAML config before loading doc tables
 	xlog.InitDefaultLoggerWithOptions(configdoc.LogCfgToOptions(s.ConfBase.GetSvrCfg().Log))
-	xlog.Infof("")
 	xlog.Infof("----------server start %s----------", xtime.Now().Format("2006-01-02 15:04:05.000"))
 	js, _ := json.Marshal(s.ConfBase.GetSvrCfg())
 	xlog.Infof("server conf: %v", string(js))

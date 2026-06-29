@@ -1,0 +1,206 @@
+[
+  {
+    "ItemID": 10010001,
+    "TypeID": 1,
+    "Quality": 3,
+    "UseType": 1,
+    "UsageEffect": [],
+    "TimeLimited": 0,
+    "ExistenceTime": 0
+  },
+  {
+    "ItemID": 10010002,
+    "TypeID": 1,
+    "Quality": 3,
+    "UseType": 1,
+    "UsageEffect": [],
+    "TimeLimited": 0,
+    "ExistenceTime": 0
+  },
+  {
+    "ItemID": 10010003,
+    "TypeID": 1,
+    "Quality": 3,
+    "UseType": 1,
+    "UsageEffect": [],
+    "TimeLimited": 0,
+    "ExistenceTime": 0
+  },
+  {
+    "ItemID": 10020001,
+    "TypeID": 2,
+    "Quality": 1,
+    "UseType": 1,
+    "UsageEffect": [],
+    "TimeLimited": 0,
+    "ExistenceTime": 0
+  },
+  {
+    "ItemID": 10020002,
+    "TypeID": 2,
+    "Quality": 1,
+    "UseType": 1,
+    "UsageEffect": [],
+    "TimeLimited": 0,
+    "ExistenceTime": 0
+  },
+  {
+    "ItemID": 10020003,
+    "TypeID": 2,
+    "Quality": 1,
+    "UseType": 1,
+    "UsageEffect": [],
+    "TimeLimited": 1,
+    "ExistenceTime": 2592000
+  },
+  {
+    "ItemID": 10020004,
+    "TypeID": 2,
+    "Quality": 1,
+    "UseType": 1,
+    "UsageEffect": [],
+    "TimeLimited": 0,
+    "ExistenceTime": 0
+  },
+  {
+    "ItemID": 10030001,
+    "TypeID": 4,
+    "Quality": 2,
+    "UseType": 2,
+    "UsageEffect": [
+      5,
+      9100001
+    ],
+    "TimeLimited": 0,
+    "ExistenceTime": 0
+  },
+  {
+    "ItemID": 10030002,
+    "TypeID": 4,
+    "Quality": 2,
+    "UseType": 2,
+    "UsageEffect": [
+      5,
+      9100002
+    ],
+    "TimeLimited": 0,
+    "ExistenceTime": 0
+  },
+  {
+    "ItemID": 10030003,
+    "TypeID": 4,
+    "Quality": 2,
+    "UseType": 2,
+    "UsageEffect": [
+      5,
+      9100003
+    ],
+    "TimeLimited": 1,
+    "ExistenceTime": 2592000
+  },
+  {
+    "ItemID": 10030004,
+    "TypeID": 4,
+    "Quality": 1,
+    "UseType": 2,
+    "UsageEffect": [
+      5,
+      9100043
+    ],
+    "TimeLimited": 0,
+    "ExistenceTime": 0
+  },
+  {
+    "ItemID": 10030005,
+    "TypeID": 4,
+    "Quality": 2,
+    "UseType": 2,
+    "UsageEffect": [
+      5,
+      9100044
+    ],
+    "TimeLimited": 0,
+    "ExistenceTime": 0
+  },
+  {
+    "ItemID": 10030006,
+    "TypeID": 4,
+    "Quality": 3,
+    "UseType": 2,
+    "UsageEffect": [
+      5,
+      9100045
+    ],
+    "TimeLimited": 0,
+    "ExistenceTime": 0
+  },
+  {
+    "ItemID": 10030007,
+    "TypeID": 4,
+    "Quality": 4,
+    "UseType": 2,
+    "UsageEffect": [
+      5,
+      9100046
+    ],
+    "TimeLimited": 0,
+    "ExistenceTime": 0
+  },
+  {
+    "ItemID": 10030008,
+    "TypeID": 4,
+    "Quality": 5,
+    "UseType": 2,
+    "UsageEffect": [
+      5,
+      9100047
+    ],
+    "TimeLimited": 0,
+    "ExistenceTime": 0
+  },
+  {
+    "ItemID": 10040001,
+    "TypeID": 8,
+    "Quality": 4,
+    "UseType": 3,
+    "UsageEffect": [
+      6,
+      10110001
+    ],
+    "TimeLimited": 0,
+    "ExistenceTime": 0
+  },
+  {
+    "ItemID": 10040002,
+    "TypeID": 8,
+    "Quality": 4,
+    "UseType": 3,
+    "UsageEffect": [
+      6,
+      10110002
+    ],
+    "TimeLimited": 0,
+    "ExistenceTime": 0
+  },
+  {
+    "ItemID": 10040003,
+    "TypeID": 8,
+    "Quality": 4,
+    "UseType": 3,
+    "UsageEffect": [
+      6,
+      10110003
+    ],
+    "TimeLimited": 0,
+    "ExistenceTime": 0
+  },
+  {
+    "ItemID": 10060001,
+    "TypeID": 6,
+    "Quality": 3,
+    "UseType": 1,
+    "UsageEffect": [],
+    "TimeLimited": 0,
+    "ExistenceTime": 0
+  }
+]
